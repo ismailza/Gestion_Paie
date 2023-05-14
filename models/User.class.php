@@ -4,5 +4,7 @@ include ('DataBase.class.php');
 
 class User 
 {
-    private $db;
+    protected $db;
+        
+
 }
