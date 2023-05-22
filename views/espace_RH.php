@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title><?php echo SITE_TITLE; ?></title>
+  <title>Gestion de paie</title>
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
   <link rel="shortcut icon" href="images/favicon.png" />
@@ -21,7 +21,7 @@
       <!-- partial:partials/_settings-panel.html -->
       <?php include('partials/_settings-panel.html'); ?>
       <!-- partial:partials/_sidebar.html -->
-      <?php include('partials/_sidebar.html'); ?>
+      <?php include('partials/_sidebar_ERH.html'); ?>
 
       <!-- partial -->
       <div class="main-panel">
@@ -30,15 +30,9 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                <div class="tab-content tab-content-basic">
-                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">                     
-                    <div class="col-lg-4 d-flex flex-column">
-                      
 
 
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>

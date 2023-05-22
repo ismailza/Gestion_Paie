@@ -1,97 +1,110 @@
-(function($) {
-  'use strict';
-  $.validator.setDefaults({
-    submitHandler: function() {
-      alert("submitted!");
+
+$(".radio-group .radio").on("click", function () {
+  $(".selected .fa").removeClass("fa-check");
+  $(".radio").removeClass("selected");
+  $(this).addClass("selected");
+  if ($("#suser").hasClass("selected") == true) {
+    $(".next").prop("disabled", true);
+    $(".searchfield").show();
+  } else {
+    setFormFields(false);
+    $(".next").prop("disabled", false);
+    $("#filter-records").html("");
+    $(".searchfield").hide();
+  }
+});
+
+var step = 1;
+$(document).ready(function () { stepProgress(step); });
+
+$(".next").on("click", function () {
+  var nextstep = checkForm("step"+step);
+  if (nextstep) {
+    if (step < $(".step").length) {
+      $(".step").show();
+      $(".step")
+        .not(":eq(" + step++ + ")")
+        .hide();
+      stepProgress(step);
+    }
+    hideButtons(step);
+  }
+});
+
+// ON CLICK BACK BUTTON
+$(".back").on("click", function () {
+  if (step > 1) {
+    step = step - 2;
+    $(".next").trigger("click");
+  }
+  hideButtons(step);
+});
+
+// CALCULATE PROGRESS BAR
+stepProgress = function (currstep) {
+  var percent = parseFloat(100 / $(".step").length) * currstep;
+  percent = percent.toFixed();
+  $(".progress-bar")
+    .css("width", percent + "%")
+    .html(percent + "%");
+};
+
+// DISPLAY AND HIDE "NEXT", "BACK" AND "SUMBIT" BUTTONS
+hideButtons = function (step) {
+  var limit = parseInt($(".step").length);
+  $(".action").hide();
+  if (step < limit) {
+    $(".next").show();
+  }
+  if (step > 1) {
+    $(".back").show();
+  }
+  if (step == limit) {
+    $(".next").hide();
+    $(".submit").show();
+  }
+};
+
+function setFormFields(id) {
+  if (id != false) {
+    // FILL STEP 2 FORM FIELDS
+    d = data.find(x => x.id === id);
+    $('#fname').val(d.fname);
+    $('#lname').val(d.lname);
+    $('#team').val(d.team);
+    $('#address').val(d.address);
+    $('#tel').val(d.tel);
+  } else {
+    // EMPTY USER SEARCH INPUT
+    $("#txt-search").val('');
+    // EMPTY STEP 2 FORM FIELDS
+    $('#fname').val('');
+    $('#lname').val('');
+    $('#team').val('');
+    $('#address').val('');
+    $('#tel').val('');
+  }
+}
+
+function checkForm(val) {
+  console.log("helkspojgonnio");
+  // CHECK IF ALL "REQUIRED" FIELD ALL FILLED IN
+  var valid = true;
+  $("#" + val + " input:required").each(function () {
+    if ($(this).val() === "") {
+      $(this).addClass("is-invalid");
+      valid = false;
+    } else {
+      $(this).removeClass("is-invalid");
     }
   });
-  $(function() {
-    // validate the comment form when it is submitted
-    $("#commentForm").validate({
-      errorPlacement: function(label, element) {
-        label.addClass('mt-2 text-danger');
-        label.insertAfter(element);
-      },
-      highlight: function(element, errorClass) {
-        $(element).parent().addClass('has-danger')
-        $(element).addClass('form-control-danger')
-      }
-    });
-    // validate signup form on keyup and submit
-    $("#signupForm").validate({
-      rules: {
-        firstname: "required",
-        lastname: "required",
-        username: {
-          required: true,
-          minlength: 2
-        },
-        password: {
-          required: true,
-          minlength: 5
-        },
-        confirm_password: {
-          required: true,
-          minlength: 5,
-          equalTo: "#password"
-        },
-        email: {
-          required: true,
-          email: true
-        },
-        topic: {
-          required: "#newsletter:checked",
-          minlength: 2
-        },
-        agree: "required"
-      },
-      messages: {
-        firstname: "Please enter your firstname",
-        lastname: "Please enter your lastname",
-        username: {
-          required: "Please enter a username",
-          minlength: "Your username must consist of at least 2 characters"
-        },
-        password: {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long"
-        },
-        confirm_password: {
-          required: "Please provide a password",
-          minlength: "Your password must be at least 5 characters long",
-          equalTo: "Please enter the same password as above"
-        },
-        email: "Please enter a valid email address",
-        agree: "Please accept our policy",
-        topic: "Please select at least 2 topics"
-      },
-      errorPlacement: function(label, element) {
-        label.addClass('mt-2 text-danger');
-        label.insertAfter(element);
-      },
-      highlight: function(element, errorClass) {
-        $(element).parent().addClass('has-danger')
-        $(element).addClass('form-control-danger')
-      }
-    });
-    // propose username by combining first- and lastname
-    $("#username").focus(function() {
-      var firstname = $("#firstname").val();
-      var lastname = $("#lastname").val();
-      if (firstname && lastname && !this.value) {
-        this.value = firstname + "." + lastname;
-      }
-    });
-    //code to hide topic selection, disable for demo
-    var newsletter = $("#newsletter");
-    // newsletter topics are optional, hide at first
-    var inital = newsletter.is(":checked");
-    var topics = $("#newsletter_topics")[inital ? "removeClass" : "addClass"]("gray");
-    var topicInputs = topics.find("input").attr("disabled", !inital);
-    // show when newsletter is checked
-    newsletter.on("click", function() {
-      topics[this.checked ? "removeClass" : "addClass"]("gray");
-      topicInputs.attr("disabled", !this.checked);
-    });
+  $("#" + val + " select:required").each(function () {
+    if ($(this).val() === null) {
+      $(this).addClass("is-invalid");
+      valid = false;
+    } else {
+      $(this).removeClass("is-invalid");
+    }
   });
-})(jQuery);
+  return valid;
+}

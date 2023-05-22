@@ -10,7 +10,7 @@
         <img src="images/logo.svg" alt="logo" />
       </a>
       <a class="navbar-brand brand-logo-mini" href="index.php">
-        <img src="images/logo-mini.svg" alt="logo" />
+        <img src="images/logo.svg" alt="logo" />
       </a>
     </div>
   </div>
