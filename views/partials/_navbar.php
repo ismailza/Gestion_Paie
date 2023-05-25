@@ -6,10 +6,10 @@
       </button>
     </div>
     <div>
-      <a class="navbar-brand brand-logo" href="index.php">
+      <a class="navbar-brand brand-logo" href="home.php">
         <img src="images/logo.svg" alt="logo" />
       </a>
-      <a class="navbar-brand brand-logo-mini" href="index.php">
+      <a class="navbar-brand brand-logo-mini" href="home.php">
         <img src="images/logo.svg" alt="logo" />
       </a>
     </div>
@@ -17,19 +17,12 @@
   <div class="navbar-menu-wrapper d-flex align-items-top"> 
     <ul class="navbar-nav">
       <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-        <h1 class="welcome-text">Bonjour, <span class="text-black fw-bold">Ismail ZAHIR</span></h1>
-        <h3 class="welcome-sub-text">Administrateur | Responsable | Employe </h3>
+        <h1 class="welcome-text">Bonjour, <span class="text-black fw-bold"><?php echo "Ismail ZAHIR"; ?></span></h1>
+        <h3 class="welcome-sub-text"><?php echo "Responsable Ressources Humains"; ?></h3>
       </li>
     </ul>
 
     <ul class="navbar-nav ms-auto">
-
-      <li class="nav-item">
-        <form class="search-form" action="#">
-          <i class="icon-search"></i>
-          <input type="search" class="form-control" placeholder="Search Here" title="Search here">
-        </form>
-      </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
@@ -85,12 +78,11 @@
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
           <div class="dropdown-header text-center">
             <img class="img-md rounded-circle" src="images/profile/face8.jpg" alt="Profile image">
-            <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-            <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+            <p class="mb-1 mt-3 font-weight-semibold"><?php echo "Ismail ZAHIR"; ?></p>
+            <p class="fw-light text-muted mb-0"><?php echo "ismailza407@gmail.com"; ?></p>
           </div>
-          <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
+          <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
           <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
-          <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
           <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
         </div>
       </li>

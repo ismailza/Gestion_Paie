@@ -2,6 +2,16 @@ body {
   background-color: #F4F5F7;
   margin: 0;
 }
+::-webkit-scrollbar {
+  width: 6px;
+} 
+::-webkit-scrollbar-thumb {
+  background: #B5B194; 
+  border-radius: 35px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 .title {
   font-size: 25px;
   font-weight: 500;
@@ -17,4 +27,51 @@ body {
   width: 60px;
   border-radius: 5px;
   background: linear-gradient(135deg, #efef38, #ff9027);
+}
+.card-container {
+	padding: 20px;
+	min-height: 100%;
+}
+.card-content {
+	width: 400px;
+	margin: 30px auto;
+	background-color: #fff;
+	padding: 0 20px 20px;
+	border-radius: 6px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	text-align: center;
+}
+.avatar-flip {
+	border-radius: 100px;
+	overflow: hidden;
+	height: 150px;
+	width: 150px;
+	position: relative;
+	margin: auto;
+	top: -60px;
+}
+.avatar-flip img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 100px;
+}
+.card-content h2 {
+	font-size: 32px;
+	font-weight: 600;
+	margin-bottom: 15px;
+	color: #333;
+}
+.card-content h4 {
+	font-size: 13px;
+	color: #00baff;
+	letter-spacing: 1px;
+	margin-bottom: 25px
+}
+.card-content p {
+	font-size: 16px;
+	line-height: 26px;
+	margin-bottom: 20px;
+	color: #666;
+	font-family: Roboto;
 }

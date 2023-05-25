@@ -1,6 +1,5 @@
 <?php 
   include ("../CONFIG.php");
-  session_start();
   // require_once ("../controllers/inc.php");
 ?>
 <!DOCTYPE html>
@@ -12,7 +11,9 @@
   <title><?php echo SITE_TITLE; ?></title>
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
+  <link rel="stylesheet" href="css/table-style.css">
   <link rel="shortcut icon" href="images/favicon.png" />
+
 </head>
 <body>
   <div class="container-scroller">
@@ -23,14 +24,15 @@
       <?php include('partials/_settings-panel.html'); ?>
       <!-- partial:partials/_sidebar.html -->
       <?php include('partials/_sidebar.php'); ?>
-
       <!-- partial -->
       <div class="main-panel">
-        
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12">
-              <div class="home-tab">
+              <div class="home-tab"> 
+                
+                <div class="title">Liste des employés</div>
+                
                 <?php if (isset($_SESSION['success'])): ?>
                   <div class="alert alert-success" role="alert">
                     <?php 
@@ -46,16 +48,52 @@
                     ?>
                   </div>
                 <?php endif; ?>  
-
-               
-                
+                <div class="table-responsive">      
+                  <table class="table display" id="table">
+                    <thead>
+                      <tr>
+                        <th>Image</th>
+                        <th>CIN</th>
+                        <th>NOM</th>
+                        <th>Prénom</th>
+                        <th>Date Naissance</th>
+                        <th>Email</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><img src="images/profile/default-profile-img.png" width="40px" height="40px" alt="profile image"></td>
+                        <td>UA123848</td>
+                        <td>ZAHIR</td>
+                        <td>Ismail</td>
+                        <td>17/04/2001</td>
+                        <td>ismailza407@gmail.com</td>
+                        <td>
+                          <button type="button" class="btn btn-info btn-rounded btn-icon">
+                            <i class="mdi mdi-eye-outline"></i>
+                          </button>
+                       
+                          <button type="button" class="btn btn-warning btn-rounded btn-icon">
+                            <i class="mdi mdi-lead-pencil"></i>
+                          </button>
+                       
+                          <button type="button" class="btn btn-danger btn-rounded btn-icon">
+                            <i class="mdi mdi-delete-outline"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div><!-- content-wrapper ends -->
+        </div>
+        <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <?php include('partials/_footer.html'); ?>
-
       </div><!-- main-panel ends -->
     </div><!-- page-body-wrapper ends -->
   </div><!-- container-scroller ends-->
