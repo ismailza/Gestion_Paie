@@ -2,7 +2,7 @@
 
   include ("../CONFIG.php");
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();  
-  if (isset($_SESSION['auth'])) header("location: home.php");
+  // $_SESSION['error'] = "error";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,7 @@
         <form class="col-lg-6" method="post" action="../scripts/login.inc.php">
           <div class="card2 card border-0 px-4 py-5">
             <div class="row mb-4 px-3">
-              <h4 class="mb-0 mr-4 mt-2">Bienvenue</h4>
+              <h4 class="mb-0 mr-4 mt-2">Récupérer votre mot de passe</h4>
             </div>
             <div class="row px-3 mb-4">
               <div class="line"></div>
@@ -52,21 +52,10 @@
             <?php endif; ?> 
             <div class="row px-3">
               <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
-              <input class="mb-4" type="text" name="login" placeholder="Email">
-            </div>
-            <div class="row px-3">
-              <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
-              <input type="password" name="password" placeholder="Password">
-            </div>
-            <div class="row px-3 mb-4">
-              <div class="custom-control custom-checkbox custom-control-inline">
-                <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
-                <label for="chk1" class="custom-control-label text-sm">Remember me</label>
-              </div>
-              <a href="forgot_password.php" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+              <input class="mb-4" type="text" name="email" placeholder="Email">
             </div>
             <div class="row mb-3 px-3">
-              <button type="submit" name="submit" class="btn btn-blue text-center">Login</button>
+              <button type="submit" class="btn btn-blue text-center">Continue</button>
             </div>
           </div>
         </form>
@@ -79,6 +68,7 @@
       <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2023. All rights reserved.</small>
       <div class="social-contact ml-4 ml-sm-auto">
         <span class="fa fa-facebook mr-4 text-sm"></span>
+        <span class="fa fa-google-plus mr-4 text-sm"></span>
         <span class="fa fa-linkedin mr-4 text-sm"></span>
         <span class="fa fa-twitter mr-4 mr-sm-5 text-sm"></span>
       </div>

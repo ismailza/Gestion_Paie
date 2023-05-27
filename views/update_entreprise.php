@@ -1,6 +1,7 @@
 <?php 
   include ("../CONFIG.php");
-  // require_once ("../controllers/inc.php");
+  // require_once ("../scripts/inc.php");
+  $entr;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +10,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
+  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
-  <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -29,7 +30,7 @@
             <div class="col-sm-12">
               <div class="home-tab">
 
-                <div class="title">Ajouter Entreprise</div>    
+                <div class="title">Modier Entreprise</div>    
                 
                 <?php if (isset($_SESSION['error'])): ?>  
                   <div class="alert alert-danger" role="alert">
@@ -40,7 +41,7 @@
                   </div>
                 <?php endif; ?> 
 
-                <form method="post" action="../controllers/..." class="row g-3 needs-validation" id="msform" novalidate>
+                <form method="post" action="../controllers/..." class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
                   <div class="progress mt-3" style="height: 30px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="font-weight:bold; font-size:15px;" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -54,7 +55,7 @@
 
                       <div class="col-md-6 form-group">
                         <label for="nom" class="form-label">Nom de l'entreprise</label>
-                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo ""; ?>" placeholder="Nom de l'entreprise" required>
+                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $entr->nomEntreprise; ?>" placeholder="Nom de l'entreprise" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
@@ -62,7 +63,7 @@
                       <div class="col-md-3">
                         <label for="ville" class="form-label">Ville</label>
                         <select class="form-select" id="ville" name="ville" required>
-                          <option selected disabled value="">Choose...</option>
+                          <option selected value="<?php echo $entr->ville; ?>"></option>
                         </select>
                         <div class="invalid-feedback">
                           * Champ obligatoire
@@ -70,14 +71,14 @@
                       </div>
                       <div class="col-md-12">
                         <label for="adresse" class="form-label">Adresse de l'entreprise</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse" value="<?php echo ""; ?>" placeholder="Adresse de résidence" required>
+                        <input type="text" class="form-control" id="adresse" name="adresse" value="<?php echo $entr->adresse; ?>" placeholder="Adresse de résidence" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
                       </div>
                       <div class="col-md-12">
                         <label for="descriptif" class="form-label">Descriptif de l'entreprise</label>
-                        <textarea class="form-control" name="descriptif" id="descriptif" rows="10" required><?php echo ""; ?></textarea>
+                        <textarea class="form-control" name="descriptif" id="descriptif" rows="10" required><?php echo $entr->descriptif; ?></textarea>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>

@@ -1,6 +1,6 @@
 <?php 
   include ("../CONFIG.php");
-  // require_once ("../controllers/inc.php");
+  // require_once ("../scripts/inc.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +9,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
+  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
-  <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -40,7 +40,7 @@
                   </div>
                 <?php endif; ?> 
 
-                <form method="post" action="../controllers/..." class="row g-3 needs-validation" id="msform" novalidate>
+                <form method="post" action="../controllers/..." class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
                   <div class="progress mt-3" style="height: 30px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="font-weight:bold; font-size:15px;" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -88,7 +88,7 @@
                     <div class="card-footer">
                       <input type="button" value="Précédent" class="action back btn btn-sm btn-warning" style="display: none"/>
                       <input type="button" value="Continue" class="action next btn btn-sm btn-info float-end"/>
-                      <button class="action submit btn btn-sm btn-outline-success float-end" name="submit" style="display: none">Ajouter</button>
+                      <button class="action submit btn btn-sm btn-outline-success float-end" name="addEntreprise" style="display: none">Ajouter</button>
                     </div>
                   </div>
 

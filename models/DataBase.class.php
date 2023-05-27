@@ -4,11 +4,11 @@ require_once("../CONFIG.php");
 
 class DataBase 
 {
-    private $sgbd = DB_SGBD;
-    private $host = DB_HOST;
+    private $sgbd   = DB_SGBD;
+    private $host   = DB_HOST;
     private $dbname = DB_NAME;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
+    private $user   = DB_USER;
+    private $pass   = DB_PASS;
 
     private $pdo;
     private $stm;

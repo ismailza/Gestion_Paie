@@ -26,21 +26,19 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-          <i class="icon-mail icon-lg"></i>
+          <i class="icon-bell"></i>
+          <span class="count"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
-          <a class="dropdown-item py-3 border-bottom">
-            <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
-            <span class="badge badge-pill badge-primary float-right">View all</span>
-          </a>
+          <span class="dropdown-item py-3 border-bottom">
+            <p class="mb-0 font-weight-medium float-left">Vous avez 4 nouvelles notifications</p>
+            <a href="notifications.php" class="badge badge-pill badge-primary float-right">Voir tout</a>
+          </span>
 
           <a class="dropdown-item preview-item py-3">
-            <div class="preview-thumbnail">
-              <i class="mdi mdi-alert m-auto text-primary"></i>
-            </div>
             <div class="preview-item-content">
-              <h6 class="preview-subject fw-normal text-dark mb-1">Application Error</h6>
-              <p class="fw-light small-text mb-0"> Just now </p>
+              <h6 class="preview-subject fw-normal text-dark mb-1"><?php "Application Error"; ?></h6>
+              <p class="fw-light small-text mb-0"><?php echo "Just now"; ?></p>
             </div>
           </a>
 
@@ -49,14 +47,13 @@
 
       <li class="nav-item dropdown"> 
         <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="icon-bell"></i>
-          <span class="count"></span>
+          <i class="icon-mail icon-lg"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
-          <a class="dropdown-item py-3">
-            <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
-            <span class="badge badge-pill badge-primary float-right">View all</span>
-          </a>
+          <span class="dropdown-item py-3">
+            <p class="mb-0 font-weight-medium float-left">Vous avez 7 réclamations non lus</p>
+            <a href="reclamations.php" class="badge badge-pill badge-primary float-right">View all</a>
+          </span>
           <div class="dropdown-divider"></div>
 
           <a class="dropdown-item preview-item">
@@ -64,8 +61,8 @@
               <img src="images/profile/face8.jpg" alt="image" class="img-sm profile-pic">
             </div>
             <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-              <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+              <p class="preview-subject ellipsis font-weight-medium text-dark"><?php echo "Marian Garner"; ?></p>
+              <p class="fw-light small-text mb-0"><?php echo "The meeting is cancelled"; ?></p>
             </div>
           </a>
 
@@ -81,9 +78,9 @@
             <p class="mb-1 mt-3 font-weight-semibold"><?php echo "Ismail ZAHIR"; ?></p>
             <p class="fw-light text-muted mb-0"><?php echo "ismailza407@gmail.com"; ?></p>
           </div>
-          <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
+          <a href="view_profile.php" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>Mon profile</a>
           <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
-          <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+          <a href="../scripts/logout.inc.php" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
         </div>
       </li>
     </ul>

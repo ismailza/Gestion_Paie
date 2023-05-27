@@ -1,6 +1,6 @@
 <?php 
   include ("../CONFIG.php");
-  // require_once ("../controllers/inc.php");
+  // require_once ("../scripts/inc.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +9,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
+  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
-  <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -50,7 +50,7 @@
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirmer le mot de passe" required> 
                       </div>
                       <div class="form-group">
-                        <input type="submit" name="confirm" class="btn btn-warning" value="Continue">
+                        <input type="submit" name="confirm" class="btn btn-warning" value="Modifier">
                         <a href="home.php"><input type="button" class="btn btn-warning" value="Annuler"></a>
                       </div>
                     </form>

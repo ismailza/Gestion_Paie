@@ -1,6 +1,6 @@
 <?php 
   include ("../CONFIG.php");
-  // require_once ("../controllers/inc.php");
+  // require_once ("../scripts/inc.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +9,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
+  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
-  <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -32,7 +32,7 @@
                   <div class="row">
                     <div class="col-md-3 border-right">
                       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                        <img class="rounded-circle mt-5" width="150px" src="images/profile/IMG_20210102_203408_124.jpg">
                         <span class="font-weight-bold">Ismail ZAHIR</span>
                         <span class="text-black-50">ismailza407@mail.com</span>
                         <span> </span>
@@ -138,7 +138,7 @@
                         </div>
 
                         <div class="mt-5 text-center">
-                          <button class="btn btn-danger profile-button" type="button">Déconnection</button>
+                          <button class="btn btn-danger profile-button" type="button" onclick="document.location.href='../scripts/logout.inc.php'">Déconnection</button>
                         </div>
 
                       </div>

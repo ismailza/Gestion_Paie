@@ -1,7 +1,9 @@
-<?php 
+<?php
+
   include ("../CONFIG.php");
-  session_start();
-  // require_once ("../controllers/inc.php");
+  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
+  // require_once ("../scripts/inc.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +12,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
-  <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -47,7 +49,7 @@
                   </div>
                 <?php endif; ?>  
 
-               
+
                 
               </div>
             </div>

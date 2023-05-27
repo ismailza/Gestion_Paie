@@ -1,33 +1,30 @@
 <?php
 
-  if (isset($_POST['submit']))
+  require_once ('models/DataBase.class.php');
+  require_once ('models/Employe.class.php');
+
+  class EmployeController 
   {
-    // informations personnelle
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $cin = $_POST['cin'];
-    $sexe = $_POST['sexe'];
-    $dateNais = $_POST['dateNais'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $adresse = $_POST['adresse'];
-    $ville = $_POST['ville'];
-    $image = $_POST['image'];
+    private DataBase $db;
 
-    // situation familiale
-    $situation = $_POST['situation'];
-    $nbEnfants = $_POST['nbEnfants'];
+    function __construct()
+    {
+      $this->db = new DataBase();
+    }
 
-    // informations salariale
-    $diplome = $_POST['diplome'];
-    $post = $_POST['post'];
-    $salaire = $_POST['salaire'];
-    $cnss = $_POST['cnss'];
-    $amo = $_POST['amo'];
-    $cimr = $_POST['cimr'];
-    $igr = $_POST['igr'];
-  
+    public function getAllEmployes ()
+    {
+      $this->db->query("SELECT * FROM employe");
+      return $this->db->allResults();
+    }
+
+    public function getEmployeWithId ($id)
+    {
+      $this->db->query("SELECT * FROM emplye WHERE idEmploye = :id");
+      $this->db->bind("id", $id, PDO::PARAM_INT);
+      return $this->db->singleResult();
+    }
+
+
+
   }
-  else header("location: ../views/addEmploye.php");
-
-?>
