@@ -40,7 +40,7 @@
                   </div>
                 <?php endif; ?> 
 
-                <form method="post" action="../controllers/..." class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
+                <form method="post" action="../scripts/entreprise.php" class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
                   <div class="progress mt-3" style="height: 30px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="font-weight:bold; font-size:15px;" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -88,7 +88,7 @@
                     <div class="card-footer">
                       <input type="button" value="Précédent" class="action back btn btn-sm btn-warning" style="display: none"/>
                       <input type="button" value="Continue" class="action next btn btn-sm btn-info float-end"/>
-                      <button class="action submit btn btn-sm btn-outline-success float-end" name="addEntreprise" style="display: none">Ajouter</button>
+                      <button class="action submit btn btn-sm btn-outline-success float-end" name="submit" style="display: none">Ajouter</button>
                     </div>
                   </div>
 

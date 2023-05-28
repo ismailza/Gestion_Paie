@@ -16,6 +16,12 @@
   <link href="https://fonts.googleapis.com/css?family=Hind+Vadodara:400,700|Mukta:500,700" rel="stylesheet">
   <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   <link rel="stylesheet" href="css/landing.css">
+  <style>
+    button.feature {
+      border: 0;
+      margin: 5px;
+    }
+  </style>
 </head>
 <body class="is-boxed has-animations">
   <div class="body-wrap boxed-container">
@@ -48,6 +54,7 @@
         </div>
       </div>
     </header>
+    
     <main>
       <section class="hero">
         <div class="container">
@@ -129,9 +136,10 @@
       <section id="role" class="features section text-center">
         <div class="section-square"></div>
         <div class="container">
-          <div class="features-inner section-inner">
+          <form method="post" action="login.php" class="features-inner section-inner">
             <div class="features-wrap">
-              <div class="feature is-revealing" id="espace">
+
+              <div name="Employe" class="feature is-revealing" id="espace">
                 <div class="feature-inner">
                   <div class="feature-icon">
                     <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
@@ -153,10 +161,11 @@
                   </div>
                   <h4 class="feature-title h3-mobile">Espace Employé</h4>
                   <p class="text-sm">
-                    A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.
+                    
                   </p>
                 </div>
               </div>
+
               <div class="feature is-revealing" id="espace">
                 <div class="feature-inner">
                   <div class="feature-icon">
@@ -177,12 +186,13 @@
                         </g>
                       </svg>
                     </div>
-                    <h4 class="feature-title h3-mobile">Espace RH</h4>
+                    <h4 class="feature-title h3-mobile">Espace Responsable RH</h4>
                     <p class="text-sm">
-                      A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.
+                      
                     </p>
                 </div>
               </div>
+
               <div class="feature is-revealing" id="espace">
                 <div class="feature-inner">
                   <div class="feature-icon">
@@ -203,18 +213,19 @@
                       </g>
                     </svg>
                   </div>
-                  <h4 class="feature-title h3-mobile">Espace RP</h4>
+                  <h4 class="feature-title h3-mobile">Espace Responsable Paie</h4>
                   <p class="text-sm">
-                    A pseudo-Latin text used in web design, layout, and printing in place of English to emphasise design elements.
+                    
                   </p>
                 </div>
               </div>
+
             </div>
-          </div>
+          </form>
         </div>
       </section>
-      </main>
-      <footer class="site-footer text-light">
+    </main>
+    <footer class="site-footer text-light">
         <div class="container">
           <div class="site-footer-inner has-top-divider">
             <div class="brand footer-brand">
@@ -263,21 +274,10 @@
             <div class="footer-copyright">&copy; 2023 JI2A, all rights reserved</div>
           </div>
         </div>
-      </footer>
-    </div>
+    </footer>
+  </div>
 
-    <script>
-      $('.page-scroll').bind('click', function(event) 
-      {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-          scrollTop: $($anchor.attr('href')).offset().top -64
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
-      });
-    </script>
-    <script>
-
+  <script>
       !function()
       {
         const e=document.documentElement;
@@ -290,6 +290,6 @@
           document.querySelectorAll(".pricing-table").forEach(i=>{const t=[].slice.call(i.querySelectorAll(".pricing-table-header")),a=[].slice.call(i.querySelectorAll(".pricing-table-features li")),c=[].slice.call(i.querySelectorAll(".pricing-table-cta")),r=t.concat(a).concat(c);
             e.reveal(r,{duration:600,distance:"20px",easing:"cubic-bezier(0.5, -0.01, 0, 1.005)",interval:100,origin:"bottom",viewFactor:.5})})
         }}();
-    </script>
+  </script>
 </body>
 </html>

@@ -1,27 +1,29 @@
 <?php
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start(); 
 
-  require_once('../controllers/UserController.php');
-  require_once('../models/Employe.class.php');
+  require 'employe.inc.php';
 
   if (isset($_POST['submit']))
   {
+    $role     = $_POST['role'];
     $login    = $_POST['login'];
     $password = $_POST['password'];
 
-    $uc = new UserController();
-    $user = $uc->checkLogin($login);
-    if (!$user)
+    $user = checkLogin($login, $role);
+    
+    if (empty($user))
     {
       $_SESSION['error'] = "Email incorrect!";
       header("location: ../views/login.php");
     }
     else
     {
-      if (password_verify($password, $user->password))
+      if (password_verify($password, $user['password']))
       {
-        $_SESSION['auth'] = $user->idEmploye;
-        header("location: ../views/home.php");
+        $_SESSION['auth'] = $user['role'];
+        $_SESSION['id']   = $user['idEmploye'];
+        if (isset($_SESSION['url'])) header("location: ".$_SESSION['url']);
+        else header("location: ../views/home.php");
       }
       else
       {

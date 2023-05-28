@@ -17,7 +17,7 @@
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'ismailza437@gmail.com';
-    $mail->Password   = 'trbkuvlikyljljad';
+    $mail->Password   = 'wzrtgciagbiajcnq';
     $mail->SMTPSecure = 'ssl';
     $mail->Port       = 465;
 
@@ -66,6 +66,25 @@
       </html>
     ";
 
+    return sendMail($to, $subject, $message);
+  }
+
+  function sendResetCode ($to, $code)
+  {
+    $subject = "Code de vérification";
+    $message = 
+    "
+      <html>
+      <head>
+        <meta charset=\"utf-8\">
+      </head>
+      <body>
+        <h4>Bonjour,</h4>
+        <p>Voici votre code de vérification pour réinitialiser votre mot de passe:</p>
+        <p>Code : <strong>$code</strong></p>
+      </body>
+      </html>
+    ";
     return sendMail($to, $subject, $message);
   }
 

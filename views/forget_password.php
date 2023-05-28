@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <form class="col-lg-6" method="post" action="../scripts/login.inc.php">
+        <form class="col-lg-6" method="post" action="../scripts/recover_password.php">
           <div class="card2 card border-0 px-4 py-5">
             <div class="row mb-4 px-3">
               <h4 class="mb-0 mr-4 mt-2">Récupérer votre mot de passe</h4>
@@ -55,7 +55,7 @@
               <input class="mb-4" type="text" name="email" placeholder="Email">
             </div>
             <div class="row mb-3 px-3">
-              <button type="submit" class="btn btn-blue text-center">Continue</button>
+              <button type="submit" name="submit" class="btn btn-blue text-center">Continue</button>
             </div>
           </div>
         </form>

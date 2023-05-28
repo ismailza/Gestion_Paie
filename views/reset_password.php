@@ -1,4 +1,5 @@
-<?php 
+<?php
+  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
   include ("../CONFIG.php");
   // require_once ("../scripts/inc.php");
 ?>
@@ -35,12 +36,15 @@
                     </div>
                     <h2><?php echo "Ismail ZAHIR"; ?></h2>
                     <h4><?php echo "ismailza407@gmail.com"; ?></h4>
-                    <form action="" method="POST">
-                      <?php if(isset($error)){ ?>
+                    <form action="../scripts/employe.php" method="post">
+                      <?php if(isset($_SESSION['error'])):?>
                         <div class="alert alert-danger" role="alert">
-                          <?php echo$error; ?>
+                          <?php 
+                            echo $_SESSION['error']; 
+                            unset($_SESSION['error']);
+                          ?>
                         </div>
-                      <?php } ?>                
+                      <?php endif; ?>                
                       <div class="form-group">
                         <label for="current_password">Mot de passe actuel</label>
                         <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Mot de passe actuel" required> 
@@ -50,7 +54,7 @@
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirmer le mot de passe" required> 
                       </div>
                       <div class="form-group">
-                        <input type="submit" name="confirm" class="btn btn-warning" value="Modifier">
+                        <input type="submit" name="reset" class="btn btn-warning" value="Modifier">
                         <a href="home.php"><input type="button" class="btn btn-warning" value="Annuler"></a>
                       </div>
                     </form>

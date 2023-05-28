@@ -2,7 +2,6 @@
 
   include ("../CONFIG.php");
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();  
-  if (isset($_SESSION['auth'])) header("location: home.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +62,7 @@
                 <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
                 <label for="chk1" class="custom-control-label text-sm">Remember me</label>
               </div>
-              <a href="forgot_password.php" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+              <a href="forget_password.php" class="ml-auto mb-0 text-sm">Forgot Password?</a>
             </div>
             <div class="row mb-3 px-3">
               <button type="submit" name="submit" class="btn btn-blue text-center">Login</button>

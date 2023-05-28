@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `conge` (
 
 DROP TABLE IF EXISTS `employe`;
 CREATE TABLE IF NOT EXISTS `employe` (
-  `idEmploye` int(11) NOT NULL AUTO_INCREMENT,
+  `idEmploye` int(11) PRIMARY KEY AUTO_INCREMENT,
   `Nom` varchar(20) NOT NULL,
   `Prenom` varchar(20) NOT NULL,
   `Email` varchar(100) NOT NULL,
@@ -133,13 +133,11 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `NbEnfants` int(2) NOT NULL,
   `Password` varchar(40) NOT NULL,
   `DateEmbauche` date NOT NULL,
-  `idAmo` int(11) NOT NULL,
-  `idCnss` int(11) NOT NULL,
-  `idIgr` int(11) NOT NULL,
-  PRIMARY KEY (`idEmploye`),
-  KEY `idAmo` (`idAmo`),
-  KEY `idIgr` (`idIgr`),
-  KEY `idCnss` (`idCnss`)
+
+  `idAmo` VARCHAR(24) NOT NULL,
+  `idCnss` VARCHAR(24) NOT NULL,
+  `idIgr` VARCHAR(24) NOT NULL,
+  `idCimr` VARCHAR(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -153,6 +151,9 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
   `idEntreprise` int(11) NOT NULL AUTO_INCREMENT,
   `nomEntreprise` varchar(30) NOT NULL,
   `adresse` varchar(40) NOT NULL,
+  ville VARCHAR(20),
+  descriptif TEXT,
+
   `createDate` date NOT NULL,
   `createdBy` varchar(40) NOT NULL,
   PRIMARY KEY (`idEntreprise`)
@@ -174,9 +175,7 @@ CREATE TABLE IF NOT EXISTS `hs` (
   PRIMARY KEY (`idHs`),
   KEY `idEmploye` (`idEmploye`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `igr`
 --
@@ -188,11 +187,9 @@ CREATE TABLE IF NOT EXISTS `igr` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
-
 --
 -- Structure de la table `prime`
 --
-
 DROP TABLE IF EXISTS `prime`;
 CREATE TABLE IF NOT EXISTS `prime` (
   `idPrime` int(11) NOT NULL AUTO_INCREMENT,
@@ -210,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `prime` (
 
 DROP TABLE IF EXISTS `regle`;
 CREATE TABLE IF NOT EXISTS `regle` (
-  `idRegle` int(11) NOT NULL AUTO_INCREMENT,
+  `idRegle` int(11) PRIMARY KEY AUTO_INCREMENT,
   `formule` varchar(70) NOT NULL,
   `idEntreprise` int(11) NOT NULL,
   `idIgr` int(11) NOT NULL,
@@ -219,16 +216,7 @@ CREATE TABLE IF NOT EXISTS `regle` (
   `idConge` int(11) NOT NULL,
   `idAmo` int(11) NOT NULL,
   `idPrime` int(11) NOT NULL,
-  `idHs` int(11) NOT NULL,
-  PRIMARY KEY (`idRegle`),
-  KEY `idEntreprise` (`idEntreprise`),
-  KEY `idIgr` (`idIgr`),
-  KEY `regle_ibfk_3` (`idAmo`),
-  KEY `regle_ibfk_5` (`idCnss`),
-  KEY `regle_ibfk_6` (`idAvance`),
-  KEY `regle_ibfk_7` (`idHs`),
-  KEY `regle_ibfk_8` (`idPrime`),
-  KEY `regle_ibfk_9` (`idConge`)
+  `idHs` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

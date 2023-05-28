@@ -89,7 +89,7 @@
                     <div class="card-footer">
                       <input type="button" value="Back" class="action back btn btn-sm btn-warning" style="display: none"/>
                       <input type="button" value="Next" class="action next btn btn-sm btn-info float-end"/>
-                      <button class="action submit btn btn-sm btn-outline-success float-end" name="submit" style="display: none">Modifier</button>
+                      <button class="action submit btn btn-sm btn-outline-success float-end" name="update" style="display: none">Modifier</button>
                     </div>
                   </div>
 

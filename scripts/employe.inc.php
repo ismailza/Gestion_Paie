@@ -1,75 +1,86 @@
 <?php
 
-include ('../controllers/UserController.php');
-include ('../models/Employe.class.php');
-include ('../scripts/sendMail.php');
+  require 'sendMail.php';
 
-session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
-
-function upload_image($img)
-{
-  $valid_extension  = array("png","jpeg","jpg");
-  $target_file      = "../views/images/profile/".$img['name'];
-  $file_extension   = pathinfo($target_file, PATHINFO_EXTENSION);     
-  $file_extension   = strtolower($file_extension);
-  if (in_array($file_extension, $valid_extension))
+  function upload_image($img)
   {
-    if (move_uploaded_file($img['tmp_name'], $target_file)) return true;
+    $valid_extension  = array("png","jpeg","jpg");
+    $target_file      = "../views/images/profile/".$img['name'];
+    $file_extension   = pathinfo($target_file, PATHINFO_EXTENSION);     
+    $file_extension   = strtolower($file_extension);
+    if (in_array($file_extension, $valid_extension))
+    {
+      if (move_uploaded_file($img['tmp_name'], $target_file)) return true;
+    }
+    return false;
   }
-  return false;
-}
 
-if (isset($_POST['addEmploye']))
-{
-  // informations personnelle
-  $nom = $_POST['nom'];
-  $prenom = $_POST['prenom'];
-  $cin = $_POST['cin'];
-  $sexe = $_POST['sexe'];
-  $dateNais = $_POST['dateNais'];
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-  $adresse = $_POST['adresse'];
-  $ville = $_POST['ville'];
-  $image = $_FILES['image'];
-
-  // situation familiale
-  $situation = $_POST['situation'];
-  $nbEnfants = $_POST['nbEnfants'];
-
-  // informations salariale
-  $diplome = $_POST['diplome'];
-  $post = $_POST['post'];
-  $salaire = $_POST['salaire'];
-  $cnss = $_POST['cnss'];
-  $amo = $_POST['amo'];
-  $cimr = $_POST['cimr'];
-  $igr = $_POST['igr'];
-  
-  $password = $nom."_".$cin;
-  $dateEmbauche = "04-17-2001";
-  $role = "Employe";
-  $createdBy = "Ismail ZAHIR";
-
-  if (!upload_image($image))
+  function checkLogin ($login, $role)
   {
-    $_SESSION['error'] = "Erreur lors de télechargement de l'image";
-    header("location: ../views/home.php");
-    exit();
-  } 
-
-  $emp = new Employe($nom, $prenom, $email, $image['name'], password_hash($password, PASSWORD_DEFAULT), 
-                    $cin,$sexe,$dateNais, $phone, $adresse, $ville, $situation, $nbEnfants,$salaire, $diplome, 
-                    $post, $dateEmbauche, $cnss, $cimr, $amo, $igr,$role, $createdBy);
-
-  if ($emp->ajouterEmploye()) 
-  {
-    $_SESSION['success'] = "Employe ajouté avec succès";  
-    if (!sendInfoLogin($email, $nom, $prenom, $login, $password)) $_SESSION['error'] = "Les informations de connexion ne sont pas envoyé!";  
+    require 'connect.php';
+    $stm = $pdo->prepare("SELECT * FROM employe WHERE email = :em AND role = :rl");
+    $stm->bindValue("em", $login,   PDO::PARAM_STR);
+    $stm->bindValue("rl", $role,    PDO::PARAM_STR);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
   }
-  else $_SESSION['error'] = "Something is wrong!";
-  
-  header("location: ../views/home.php");
 
-}
-else header("location: ../views/addEmploye.php");
+  function setResetCode ($email, $code)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("INSERT INTO resetCode VALUES (?, ?)");
+    return $stm->execute(array($email, $code));
+  }
+
+  function save ($values)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("INSERT INTO employe VALUES 
+          ('',?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)");
+    
+    /*
+    $stm = $pdo->prepare("INSERT INTO employe VALUES 
+        ('',;ln, :fn, :cin, :s, :bd, :em, :ph, :ad, :vl, :img, :stf, :nbf, :dpl, :pst, :slr, 
+        :dem, :cnss, ;amo, :igr, :cimr, :role, :pswd, CURRENT_TIMESTAMP, :crby)");
+    */
+    return $stm->execute($values);
+  }
+
+  function update ($values, $id)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("UPDATE employe SET 
+          nom = ?, prenom = ?, cin = ?, sexe = ?, dateNaiss = ?, email = ?, phone = ?, adresse = ?, ville = ?, image = ?, 
+          situation = ?, nbEnfants = ?, diplome = ?, post = ?, salaire = ?, numCnss = ?, numAmo = ?, numIgr = ?, numCIMR = ?
+          WHERE idEmploye = $id");
+    /*
+    $stm = $pdo->prepare("UPDATE employe SET 
+        nom = :ln, prenom = :fn, cin = :cin, sexe = :s, dateNaiss = :bd, email = :em, phone = :ph, adresse = :ad, ville = :vl, 
+        image = :img, situation = :stf, nbEnfants = :nbf, diplome = :dpl, post = :pst, salaire = :slr, 
+        numCnss = :cnss, numAmo = :amo, numIgr = :igr, numCIMR = :cimr");
+    */
+    return $stm->execute($values);
+  }
+
+  function delete ($id)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("DELETE FROM employe WHERE idEmploye = $id");
+    return $stm->execute();
+  }
+
+  function resetPassword ($newPassword, $id)
+  {
+    require 'connect.php';
+    $h_new_pswd = password_hash($newPassword, PASSWORD_DEFAULT);
+    $stm = $pdo->prepare("UPDATE employe SET password = ? WHERE idEmploye = $id");
+    return $stm->execute(array($h_new_pswd));
+  }
+
+  function getEmploye ($id)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("SELECT * FROM employe WHERE idEmploye = $id");
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
