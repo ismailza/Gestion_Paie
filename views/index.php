@@ -1,10 +1,4 @@
-<?php
-
-  include ("../CONFIG.php");
-  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
-  if (isset($_SESSION['auth'])) header("location: home.php");
-
-?>
+<?php include ("../CONFIG.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +59,7 @@
                 Espace pour les services destinés aux employés et responsables de JI2A.
               </p>
               <p class="hero-cta is-revealing">
-                <a class="button button-primary button-shadow" >E-Services</a>
+                <a href="login.php" class="button button-primary button-shadow" >Se connecter</a>
               </p>
             </div>
             <div class="hero-illustration is-revealing">
@@ -133,98 +127,8 @@
           </div>
         </div>
       </section>
-      <section id="role" class="features section text-center">
-        <div class="section-square"></div>
-        <div class="container">
-          <form method="post" action="login.php" class="features-inner section-inner">
-            <div class="features-wrap">
-
-              <div name="Employe" class="feature is-revealing" id="espace">
-                <div class="feature-inner">
-                  <div class="feature-icon">
-                    <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="feature-2-a">
-                          <stop stop-color="#007CFE" stop-opacity="0" offset="0%" />
-                          <stop stop-color="#007DFF" offset="100%" />
-                        </linearGradient>
-                        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="feature-2-b">
-                          <stop stop-color="#FF4F7A" stop-opacity="0" offset="0%" />
-                          <stop stop-color="#FF4F7A" offset="100%" />
-                        </linearGradient>
-                      </defs>
-                      <g fill="none" fill-rule="evenodd">
-                        <path d="M0 0h32v7c0 13.807-11.193 25-25 25H0V0z" fill="url(#feature-2-a)" />
-                        <path d="M48 16v7c0 13.807-11.193 25-25 25h-7c0-17.673 14.327-32 32-32z" fill="url(#feature-2-b)" transform="matrix(1 0 0 -1 0 64)" />
-                      </g>
-                    </svg>
-                  </div>
-                  <h4 class="feature-title h3-mobile">Espace Employé</h4>
-                  <p class="text-sm">
-                    
-                  </p>
-                </div>
-              </div>
-
-              <div class="feature is-revealing" id="espace">
-                <div class="feature-inner">
-                  <div class="feature-icon">
-                      <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                          <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="feature-3-a">
-                            <stop stop-color="#007CFE" stop-opacity="0" offset="0%" />
-                            <stop stop-color="#007DFF" offset="100%" />
-                          </linearGradient>
-                          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="feature-3-b">
-                            <stop stop-color="#FF4F7A" stop-opacity="0" offset="0%" />
-                            <stop stop-color="#FF4F7A" offset="100%" />
-                          </linearGradient>
-                        </defs>
-                        <g fill="none" fill-rule="evenodd">
-                          <circle fill="url(#feature-3-a)" cx="16" cy="16" r="16" />
-                          <path d="M16 16c17.673 0 32 14.327 32 32H16V16z" fill="url(#feature-3-b)" />
-                        </g>
-                      </svg>
-                    </div>
-                    <h4 class="feature-title h3-mobile">Espace Responsable RH</h4>
-                    <p class="text-sm">
-                      
-                    </p>
-                </div>
-              </div>
-
-              <div class="feature is-revealing" id="espace">
-                <div class="feature-inner">
-                  <div class="feature-icon">
-                    <svg width="48" height="48" xmlns="https://icons8.com/icon/kPeBecos1GOu/name-tag">
-                      <defs>
-                        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="feature-4-a">
-                          <stop stop-color="#FF4F7A" stop-opacity="0" offset="0%" />
-                          <stop stop-color="#FF4F7A" offset="100%" />
-                        </linearGradient>
-                        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="feature-4-b">
-                          <stop stop-color="#007CFE" stop-opacity="0" offset="0%" />
-                          <stop stop-color="#007DFF" offset="100%" />
-                        </linearGradient>
-                      </defs>
-                      <g fill="none" fill-rule="evenodd">
-                        <path d="M32 16h16v16c0 8.837-7.163 16-16 16H16V32c0-8.837 7.163-16 16-16z" fill="url(#feature-4-a)" />
-                        <path d="M16 0h16v16c0 8.837-7.163 16-16 16H0V16C0 7.163 7.163 0 16 0z" fill="url(#feature-4-b)" />
-                      </g>
-                    </svg>
-                  </div>
-                  <h4 class="feature-title h3-mobile">Espace Responsable Paie</h4>
-                  <p class="text-sm">
-                    
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </form>
-        </div>
-      </section>
     </main>
+
     <footer class="site-footer text-light">
         <div class="container">
           <div class="site-footer-inner has-top-divider">
@@ -275,6 +179,7 @@
           </div>
         </div>
     </footer>
+    
   </div>
 
   <script>

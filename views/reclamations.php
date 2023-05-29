@@ -1,10 +1,7 @@
 <?php
-
-use function PHPSTORM_META\type;
-
   include ("../CONFIG.php");
-  session_start();
-  // require_once ("../scripts/inc.php");
+  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
+  // require '../scripts/inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +31,8 @@ use function PHPSTORM_META\type;
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
+
+                <div class="title">Les réclamations</div>   
                 <?php if (isset($_SESSION['success'])): ?>
                   <div class="alert alert-success" role="alert">
                     <?php 
@@ -48,9 +47,27 @@ use function PHPSTORM_META\type;
                       unset($_SESSION['error']);
                     ?>
                   </div>
-                <?php endif; ?>  
+                <?php endif; ?> 
 
-                
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                  <label class="btn btn-outline-warning" for="btnradio1">Toutes</label>
+
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                  <label class="btn btn-outline-danger" for="btnradio2">Non lues</label>
+
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <label class="btn btn-outline-success" for="btnradio3">Lues</label>
+                </div>
+
+                <table width="100%" id="table">
+                  <thead>
+                    
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+                </table>
                 
               </div>
             </div>
@@ -64,5 +81,6 @@ use function PHPSTORM_META\type;
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
+
 </body>
 </html>

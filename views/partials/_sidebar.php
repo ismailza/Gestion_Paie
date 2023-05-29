@@ -22,7 +22,7 @@
           </ul>
         </div>
       </li>
-      <?php // ! allow access to the Gestion panel if the user is a RHR ?>
+      <?php // if ($_SESSION['role'] == "Responsable RH"): ?>
       <li class="nav-item nav-category">Gestion</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#entreprise" aria-expanded="false" aria-controls="entreprise">
@@ -76,7 +76,7 @@
           </ul>
         </div>
       </li>
-
+      <?php //endif; ?>
       <li class="nav-item nav-category">Notifications</li>
       <li class="nav-item">
         <a class="nav-link" href="">

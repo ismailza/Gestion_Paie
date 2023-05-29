@@ -15,12 +15,11 @@
     return false;
   }
 
-  function checkLogin ($login, $role)
+  function checkLogin ($login)
   {
     require 'connect.php';
-    $stm = $pdo->prepare("SELECT * FROM employe WHERE email = :em AND role = :rl");
+    $stm = $pdo->prepare("SELECT * FROM employe WHERE email = :em");
     $stm->bindValue("em", $login,   PDO::PARAM_STR);
-    $stm->bindValue("rl", $role,    PDO::PARAM_STR);
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }

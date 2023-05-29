@@ -45,30 +45,6 @@
         </div>
       </li>
 
-      <li class="nav-item dropdown"> 
-        <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="icon-mail icon-lg"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
-          <span class="dropdown-item py-3">
-            <p class="mb-0 font-weight-medium float-left">Vous avez 7 réclamations non lus</p>
-            <a href="reclamations.php" class="badge badge-pill badge-primary float-right">View all</a>
-          </span>
-          <div class="dropdown-divider"></div>
-
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <img src="images/profile/face8.jpg" alt="image" class="img-sm profile-pic">
-            </div>
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark"><?php echo "Marian Garner"; ?></p>
-              <p class="fw-light small-text mb-0"><?php echo "The meeting is cancelled"; ?></p>
-            </div>
-          </a>
-
-        </div>
-      </li>
-
       <li class="nav-item dropdown d-none d-lg-block user-dropdown">
         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
           <img class="img-xs rounded-circle" src="images/profile/face8.jpg" alt="Profile image"> </a>

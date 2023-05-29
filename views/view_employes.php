@@ -63,11 +63,11 @@
                     <tbody>
                       <tr>
                         <td><img src="images/profile/default-profile-img.png" width="40px" height="40px" alt="profile image"></td>
-                        <td>UA123848</td>
-                        <td>ZAHIR</td>
-                        <td>Ismail</td>
-                        <td>17/04/2001</td>
-                        <td>ismailza407@gmail.com</td>
+                        <td><?php echo "Ismail"; ?></td>
+                        <td><?php echo "ZAHIR"; ?></td>
+                        <td><?php echo "Ismail"; ?></td>
+                        <td><?php echo "Ismail"; ?></td>
+                        <td><?php echo "Ismail"; ?></td>
                         <td>
                           <button type="button" class="btn btn-info btn-rounded btn-icon">
                             <i class="mdi mdi-eye-outline"></i>

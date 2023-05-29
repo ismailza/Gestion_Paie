@@ -1,7 +1,7 @@
 <?php
-
   include ("../CONFIG.php");
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();  
+  // if (isset($_SESSION['auth'])) header("location: home.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +10,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
-  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
-  <!-- <link rel="stylesheet" href="vendors/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">  -->
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
@@ -24,15 +23,15 @@
         <div class="col-lg-6">
           <div class="card1 pb-5">
             <div class="row">
-              <img src="https://i.imgur.com/CXQmsmF.png" class="logo">
+              <a href="index.php"><img src="https://i.imgur.com/CXQmsmF.png" alt="logo" class="logo"></a>
             </div>
             <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
               <img src="https://i.imgur.com/uNGdWHi.png" class="image">
             </div>
           </div>
         </div>
-        <form class="col-lg-6" method="post" action="../scripts/login.inc.php">
-          <div class="card2 card border-0 px-4 py-5">
+        <form class="col-lg-6 needs-validation" method="post" action="../scripts/login.inc.php" novalidate>
+          <div class="step1 card2 card border-0 px-4 py-5">
             <div class="row mb-4 px-3">
               <h4 class="mb-0 mr-4 mt-2">Bienvenue</h4>
             </div>
@@ -50,22 +49,23 @@
             </div>
             <?php endif; ?> 
             <div class="row px-3">
-              <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
-              <input class="mb-4" type="text" name="login" placeholder="Email">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="login" placeholder="Email" required>
             </div>
             <div class="row px-3">
-              <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
-              <input type="password" name="password" placeholder="Password">
+              <label for="password" class="form-label">Last name</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
             </div>
+
             <div class="row px-3 mb-4">
               <div class="custom-control custom-checkbox custom-control-inline">
-                <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
+                <input id="chk1" type="checkbox" name="remember" class="custom-control-input"> 
                 <label for="chk1" class="custom-control-label text-sm">Remember me</label>
               </div>
               <a href="forget_password.php" class="ml-auto mb-0 text-sm">Forgot Password?</a>
             </div>
             <div class="row mb-3 px-3">
-              <button type="submit" name="submit" class="btn btn-blue text-center">Login</button>
+              <button type="submit" name="submit" class="submit btn btn-blue text-center">Login</button>
             </div>
           </div>
         </form>
@@ -84,6 +84,26 @@
     </div>
   </div>
   
-  <script src="vendors/DataTables/jQuery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+  </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
   include ("../CONFIG.php");
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();  
-  // $_SESSION['error'] = "error";
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
-  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
@@ -52,8 +52,14 @@
             <?php endif; ?> 
             <div class="row px-3">
               <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
-              <input class="mb-4" type="text" name="email" placeholder="Email">
+              <input class="mb-4" type="email" name="email" placeholder="Email" required>
             </div>
+
+            <div class="row px-3">
+              <label class="mb-1"><h6 class="mb-0 text-sm">Code de vérification</h6></label>
+              <input class="mb-4" type="number" min="0" size="6" name="code" placeholder="Code de vérification" required>
+            </div>
+
             <div class="row mb-3 px-3">
               <button type="submit" name="submit" class="btn btn-blue text-center">Continue</button>
             </div>

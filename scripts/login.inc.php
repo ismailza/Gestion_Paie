@@ -5,11 +5,11 @@
 
   if (isset($_POST['submit']))
   {
-    $role     = $_POST['role'];
     $login    = $_POST['login'];
     $password = $_POST['password'];
+    $remember = $_POST['remember'];
 
-    $user = checkLogin($login, $role);
+    $user = checkLogin($login);
     
     if (empty($user))
     {
@@ -22,6 +22,12 @@
       {
         $_SESSION['auth'] = $user['role'];
         $_SESSION['id']   = $user['idEmploye'];
+        if (!empty($remember))
+        {
+          $expired = time()+3600*24*60;
+          setcookie('login', $login, $expired);
+          setcookie('password', password_hash($password, PASSWORD_DEFAULT), $expired);
+        }
         if (isset($_SESSION['url'])) header("location: ".$_SESSION['url']);
         else header("location: ../views/home.php");
       }

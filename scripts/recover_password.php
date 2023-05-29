@@ -6,8 +6,7 @@
   if (isset($_POST['submit']))
   {
     $to   = $_POST['login'];
-    $role = $_POST['role'];
-    $user = checkLogin($to, $role);
+    $user = checkLogin($to);
     if (!empty($user)) 
     {
       $code = "";
