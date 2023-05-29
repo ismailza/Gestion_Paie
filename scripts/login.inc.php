@@ -20,7 +20,7 @@
     {
       if (password_verify($password, $user['password']))
       {
-        $_SESSION['auth'] = $user['role'];
+        $_SESSION['auth'] = $user['poste'];
         $_SESSION['id']   = $user['idEmploye'];
         if (!empty($remember))
         {

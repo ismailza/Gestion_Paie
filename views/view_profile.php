@@ -1,6 +1,8 @@
 <?php 
   include ("../CONFIG.php");
   // require_once ("../scripts/inc.php");
+  require '../scripts/employe.inc.php';
+  $user = getEmploye($_SESSION['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

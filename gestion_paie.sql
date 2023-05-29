@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS admin (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- --------------------------------------------------------
 --
--- Structure de la table `employe`
+-- Structure de la table `employe`s
 --
 DROP TABLE IF EXISTS employe;
 CREATE TABLE IF NOT EXISTS employe (

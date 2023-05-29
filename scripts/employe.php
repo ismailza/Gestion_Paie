@@ -43,36 +43,11 @@
       $_SESSION['error'] = "Erreur lors de télechargement de l'image";
       header("location: ../views/home.php");
       exit();
-    } 
+    }
 
-    $stm = $pdo->prepare("INSERT INTO employe VALUES 
-        ('',;ln, :fn, :cin, :s, :bd, :em, :ph, :ad, :vl, :img, :stf, :nbf, :dpl, :pst, :slr, 
-        :dem, :cnss, ;amo, :igr, :cimr, :role, :pswd, CURRENT_TIMESTAMP, :crby)");
-
-    $stm->bindValue("ln",   $nom,           PDO::PARAM_STR);
-    $stm->bindValue("fn",   $prenom,        PDO::PARAM_STR);
-    $stm->bindValue("cin",  $cin,           PDO::PARAM_STR);
-    $stm->bindValue("s",    $sexe,          PDO::PARAM_STR);
-    $stm->bindValue("bd",   $dateNaiss,     PDO::PARAM_STR);
-    $stm->bindValue("em",   $email,         PDO::PARAM_STR);
-    $stm->bindValue("ph",   $phone,         PDO::PARAM_STR);
-    $stm->bindValue("ad",   $adresse,       PDO::PARAM_STR);
-    $stm->bindValue("vl",   $ville,         PDO::PARAM_STR);
-    $stm->bindValue("img",  $image,         PDO::PARAM_STR);
-    $stm->bindValue("stf",  $situation,     PDO::PARAM_STR);
-    $stm->bindValue("nbf",  $nbEnfants,     PDO::PARAM_STR);
-    $stm->bindValue("dpl",  $diplome,       PDO::PARAM_STR);
-    $stm->bindValue("pst",  $post,          PDO::PARAM_STR);
-    $stm->bindValue("slr",  $salaire,       PDO::PARAM_STR);
-    $stm->bindValue("dem",  $dateEmbauche,  PDO::PARAM_STR);
-    $stm->bindValue("cnss", $cnss,          PDO::PARAM_STR);
-    $stm->bindValue("amo",  $amo,           PDO::PARAM_STR);
-    $stm->bindValue("igr",  $igr,           PDO::PARAM_STR);
-    $stm->bindValue("cimr", $cimr,          PDO::PARAM_STR);
-    $stm->bindValue("role", $role,          PDO::PARAM_STR);
-    $stm->bindValue("pswd", $h_pswd,        PDO::PARAM_STR);
-    $stm->bindValue("crby", $createdBy,     PDO::PARAM_STR);
-    $stm->execute();
+    $values = array();
+    
+    $stm = save ($values);
 
     if ($stm) 
     {
