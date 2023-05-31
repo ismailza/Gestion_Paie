@@ -1,20 +1,22 @@
-<?php 
-  include ("../CONFIG.php");
-  // require ("../scripts/inc.php");
-  require '../scripts/entreprise.inc.php';
-  $entreprises = getAllEntreprise();
+<?php
+//include ("../CONFIG.php");
+// require ("../scripts/inc.php");
+require '../scripts/entreprise.inc.php';
+$entreprises = getAllEntreprise();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title><?php echo SITE_TITLE; ?></title>
+  <title><?php echo "Gestion paie"; ?></title>
   <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
 </head>
+
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
@@ -31,16 +33,16 @@
             <div class="col-sm-12">
               <div class="home-tab">
 
-                <div class="title">Ajouter Employe</div>    
-                
-                <?php if (isset($_SESSION['error'])): ?>  
+                <div class="title">Ajouter Employe</div>
+
+                <?php if (isset($_SESSION['error'])) : ?>
                   <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
+                    <?php
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
                     ?>
                   </div>
-                <?php endif; ?> 
+                <?php endif; ?>
 
                 <form method="post" action="../scripts/employe.php" class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
@@ -88,7 +90,7 @@
                       </div>
                       <div class="col-md-3">
                         <label for="birthday" class="form-label">Date de Naissance</label>
-                        <input type="date" min="<?= (date('Y')-60).'-1-1'; ?>" max="<?= date('Y-m-d'); ?>" class="form-control" name="dateNaiss" id="birthday" required>
+                        <input type="date" min="<?= (date('Y') - 60) . '-1-1'; ?>" max="<?= date('Y-m-d'); ?>" class="form-control" name="dateNaiss" id="birthday" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
@@ -183,8 +185,9 @@
                         <label for="entreprise" class="form-label">Entreprise</label>
                         <select class="form-select" id="entreprise" name="entreprise" required>
                           <option selected disabled value="">Choose...</option>
-                          <?php foreach ($entreprises as $entreprise): ?>
-                          <option value="<?php echo $entreprise['idEntreprise']; ?>"><?php echo $entreprise['idEntreprise']."\t|".$entreprise['nomEntreprise']; ?></option>
+                          <?php foreach ($entreprises as $entreprise) : ?>
+                            <option value="<?php echo $entreprise['idEntreprise']; ?>">
+                              <?php echo $entreprise['idEntreprise'] . "\t|" . $entreprise['nomEntreprise']; ?></option>
                           <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback">
@@ -195,7 +198,7 @@
                         <label for="contrat" class="form-label">Type Contrat</label>
                         <select class="form-select" id="contrat" name="contrat" required>
                           <option selected disabled value="">Choose...</option>
-                          
+
                           <option value="CDI">CDI</option>
                           <option value="CDD">CDD</option>
                           <option value="CTT">CTT</option>
@@ -240,7 +243,7 @@
                           * Champ obligatoire
                         </div>
                       </div>
-        
+
                     </fieldset>
 
                     <fieldset id="step3" class="card-body row g-3 step" style="display: none">
@@ -258,18 +261,18 @@
                           </div>
                         </div>
                       </div>
-        
+
                     </fieldset>
 
                     <div class="card-footer">
-                      <input type="button" value="Précédent" class="action back btn btn-sm btn-warning" style="display: none"/>
-                      <input type="button" value="Continue" class="action next btn btn-sm btn-info float-end"/>
+                      <input type="button" value="Précédent" class="action back btn btn-sm btn-warning" style="display: none" />
+                      <input type="button" value="Continue" class="action next btn btn-sm btn-info float-end" />
                       <button class="action submit btn btn-sm btn-outline-success float-end" name="submit" style="display: none">Ajouter</button>
                     </div>
                   </div>
 
                 </form>
-              
+
               </div>
             </div>
           </div>
@@ -280,6 +283,7 @@
     </div><!-- page-body-wrapper ends -->
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
-  <?php include ('partials/_plugins-js.html'); ?>
+  <?php include('partials/_plugins-js.html'); ?>
 </body>
+
 </html>
