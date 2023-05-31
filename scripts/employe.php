@@ -7,52 +7,48 @@
 
   if (isset($_POST['submit']))
   {
-    // informations personnelle
-    $nom          = $_POST['nom'];
-    $prenom       = $_POST['prenom'];
-    $cin          = $_POST['cin'];
-    $sexe         = $_POST['sexe'];
-    $dateNais     = $_POST['dateNais'];
-    $email        = $_POST['email'];
-    $phone        = $_POST['phone'];
-    $adresse      = $_POST['adresse'];
-    $ville        = $_POST['ville'];
-    $image        = $_FILES['image'];
+    $values = [
+      'nom'         => $_POST['nom'],
+      'prenom'      => $_POST['prenom'],
+      'cin'         => $_POST['cin'],
+      'sexe'        => $_POST['sexe'],
+      'dateNaiss'   => $_POST['dateNaiss'],
+      'adresse'     => $_POST['adresse'],
+      'ville'       => $_POST['ville'],
+      'email'       => $_POST['email'],
+      'phone'       => $_POST['phone'],
+      'image'       => $_FILES['image']['name'],
+      'situationF'  => $_POST['situationF'],
+      'nbEnfants'   => $_POST['nbEnfants'],
+      'diplome'     => $_POST['diplome'],
+      'numCNSS'     => $_POST['numCNSS'],
+      'numAMO'      => $_POST['numAMO'],
+      'numCIMR'     => $_POST['numCIMR'],
+      'numIGR'      => $_POST['numIGR'],
+      'password'    => password_hash($_POST['nom']."_".$_POST['cin'], PASSWORD_DEFAULT),
+      'createdBy'   => $_SESSION['id']
+    ];
+    $contrat = [
+      'idEmploye'   => $_SESSION['id'],
+      'idEntreprise'=> $_POST['entreprise'],
+      'type'        => $_POST['contrat'],
+      'poste'       => $_POST['poste'],
+      'salaireBase' => $_POST['salaireB'],
+    ];
 
-    // situation familiale
-    $situation    = $_POST['situation'];
-    $nbEnfants    = $_POST['nbEnfants'];
-
-    // informations salariale
-    $diplome      = $_POST['diplome'];
-    $post         = $_POST['post'];
-    $salaire      = $_POST['salaire'];
-    $cnss         = $_POST['cnss'];
-    $amo          = $_POST['amo'];
-    $cimr         = $_POST['cimr'];
-    $igr          = $_POST['igr'];
-    
-    $password     = $nom."_".$cin;
-    $h_pswd       = password_hash($password, PASSWORD_DEFAULT);
-    $dateEmbauche = "04-17-2001";
-    $role         = "Employe";
-    $createdBy    = "Ismail ZAHIR";
-
-    if (!upload_image($image))
+    if (!upload_image($_FILES['image']))
     {
       $_SESSION['error'] = "Erreur lors de télechargement de l'image";
       header("location: ../views/home.php");
       exit();
     }
-
-    $values = array();
     
-    $stm = save ($values);
+    $stm = save ($values, $contrat);
 
     if ($stm) 
     {
       $_SESSION['success'] = "Employe ajouté avec succès";  
-      if (!sendInfoLogin($email, $nom, $prenom, $login, $password)) $_SESSION['error'] = "Les informations de connexion ne sont pas envoyé!";  
+      if (!sendInfoLogin($values['email'],$values['nom'], $values['prenom'], $values['nom']."_".$values['cni'])) $_SESSION['error'] = "Les informations de connexion ne sont pas envoyé!";  
       header("location: ../views/view_employes.php");
     }
     else 

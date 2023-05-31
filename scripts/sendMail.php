@@ -30,7 +30,7 @@
     return $mail->send();
   }
 
-  function sendInfoLogin ($to, $lastname, $firstname, $login, $password)
+  function sendInfoLogin ($to, $lastname, $firstname, $password)
   {
     $subject  = "Recuperer info login";
     $message = 
@@ -49,7 +49,7 @@
             <table>
               <tr>
                 <td>Login</td>
-                <td>: <strong>$login</strong></td>
+                <td>: <strong>$to</strong></td>
               </tr>
               <tr>
                 <td>Password</td>

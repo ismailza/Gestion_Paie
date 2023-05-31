@@ -31,18 +31,31 @@
     return $stm->execute(array($email, $code));
   }
 
-  function save ($values)
+  function save ($values, $contrat)
   {
     require 'connect.php';
-    $stm = $pdo->prepare("INSERT INTO employe VALUES 
-          ('',?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)");
-    
-    /*
-    $stm = $pdo->prepare("INSERT INTO employe VALUES 
-        ('',;ln, :fn, :cin, :s, :bd, :em, :ph, :ad, :vl, :img, :stf, :nbf, :dpl, :pst, :slr, 
-        :dem, :cnss, ;amo, :igr, :cimr, :role, :pswd, CURRENT_TIMESTAMP, :crby)");
-    */
-    return $stm->execute($values);
+    $stm = $pdo->prepare("INSERT INTO employe ('nom','prenom','cin','sexe','dateNaiss','adresse','ville','email','phone','image',
+    'situationF','nbEnfants','diplome','numCNSS','numAMO','numCIMR','numIGR','password','createdAt','createdBy') 
+    VALUES
+    (".
+      $values['nom'].",".$values['prenom'].",".$values['cin'].",".$values['sexe'].",".$values['dateNaiss'].",".$values['adresse'].",".$values['ville'].",".
+      $values['email'].",".$values['phone'].",".$values['situationF'].",".$values['nbEnfants'].",".$values['diplome'].",".$values['numCNSS'].",".$values['numAMO'].",".$values['numCIMR'].",".$values['numIGR'].",".$values['password'].",CURRENT_TIMESTAMP,".$values['createdBy']
+    .")
+    ");
+    // foreach ($values as $key => $value) $stm->bindValue($key, $value);
+    if ($stm->execute())
+    {
+      $id = $pdo->lastInsertId();
+      $contrat['idEmploye'] = $id;
+      $stm = $pdo->prepare("INSERT INTO contrat ('idEmploye','idEntreprise','type','poste','salaireBase','dateEmbauche') 
+      VALUES 
+      (".
+      $contrat['idEmploye'].",".$contrat['idEntreprise'].",".$contrat['type'].",".$contrat['poste'].",".$contrat['salaireBase'].",CURRENT_TIMESTAMP
+      )
+      ");
+      // foreach ($contrat as $key => $c) $stm->bindValue($key, $c);
+      return $stm->execute();
+    }
   }
 
   function update ($values, $id)

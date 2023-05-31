@@ -1,6 +1,8 @@
 <?php 
   include ("../CONFIG.php");
-  // require_once ("../scripts/inc.php");
+  // require ("../scripts/inc.php");
+  require '../scripts/entreprise.inc.php';
+  $entreprises = getAllEntreprise();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +88,7 @@
                       </div>
                       <div class="col-md-3">
                         <label for="birthday" class="form-label">Date de Naissance</label>
-                        <input type="date" min="<?= (date('Y')-60).'-1-1'; ?>" max="<?= date('Y-m-d'); ?>" class="form-control" name="dateNais" id="birthday" required>
+                        <input type="date" min="<?= (date('Y')-60).'-1-1'; ?>" max="<?= date('Y-m-d'); ?>" class="form-control" name="dateNaiss" id="birthday" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
@@ -140,12 +142,10 @@
 
                       <div class="col-md-4">
                         <label for="situation" class="form-label">Situation</label>
-                        <select class="form-select" id="situation" name="situation" required>
+                        <select class="form-select" id="situation" name="situationF" required>
                           <option selected disabled value="">Choose...</option>
                           <option value="Célibataire">Célibataire</option>
                           <option value="Marié">Marié</option>
-                          <option value="Divorcé">Divorcé</option>
-                          <option value="Veuf">Veuf</option>
                         </select>
                         <div class="invalid-feedback">
                           * Champ obligatoire
@@ -173,11 +173,32 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label for="post" class="form-label">Post</label>
-                        <select class="form-select" id="post" name="post" required>
+                        <label for="poste" class="form-label">Poste</label>
+                        <input type="text" class="form-control" id="poste" name="poste" placeholder="Poste" required>
+                        <div class="invalid-feedback">
+                          * Champ obligatoire
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="entreprise" class="form-label">Entreprise</label>
+                        <select class="form-select" id="entreprise" name="entreprise" required>
+                          <option selected disabled value="">Choose...</option>
+                          <?php foreach ($entreprises as $entreprise): ?>
+                          <option value="<?php echo $entreprise['idEntreprise']; ?>"><?php echo $entreprise['idEntreprise']."\t|".$entreprise['nomEntreprise']; ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback">
+                          * Champ obligatoire
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="contrat" class="form-label">Type Contrat</label>
+                        <select class="form-select" id="contrat" name="contrat" required>
                           <option selected disabled value="">Choose...</option>
                           
-                          <option value="Technicien">Technicien</option>
+                          <option value="CDI">CDI</option>
+                          <option value="CDD">CDD</option>
+                          <option value="CTT">CTT</option>
 
                         </select>
                         <div class="invalid-feedback">
@@ -186,35 +207,35 @@
                       </div>
                       <div class="col-md-4">
                         <label for="salaire" class="form-label">Salaire de base</label>
-                        <input type="number" min=0 step="any" class="form-control" id="salaire" name="salaire" placeholder="Salaire de base" required>
+                        <input type="number" min=0 step="any" class="form-control" id="salaire" name="salaireB" placeholder="Salaire de base" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
                       </div>
                       <div class="col-md-6">
                         <label for="cnss" class="form-label">CNSS</label>
-                        <input type="text" class="form-control" id="cnss" name="cnss" placeholder="CNSS" required>
+                        <input type="text" class="form-control" id="cnss" name="numCNSS" placeholder="CNSS" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
                       </div>
                       <div class="col-md-6">
                         <label for="amo" class="form-label">AMO</label>
-                        <input type="text" class="form-control" id="amo" name="amo" placeholder="AMO" required>
+                        <input type="text" class="form-control" id="amo" name="numAMO" placeholder="AMO" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
                       </div>
                       <div class="col-md-6">
                         <label for="cimr" class="form-label">CIMR</label>
-                        <input type="text" class="form-control" id="cimr" name="cimr" placeholder="CIMR" required>
+                        <input type="text" class="form-control" id="cimr" name="numCIMR" placeholder="CIMR" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
                       </div>
                       <div class="col-md-6">
                         <label for="igr" class="form-label">IGR</label>
-                        <input type="text" class="form-control" id="igr" name="igr" placeholder="IGR" required>
+                        <input type="text" class="form-control" id="igr" name="numIGR" placeholder="IGR" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
