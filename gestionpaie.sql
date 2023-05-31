@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 25 mai 2023 à 15:43
+-- Généré le : mer. 31 mai 2023 à 13:35
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -24,33 +24,39 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `absence`
+--
+
+DROP TABLE IF EXISTS `absence`;
+CREATE TABLE IF NOT EXISTS `absence` (
+  `idAbsence` int(11) NOT NULL AUTO_INCREMENT,
+  `dateAbsence` date NOT NULL,
+  `nbJours` int(11) NOT NULL,
+  `justification` text NOT NULL,
+  `idEmploye` int(11) NOT NULL,
+  `pieceJoint` varchar(120) NOT NULL,
+  PRIMARY KEY (`idAbsence`),
+  KEY `idEmploye` (`idEmploye`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `admin`
 --
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
-  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
-  `Nom` varchar(20) NOT NULL,
-  `Prenom` varchar(30) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `DateCreation` date NOT NULL,
-  `MotDePasse` varchar(30) NOT NULL,
+  `idAdmin` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(20) NOT NULL,
+  `prenom` varchar(20) NOT NULL,
   `image` varchar(120) NOT NULL,
-  PRIMARY KEY (`id_admin`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `amo`
---
-
-DROP TABLE IF EXISTS `amo`;
-CREATE TABLE IF NOT EXISTS `amo` (
-  `idAmo` int(11) NOT NULL AUTO_INCREMENT,
-  `valeur` double(7,2) NOT NULL,
-  PRIMARY KEY (`idAmo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `email` varchar(100) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idAdmin`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -62,7 +68,7 @@ DROP TABLE IF EXISTS `avance`;
 CREATE TABLE IF NOT EXISTS `avance` (
   `idAvance` int(11) NOT NULL AUTO_INCREMENT,
   `statut` tinyint(1) NOT NULL,
-  `dateEmbauche` date NOT NULL,
+  `dateDemande` date NOT NULL,
   `avance` double(7,2) NOT NULL,
   `idEmploye` int(11) NOT NULL,
   PRIMARY KEY (`idAvance`),
@@ -86,19 +92,6 @@ CREATE TABLE IF NOT EXISTS `binificier` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `cnss`
---
-
-DROP TABLE IF EXISTS `cnss`;
-CREATE TABLE IF NOT EXISTS `cnss` (
-  `idCnss` int(11) NOT NULL AUTO_INCREMENT,
-  `valeur` double(7,2) NOT NULL,
-  PRIMARY KEY (`idCnss`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `conge`
 --
 
@@ -106,10 +99,34 @@ DROP TABLE IF EXISTS `conge`;
 CREATE TABLE IF NOT EXISTS `conge` (
   `idConge` int(11) NOT NULL AUTO_INCREMENT,
   `typeConge` varchar(40) NOT NULL,
+  `dateDebut` date NOT NULL,
+  `dateFin` date NOT NULL,
   `idEmploye` int(11) NOT NULL,
   PRIMARY KEY (`idConge`),
   KEY `idEmploye` (`idEmploye`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contrat`
+--
+
+DROP TABLE IF EXISTS `contrat`;
+CREATE TABLE IF NOT EXISTS `contrat` (
+  `numContrat` int(11) NOT NULL AUTO_INCREMENT,
+  `idEmploye` int(11) NOT NULL,
+  `idEntreprise` int(11) NOT NULL,
+  `type` enum('CDD','CDI','CTT') NOT NULL,
+  `poste` varchar(20) NOT NULL,
+  `salaireBase` decimal(7,2) NOT NULL,
+  `dateEmbauche` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateFin` datetime DEFAULT NULL,
+  `motif` text,
+  PRIMARY KEY (`numContrat`),
+  KEY `idEmploye` (`idEmploye`),
+  KEY `idEntreprise` (`idEntreprise`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -119,26 +136,31 @@ CREATE TABLE IF NOT EXISTS `conge` (
 
 DROP TABLE IF EXISTS `employe`;
 CREATE TABLE IF NOT EXISTS `employe` (
-  `idEmploye` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `Nom` varchar(20) NOT NULL,
-  `Prenom` varchar(20) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Tel` varchar(10) NOT NULL,
-  `Image` varchar(80) NOT NULL,
-  `Diplome` varchar(40) NOT NULL,
-  `DateNaissance` date NOT NULL,
-  `DateCreation` date NOT NULL,
-  `Createur` int(3) NOT NULL,
-  `SalairedeBase` float NOT NULL,
-  `NbEnfants` int(2) NOT NULL,
-  `Password` varchar(40) NOT NULL,
-  `DateEmbauche` date NOT NULL,
-
-  `idAmo` VARCHAR(24) NOT NULL,
-  `idCnss` VARCHAR(24) NOT NULL,
-  `idIgr` VARCHAR(24) NOT NULL,
-  `idCimr` VARCHAR(24) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `idEmploye` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(20) NOT NULL,
+  `prenom` varchar(20) NOT NULL,
+  `cin` varchar(10) NOT NULL,
+  `sexe` enum('Homme','Femme') NOT NULL,
+  `dateNaiss` date NOT NULL,
+  `adresse` varchar(100) NOT NULL,
+  `ville` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `image` varchar(80) NOT NULL,
+  `situationF` enum('Célibataire','Marié') NOT NULL,
+  `nbEnfants` int(2) NOT NULL,
+  `diplome` varchar(40) NOT NULL,
+  `numCNSS` varchar(24) NOT NULL,
+  `numAMO` varchar(24) NOT NULL,
+  `numCIMR` varchar(24) DEFAULT NULL,
+  `numIGR` varchar(24) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  `createdBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idEmploye`),
+  UNIQUE KEY `cin` (`cin`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -151,45 +173,34 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
   `idEntreprise` int(11) NOT NULL AUTO_INCREMENT,
   `nomEntreprise` varchar(30) NOT NULL,
   `adresse` varchar(40) NOT NULL,
-  ville VARCHAR(20),
-  descriptif TEXT,
-
-  `createDate` date NOT NULL,
-  `createdBy` varchar(40) NOT NULL,
+  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  `createdBy` int(11) NOT NULL,
   PRIMARY KEY (`idEntreprise`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `hs`
+-- Structure de la table `heuressupp`
 --
 
-DROP TABLE IF EXISTS `hs`;
-CREATE TABLE IF NOT EXISTS `hs` (
-  `idHs` int(11) NOT NULL AUTO_INCREMENT,
-  `statut` tinyint(1) NOT NULL,
+DROP TABLE IF EXISTS `heuressupp`;
+CREATE TABLE IF NOT EXISTS `heuressupp` (
+  `idHeuresSupp` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(20) NOT NULL,
   `dateTravail` date NOT NULL,
-  `nbHs` int(2) NOT NULL,
+  `nbHs` int(11) NOT NULL,
   `idEmploye` int(11) NOT NULL,
-  PRIMARY KEY (`idHs`),
+  PRIMARY KEY (`idHeuresSupp`),
   KEY `idEmploye` (`idEmploye`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
--- --------------------------------------------------------
---
--- Structure de la table `igr`
---
-
-DROP TABLE IF EXISTS `igr`;
-CREATE TABLE IF NOT EXISTS `igr` (
-  `idIgr` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idIgr`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
+
 --
 -- Structure de la table `prime`
 --
+
 DROP TABLE IF EXISTS `prime`;
 CREATE TABLE IF NOT EXISTS `prime` (
   `idPrime` int(11) NOT NULL AUTO_INCREMENT,
@@ -202,21 +213,65 @@ CREATE TABLE IF NOT EXISTS `prime` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `primeprsenalisé`
+--
+
+DROP TABLE IF EXISTS `primeprsenalisé`;
+CREATE TABLE IF NOT EXISTS `primeprsenalisé` (
+  `idPrimeP` int(11) NOT NULL AUTO_INCREMENT,
+  `typePrime` varchar(8) NOT NULL,
+  `prime` double(7,2) NOT NULL,
+  `datePrime` date NOT NULL,
+  `idEmploye` int(11) NOT NULL,
+  PRIMARY KEY (`idPrimeP`),
+  KEY `idEmploye` (`idEmploye`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reclamation`
+--
+
+DROP TABLE IF EXISTS `reclamation`;
+CREATE TABLE IF NOT EXISTS `reclamation` (
+  `idReclamation` int(11) NOT NULL AUTO_INCREMENT,
+  `sujet` int(11) NOT NULL,
+  `contenu` int(11) NOT NULL,
+  `dateReclamation` int(11) NOT NULL,
+  `status` varchar(6) NOT NULL,
+  `idEmlploye` int(11) NOT NULL,
+  `pieceJoint` varchar(100) NOT NULL,
+  PRIMARY KEY (`idReclamation`),
+  KEY `idEmlploye` (`idEmlploye`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `regle`
 --
 
 DROP TABLE IF EXISTS `regle`;
 CREATE TABLE IF NOT EXISTS `regle` (
-  `idRegle` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `formule` varchar(70) NOT NULL,
   `idEntreprise` int(11) NOT NULL,
-  `idIgr` int(11) NOT NULL,
-  `idCnss` int(11) NOT NULL,
-  `idAvance` int(11) NOT NULL,
-  `idConge` int(11) NOT NULL,
-  `idAmo` int(11) NOT NULL,
-  `idPrime` int(11) NOT NULL,
-  `idHs` int(11) NOT NULL
+  `idRubrique` int(11) NOT NULL,
+  `formule` varchar(120) NOT NULL,
+  KEY `idEntreprise` (`idEntreprise`),
+  KEY `idRubrique` (`idRubrique`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `rubrique`
+--
+
+DROP TABLE IF EXISTS `rubrique`;
+CREATE TABLE IF NOT EXISTS `rubrique` (
+  `idRubrique` int(11) NOT NULL AUTO_INCREMENT,
+  `nomRubrique` varchar(100) NOT NULL,
+  PRIMARY KEY (`idRubrique`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -224,10 +279,16 @@ CREATE TABLE IF NOT EXISTS `regle` (
 --
 
 --
+-- Contraintes pour la table `absence`
+--
+ALTER TABLE `absence`
+  ADD CONSTRAINT `absence_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `avance`
 --
 ALTER TABLE `avance`
-  ADD CONSTRAINT `avance_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`);
+  ADD CONSTRAINT `avance_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `binificier`
@@ -240,41 +301,41 @@ ALTER TABLE `binificier`
 -- Contraintes pour la table `conge`
 --
 ALTER TABLE `conge`
-  ADD CONSTRAINT `conge_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`);
+  ADD CONSTRAINT `conge_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `employe`
+-- Contraintes pour la table `contrat`
 --
-ALTER TABLE `employe`
-  ADD CONSTRAINT `employe_ibfk_1` FOREIGN KEY (`idAmo`) REFERENCES `amo` (`idAmo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `employe_ibfk_2` FOREIGN KEY (`idIgr`) REFERENCES `igr` (`idIgr`),
-  ADD CONSTRAINT `employe_ibfk_3` FOREIGN KEY (`idCnss`) REFERENCES `cnss` (`idCnss`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `contrat`
+  ADD CONSTRAINT `contrat_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contrat_ibfk_2` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`idEntreprise`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `hs`
+-- Contraintes pour la table `heuressupp`
 --
-ALTER TABLE `hs`
-  ADD CONSTRAINT `hs_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `heuressupp`
+  ADD CONSTRAINT `heuressupp_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `primeprsenalisé`
+--
+ALTER TABLE `primeprsenalisé`
+  ADD CONSTRAINT `primeprsenalisé_ibfk_1` FOREIGN KEY (`idEmploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `reclamation`
+--
+ALTER TABLE `reclamation`
+  ADD CONSTRAINT `reclamation_ibfk_1` FOREIGN KEY (`idEmlploye`) REFERENCES `employe` (`idEmploye`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `regle`
 --
 ALTER TABLE `regle`
   ADD CONSTRAINT `regle_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `entreprise` (`idEntreprise`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `regle_ibfk_2` FOREIGN KEY (`idIgr`) REFERENCES `igr` (`idIgr`),
-  ADD CONSTRAINT `regle_ibfk_3` FOREIGN KEY (`idAmo`) REFERENCES `amo` (`idAmo`),
-  ADD CONSTRAINT `regle_ibfk_4` FOREIGN KEY (`idAvance`) REFERENCES `avance` (`idAvance`),
-  ADD CONSTRAINT `regle_ibfk_5` FOREIGN KEY (`idCnss`) REFERENCES `cnss` (`idCnss`),
-  ADD CONSTRAINT `regle_ibfk_6` FOREIGN KEY (`idAvance`) REFERENCES `avance` (`idAvance`),
-  ADD CONSTRAINT `regle_ibfk_7` FOREIGN KEY (`idHs`) REFERENCES `hs` (`idHs`),
-  ADD CONSTRAINT `regle_ibfk_8` FOREIGN KEY (`idPrime`) REFERENCES `prime` (`idPrime`),
-  ADD CONSTRAINT `regle_ibfk_9` FOREIGN KEY (`idConge`) REFERENCES `conge` (`idConge`);
+  ADD CONSTRAINT `regle_ibfk_2` FOREIGN KEY (`idRubrique`) REFERENCES `rubrique` (`idRubrique`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-<<<<<<< HEAD
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-=======
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
->>>>>>> bf8b7f8232af1d9486bb57191ae17025b87a3605
