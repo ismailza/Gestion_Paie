@@ -1,6 +1,13 @@
 <?php 
-  include ("../CONFIG.php");
-  // require_once ("../scripts/inc.php");
+  require_once '../scripts/inc.php';
+  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains")
+  {
+    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
+    header("location: home.php");
+    exit();
+  }
+  require_once '../scripts/entreprise.inc.php';
+  $entreprises = getAllEntreprise();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +16,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
-  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
   <link rel="stylesheet" href="css/table-style.css">
@@ -54,29 +61,31 @@
                         <th>Nom</th>
                         <th>Ville</th>
                         <th>Adresse</th>
+                        <th>Descroptif</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
+                      <?php foreach ($entreprises as $ent): ?>
                       <tr>
-                        <td>JI2A</td>
-                        <td>Mohammedia</td>
-                        <td>222, Riad Salam</td>
+                        <td><?php echo $ent['nomEntreprise']; ?></td>
+                        <td><?php echo $ent['ville']; ?></td>
+                        <td><?php echo $ent['adresse']; ?></td>
+                        <td><?php echo $ent['descriptif']; ?></td>
                         <td>
-                          <button type="button" class="btn btn-info btn-rounded btn-icon">
-                            <i class="mdi mdi-eye-outline"></i>
-                          </button>
-                       
-                          <button type="button" class="btn btn-warning btn-rounded btn-icon">
-                            <i class="mdi mdi-lead-pencil"></i>
-                          </button>
-                       
-                          <button type="button" class="btn btn-danger btn-rounded btn-icon">
-                            <i class="mdi mdi-delete-outline"></i>
-                          </button>
-                        </td>
+                            <form action="../scripts/entreprise.php" method="post">
+                              <input type="hidden" name="id" value="<?php echo $ent['idEntreprise']; ?>">
+                              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="submit" class="btn-check" name="update_id" id="btnradio1" autocomplete="off" checked>
+                                <label class="btn btn-warning" for="btnradio1"><i class="mdi mdi-lead-pencil"></i></i></label>
+
+                                <input type="submit" class="btn-check" name="delete" id="btnradio2" autocomplete="off">
+                                <label class="btn btn-danger" for="btnradio2"><i class="mdi mdi-delete-outline"></i></label>
+                              </div>
+                            </form>
+                          </td>
                       </tr>
-                      
+                      <?php endforeach; ?>
                     </tbody>
                   </table>
                 </div>

@@ -1,6 +1,12 @@
 <?php
   require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
+  if (!isset($_GET['id']) || empty($_GET['id']))
+  {
+    header("location: view_employes.php");
+    exit();
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

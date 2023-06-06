@@ -1,7 +1,11 @@
 <?php
-include("../CONFIG.php");
+require_once '../CONFIG.php';
 session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
-// if (isset($_SESSION['auth'])) header("location: home.php");
+if (isset($_SESSION['auth'])) 
+{
+  header("location: home.php");
+  die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

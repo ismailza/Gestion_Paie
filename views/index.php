@@ -1,4 +1,4 @@
-<?php include("../CONFIG.php"); ?>
+<?php require_once '../CONFIG.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

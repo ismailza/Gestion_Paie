@@ -1,7 +1,13 @@
 <?php
-  include ("../CONFIG.php");
-  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
-  // require '../scripts/inc.php';
+  require_once '../CONFIG.php';
+  require_once '../scripts/inc.php';
+  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains" &&
+      $_SESSION['auth']['poste'] != "Responsable Paie")
+  {
+    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
+    header("location: home.php");
+    exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +16,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
-  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
 </head>

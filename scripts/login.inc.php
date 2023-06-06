@@ -20,8 +20,8 @@
     {
       if (password_verify($password, $user['password']))
       {
-        $_SESSION['auth'] = $user['poste'];
-        $_SESSION['id']   = $user['idEmploye'];
+        $_SESSION['auth']   = getEmploye($user['idEmploye']);
+
         if (!empty($remember))
         {
           $expired = time()+3600*24*60;

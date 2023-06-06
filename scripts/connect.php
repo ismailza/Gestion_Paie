@@ -1,6 +1,6 @@
 <?php
 
-  require "../CONFIG.php";
+  require_once "../CONFIG.php";
 
   try
   {
@@ -9,8 +9,7 @@
     $dbname = DB_NAME;
     $user   = DB_USER;
     $pass   = DB_PASS;
-    $pdo = new PDO("$sgbd:host=$host;dbname=$dbname",$user,$pass);
-    $db = "hello";
+    $pdo    = new PDO("$sgbd:host=$host;dbname=$dbname",$user,$pass);
   }
   catch (PDOException $e)
   {

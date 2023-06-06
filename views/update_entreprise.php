@@ -1,7 +1,12 @@
 <?php 
-  include ("../CONFIG.php");
-  // require_once ("../scripts/inc.php");
-  $entr;
+  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
+  if (!isset($_SESSION['entreprise_id']))
+  {
+    header("location: view_employes.php");
+    exit();
+  }
+  require_once '../scripts/entreprise.inc.php';
+  $entr = getEntreprise($_SESSION['entreprise_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +15,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
-  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
 </head>
@@ -30,7 +35,7 @@
             <div class="col-sm-12">
               <div class="home-tab">
 
-                <div class="title">Modier Entreprise</div>    
+                <div class="title">Modifier Entreprise</div>    
                 
                 <?php if (isset($_SESSION['error'])): ?>  
                   <div class="alert alert-danger" role="alert">
@@ -41,7 +46,7 @@
                   </div>
                 <?php endif; ?> 
 
-                <form method="post" action="../controllers/..." class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
+                <form method="post" action="../scripts/entreprise.php" class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
                   <div class="progress mt-3" style="height: 30px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="font-weight:bold; font-size:15px;" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -55,7 +60,7 @@
 
                       <div class="col-md-6 form-group">
                         <label for="nom" class="form-label">Nom de l'entreprise</label>
-                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $entr->nomEntreprise; ?>" placeholder="Nom de l'entreprise" required>
+                        <input type="text" class="form-control" id="nom" name="nomEntreprise" value="<?php echo $entr['nomEntreprise']; ?>" placeholder="Nom de l'entreprise" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
@@ -63,7 +68,7 @@
                       <div class="col-md-3">
                         <label for="ville" class="form-label">Ville</label>
                         <select class="form-select" id="ville" name="ville" required>
-                          <option selected value="<?php echo $entr->ville; ?>"></option>
+                          <option selected value="<?php echo $entr['ville']; ?>"><?php echo $entr['ville']; ?></option>
                         </select>
                         <div class="invalid-feedback">
                           * Champ obligatoire
@@ -71,14 +76,14 @@
                       </div>
                       <div class="col-md-12">
                         <label for="adresse" class="form-label">Adresse de l'entreprise</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse" value="<?php echo $entr->adresse; ?>" placeholder="Adresse de résidence" required>
+                        <input type="text" class="form-control" id="adresse" name="adresse" value="<?php echo $entr['adresse']; ?>" placeholder="Adresse de résidence" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>
                       </div>
                       <div class="col-md-12">
                         <label for="descriptif" class="form-label">Descriptif de l'entreprise</label>
-                        <textarea class="form-control" name="descriptif" id="descriptif" rows="10" required><?php echo $entr->descriptif; ?></textarea>
+                        <textarea class="form-control" name="descriptif" id="descriptif" rows="10" required><?php echo $entr['descriptif']; ?></textarea>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>

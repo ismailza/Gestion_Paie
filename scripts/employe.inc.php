@@ -1,15 +1,12 @@
 <?php
 
-  require 'sendMail.php';
-
-  function upload_image($img)
+  function upload_image ($img)
   {
-    $valid_extension  = array("png","jpeg","jpg");
-    $target_file      = "../views/images/profile/".$img['name'];
-    $file_extension   = pathinfo($target_file, PATHINFO_EXTENSION);     
+    $valid_extension  = array("png", "jpeg", "jpg");
+    $target_file      = "../views/images/profile/" . $img['name'];
+    $file_extension   = pathinfo($target_file, PATHINFO_EXTENSION);
     $file_extension   = strtolower($file_extension);
-    if (in_array($file_extension, $valid_extension))
-    {
+    if (in_array($file_extension, $valid_extension)) {
       if (move_uploaded_file($img['tmp_name'], $target_file)) return true;
     }
     return false;
@@ -17,73 +14,63 @@
 
   function checkLogin ($login)
   {
-    require 'connect.php';
+    require_once 'connect.php';
     $stm = $pdo->prepare("SELECT * FROM employe WHERE email = :em");
     $stm->bindValue("em", $login,   PDO::PARAM_STR);
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
 
+  function checkCIN ($CIN)
+  {
+    require_once 'connect.php';
+    $stm = $pdo->prepare("SELECT * FROM employe WHERE cin = :cin");
+    $stm->bindValue("cni", $CIN, PDO::PARAM_STR);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
   function setResetCode ($email, $code)
   {
-    require 'connect.php';
+    require_once 'connect.php';
     $stm = $pdo->prepare("INSERT INTO resetCode VALUES (?, ?)");
     return $stm->execute(array($email, $code));
   }
 
-  function save ($values, $contrat)
+  function saveEmploye ($values, $contrat)
   {
-    require 'connect.php';
-    $stm = $pdo->prepare("INSERT INTO employe ('nom','prenom','cin','sexe','dateNaiss','adresse','ville','email','phone','image',
-    'situationF','nbEnfants','diplome','numCNSS','numAMO','numCIMR','numIGR','password','createdAt','createdBy') 
-    VALUES
-    (".
-      $values['nom'].",".$values['prenom'].",".$values['cin'].",".$values['sexe'].",".$values['dateNaiss'].",".$values['adresse'].",".$values['ville'].",".
-      $values['email'].",".$values['phone'].",".$values['situationF'].",".$values['nbEnfants'].",".$values['diplome'].",".$values['numCNSS'].",".$values['numAMO'].",".$values['numCIMR'].",".$values['numIGR'].",".$values['password'].",CURRENT_TIMESTAMP,".$values['createdBy']
-    .")
-    ");
-    // foreach ($values as $key => $value) $stm->bindValue($key, $value);
-    if ($stm->execute())
-    {
+    require_once 'connect.php';
+    $query = "INSERT INTO employe VALUES (:idEmploye,:nom,:prenom,:cin,:sexe,:dateNaiss,:adresse,:ville,:email,:phone,:image,
+                                          :situationF,:nbEnfants,:diplome,:numCNSS,:numAMO,:numCIMR,:numIGR,:password,CURRENT_TIMESTAMP,:createdBy)";
+    $stm = $pdo->prepare($query);
+    if ($stm->execute($values)) {
       $id = $pdo->lastInsertId();
       $contrat['idEmploye'] = $id;
-      $stm = $pdo->prepare("INSERT INTO contrat ('idEmploye','idEntreprise','type','poste','salaireBase','dateEmbauche') 
-      VALUES 
-      (".
-      $contrat['idEmploye'].",".$contrat['idEntreprise'].",".$contrat['type'].",".$contrat['poste'].",".$contrat['salaireBase'].",CURRENT_TIMESTAMP
-      )
-      ");
-      // foreach ($contrat as $key => $c) $stm->bindValue($key, $c);
-      return $stm->execute();
+      $stm = $pdo->prepare("INSERT INTO contrat VALUES (:numContrat,:idEmploye,:idEntreprise,:type,:poste,:salaireBase,CURRENT_TIMESTAMP,:dateFin,:motif)");
+      return $stm->execute($contrat);
     }
+    return false;
   }
 
-  function update ($values, $id)
+  function updateEmploye ($values, $id)
   {
-    require 'connect.php';
-    $stm = $pdo->prepare("UPDATE employe SET 
-          nom = ?, prenom = ?, cin = ?, sexe = ?, dateNaiss = ?, email = ?, phone = ?, adresse = ?, ville = ?, image = ?, 
-          situation = ?, nbEnfants = ?, diplome = ?, post = ?, salaire = ?, numCnss = ?, numAmo = ?, numIgr = ?, numCIMR = ?
-          WHERE idEmploye = $id");
-    /*
-    $stm = $pdo->prepare("UPDATE employe SET 
-        nom = :ln, prenom = :fn, cin = :cin, sexe = :s, dateNaiss = :bd, email = :em, phone = :ph, adresse = :ad, ville = :vl, 
-        image = :img, situation = :stf, nbEnfants = :nbf, diplome = :dpl, post = :pst, salaire = :slr, 
-        numCnss = :cnss, numAmo = :amo, numIgr = :igr, numCIMR = :cimr");
-    */
+    require_once 'connect.php';
+    $stm = $pdo->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, cin = :cin, sexe = :sexe, dateNaiss = :dateNaiss, adresse = :adresse, ville = :ville, email = :email, phone = :phone, image = :image, 
+            situationF = :situationF, nbEnfants = :nbEnfants, diplome = :diplome, numCNSS = :numCNSS, numAMO = :numAMO, numCIMR = :numCIMR, numIGR = :numIGR
+            WHERE idEmploye = $id");
     return $stm->execute($values);
   }
 
-  function delete ($id)
+  function deleteEmploye ($id)
   {
-    require 'connect.php';
+    require_once 'connect.php';
     $stm = $pdo->prepare("DELETE FROM employe WHERE idEmploye = $id");
     return $stm->execute();
   }
 
   function resetPassword ($newPassword, $id)
   {
-    require 'connect.php';
+    require_once 'connect.php';
     $h_new_pswd = password_hash($newPassword, PASSWORD_DEFAULT);
     $stm = $pdo->prepare("UPDATE employe SET password = ? WHERE idEmploye = $id");
     return $stm->execute(array($h_new_pswd));
@@ -92,7 +79,19 @@
   function getEmploye ($id)
   {
     require 'connect.php';
-    $stm = $pdo->prepare("SELECT * FROM employe WHERE idEmploye = $id");
+    $stm = $pdo->prepare("SELECT * FROM employe NATURAL JOIN contrat WHERE idEmploye = $id");
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
+
+  function getAllEmployes ()
+  {
+    require_once 'connect.php';
+    $stm = $pdo->prepare("SELECT * FROM employe NATURAL JOIN contrat");
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  
+
+  

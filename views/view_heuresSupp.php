@@ -1,6 +1,12 @@
 <?php
   require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
+  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains")
+  {
+    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
+    header("location: home.php");
+    exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +36,8 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
+
+                <div class="title">Les heures supplémentaires</div>   
                 <?php if (isset($_SESSION['success'])): ?>
                   <div class="alert alert-success" role="alert">
                     <?php 
@@ -44,9 +52,27 @@
                       unset($_SESSION['error']);
                     ?>
                   </div>
-                <?php endif; ?>  
+                <?php endif; ?> 
 
-                
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                  <label class="btn btn-outline-warning" for="btnradio1">Toutes</label>
+
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                  <label class="btn btn-outline-danger" for="btnradio2">Accéptées</label>
+
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <label class="btn btn-outline-success" for="btnradio3">Refusées</label>
+                </div>
+
+                <table width="100%" id="table">
+                  <thead>
+                    
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+                </table>
                 
               </div>
             </div>
@@ -60,5 +86,6 @@
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
+
 </body>
 </html>

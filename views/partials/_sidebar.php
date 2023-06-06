@@ -22,8 +22,9 @@
           </ul>
         </div>
       </li>
-      <?php // if ($_SESSION['role'] == "Responsable RH"): ?>
+      
       <li class="nav-item nav-category">Gestion</li>
+      <?php if ($_SESSION['auth']['poste'] == "Responsable Ressources Humains"): ?>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#entreprise" aria-expanded="false" aria-controls="entreprise">
           <i class="menu-icon mdi mdi-domain"></i>
@@ -50,6 +51,7 @@
           </ul>
         </div>
       </li>
+      <?php elseif ($_SESSION['auth']['poste'] == "Responsable Paie"): ?>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#rubrique" aria-expanded="false" aria-controls="rubrique">
           <i class="menu-icon mdi mdi-card-text-outline"></i>
@@ -76,11 +78,11 @@
           </ul>
         </div>
       </li>
-      <?php //endif; ?>
+      <?php endif; ?>
       <li class="nav-item nav-category">Notifications</li>
       <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="menu-icon mdi mdi-file-document"></i>
+        <a class="nav-link" href="view_heuresSupp.php">
+          <i class="menu-icon mdi mdi-timer-sand"></i>
           <span class="menu-title">Heures Supplimentaires</span>
         </a>
       </li>
@@ -97,7 +99,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="view_reclamations.php">
           <i class="menu-icon mdi mdi-file-document"></i>
           <span class="menu-title">Reclamations</span>
         </a>

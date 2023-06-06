@@ -1,6 +1,6 @@
 <?php 
-  include ("../CONFIG.php");
-  // require_once ("../scripts/inc.php");
+  require_once '../CONFIG.php';
+  require_once ("../scripts/inc.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo SITE_TITLE; ?></title>
-  <link rel="shortcut icon" href="<?php echo FAVICON; ?>" />
+  <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
 </head>

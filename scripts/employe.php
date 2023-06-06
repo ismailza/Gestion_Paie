@@ -1,13 +1,13 @@
 <?php
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
 
-  $_SESSION['id'] = 1;
-
-  include ('employe.inc.php');
+  require_once 'employe.inc.php';
+  require_once 'sendMail.php';
 
   if (isset($_POST['submit']))
-  {
+  { 
     $values = [
+      'idEmploye'   => '',
       'nom'         => $_POST['nom'],
       'prenom'      => $_POST['prenom'],
       'cin'         => $_POST['cin'],
@@ -29,11 +29,14 @@
       'createdBy'   => $_SESSION['id']
     ];
     $contrat = [
+      'numContrat'  => '',
       'idEmploye'   => $_SESSION['id'],
       'idEntreprise'=> $_POST['entreprise'],
       'type'        => $_POST['contrat'],
       'poste'       => $_POST['poste'],
       'salaireBase' => $_POST['salaireB'],
+      'dateFin'     => NULL,
+      'motif'       => NULL
     ];
 
     if (!upload_image($_FILES['image']))
@@ -43,7 +46,20 @@
       exit();
     }
     
-    $stm = save ($values, $contrat);
+    if (!empty(checkLogin($values['email'])))
+    {
+      $_SESSION['error'] = "Email déja existe!";
+      header("location: ../views/add_employe.php");
+      exit();
+    }
+    if (!empty(checkCIN($values['cin'])))
+    {
+      $_SESSION['error'] = "CIN déja existe!";
+      header("location: ../views/add_employe.php");
+      exit();
+    }
+    
+    $stm = saveEmploye ($values, $contrat);
 
     if ($stm) 
     {
@@ -57,29 +73,55 @@
       header("location: ../views/add_employe.php");
     }
   }
-  else if (isset($_POST['update']))
+  elseif (isset($_POST['update']))
   {
-
-    header("location: ../views/view_employes.php");
-  }
-  else if (isset($_POST['delete']))
-  {
-    if (delete($_POST['id'])) $_SESSION['success'] = "L'employe est supprimé avec succès";
+    $values = [
+      'nom'         => $_POST['nom'],
+      'prenom'      => $_POST['prenom'],
+      'cin'         => $_POST['cin'],
+      'sexe'        => $_POST['sexe'],
+      'dateNaiss'   => $_POST['dateNaiss'],
+      'adresse'     => $_POST['adresse'],
+      'ville'       => $_POST['ville'],
+      'email'       => $_POST['email'],
+      'phone'       => $_POST['phone'],
+      'image'       => $_FILES['image']['name'],
+      'situationF'  => $_POST['situationF'],
+      'nbEnfants'   => $_POST['nbEnfants'],
+      'diplome'     => $_POST['diplome'],
+      'numCNSS'     => $_POST['numCNSS'],
+      'numAMO'      => $_POST['numAMO'],
+      'numCIMR'     => $_POST['numCIMR'],
+      'numIGR'      => $_POST['numIGR'],
+    ];
+    $stm = updateEmploye($values, $_SESSION['employe_id']);
+    unset($_SESSION['employe_id']);
+    if ($stm) $_SESSION['success'] = "L'employé a été modifier avec succès";  
     else $_SESSION['error'] = "Something is wrong!";
     header("location: ../views/view_employes.php");
   }
-  else if (isset($_POST['reset']))
+  elseif (isset($_POST['update_id']))
+  {
+    $_SESSION['employe_id'] = $_POST['id'];
+    header("location: ../views/update_employe.php");
+  }
+  elseif (isset($_POST['delete']))
+  {
+    if (deleteEmploye($_POST['id'])) $_SESSION['success'] = "L'employe est supprimé avec succès";
+    else $_SESSION['error'] = "Something is wrong!";
+    header("location: ../views/view_employes.php");
+  }
+  elseif (isset($_POST['reset']))
   {
     $current_password = $_POST['current_password'];
     $new_password     = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
-    $id               = $_SESSION['id'];
+    $emp              = $_SESSION['auth'];
 
-    $emp = getEmploye($id);
     if (!$emp) $_SESSION['error'] = "Something is wrong!";
     elseif (!password_verify($current_password, $emp['password'])) $_SESSION['error'] = "Mot de passe actuel est incorrect!";
     elseif ($new_password != $confirm_password) $_SESSION['error'] = "Mot de passe de confirmation est incorrecct!";
-    elseif (resetPassword($new_password, $id)) 
+    elseif (resetPassword($new_password, $emp['idEmploye'])) 
     {
       $_SESSION['success'] = "Votre mot de passe est modifié avec succès";
       header("location: ../views/home.php");
