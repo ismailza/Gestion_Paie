@@ -1,5 +1,12 @@
 <?php 
+  require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
+  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains")
+  {
+    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
+    header("location: home.php");
+    exit();
+  }
   require_once '../scripts/entreprise.inc.php';
   $entreprises = getAllEntreprise();
 ?>

@@ -1,8 +1,6 @@
 <?php
-
   include ("../CONFIG.php");
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();  
-  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +23,7 @@
         <div class="col-lg-6">
           <div class="card1 pb-5">
             <div class="row">
-              <a href="index.php"><img src="images/logo1.svg" alt="logo" class="logo"></a>
+                <a href="index.php"><img src="images/logo1.svg" alt="logo" class="logo"></a>
             </div>
             <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
               <img src="https://i.imgur.com/uNGdWHi.png" class="image">
@@ -50,9 +48,10 @@
             ?>
             </div>
             <?php endif; ?> 
+
             <div class="row px-3">
-              <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
-              <input class="mb-4" type="email" name="email" placeholder="Email" required>
+              <label class="mb-1"><h6 class="mb-0 text-sm">Code de vérification</h6></label>
+              <input class="mb-4" type="number" min="0" size="6" name="code" placeholder="Code de vérification" required>
             </div>
 
             <div class="row mb-3 px-3">

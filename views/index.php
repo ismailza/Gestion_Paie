@@ -1,7 +1,6 @@
 <?php require_once '../CONFIG.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,23 +26,7 @@
           <div class="brand header-brand">
             <h1 class="m-0">
               <a href="">
-                <svg width="48" height="32" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-                  <title>Agnes</title>
-                  <defs>
-                    <linearGradient x1="0%" y1="100%" y2="0%" id="logo-a">
-                      <stop stop-color="#007CFE" stop-opacity="0" offset="0%" />
-                      <stop stop-color="#007DFF" offset="100%" />
-                    </linearGradient>
-                    <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="logo-b">
-                      <stop stop-color="#FF4F7A" stop-opacity="0" offset="0%" />
-                      <stop stop-color="#FF4F7A" offset="100%" />
-                    </linearGradient>
-                  </defs>
-                  <g fill="none" fill-rule="evenodd">
-                    <rect fill="url(#logo-a)" width="32" height="32" rx="16" />
-                    <rect fill="url(#logo-b)" x="16" width="32" height="32" rx="16" />
-                  </g>
-                </svg>
+                <img src="images/logo1.svg" alt="logo">
               </a>
             </h1>
           </div>
@@ -144,34 +127,8 @@
       </section>
     </main>
 
-    <footer class="site-footer text-light" style="background-color: #1A237E;color:#fff;">
-
-
-
-      <ul class="footer-social-links list-reset">
-        <li>
-          <a href="#">
-            <span class="screen-reader-text">Facebook</span>
-            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z"
-                fill="#FFFFFF" />
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <span class="screen-reader-text">Google</span>
-            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z"
-                fill="#FFFFFF" />
-            </svg>
-          </a>
-        </li>
-      </ul>
-      <div class="footer-copyright">&copy; 2023 JI2A, all rights reserved</div>
-
+    <footer class="text-center text-white fixed-bottom" style="background-color: #1A237E; padding: 20px 5px 5px 5px;">
+      <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2023 JI2A. All rights reserved.</small>
     </footer>
 
   </div>
@@ -194,15 +151,6 @@
           easing: "cubic-bezier(0.5, -0.01, 0, 1.005)",
           origin: "right",
           interval: 150
-        }),
-        e.reveal(".feature", {
-          duration: 1e3,
-          distance: "40px",
-          easing: "cubic-bezier(0.5, -0.01, 0, 1.005)",
-          interval: 100,
-          origin: "bottom",
-          scale: .9,
-          viewFactor: .5
         }),
         document.querySelectorAll(".pricing-table").forEach(i => {
           const t = [].slice.call(i.querySelectorAll(".pricing-table-header")),

@@ -4,4 +4,5 @@
   {
     $_SESSION['url'] = $_SERVER['REQUEST_URI'];
     header("location: ../views/login.php");
+    exit();
   }

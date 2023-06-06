@@ -2,17 +2,14 @@
   cursor: pointer;
   background: #979393d7;
 }
-
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%
 }
-
 body {
   margin: 0
 }
-
 article,
 aside,
 footer,
@@ -21,12 +18,10 @@ nav,
 section {
   display: block
 }
-
 h1 {
   font-size: 2em;
   margin: 0.67em 0
 }
-
 figcaption,
 figure,
 main {
@@ -1297,7 +1292,7 @@ label {
 .hero {
   position: relative;
   text-align: center;
-  padding-top: 40px
+  padding-top: 30px
 }
 
 .hero::before {
@@ -1340,8 +1335,8 @@ label {
 @media (min-width: 641px) {
   .hero {
     text-align: left;
-    padding-top: 92px;
-    padding-bottom: 80px
+    padding-top: 60px;
+    padding-bottom: 60px
   }
 
   .hero::before {

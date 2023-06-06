@@ -1,13 +1,11 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-
       <li class="nav-item">
         <a class="nav-link" href="home.php">
           <i class="mdi mdi-grid-large menu-icon"></i>
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
-
       <li class="nav-item nav-category">Profile</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#profile" aria-expanded="false" aria-controls="profile">
@@ -22,9 +20,8 @@
           </ul>
         </div>
       </li>
-      
-      <li class="nav-item nav-category">Gestion</li>
       <?php if ($_SESSION['auth']['poste'] == "Responsable Ressources Humains"): ?>
+      <li class="nav-item nav-category">Gestion</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#entreprise" aria-expanded="false" aria-controls="entreprise">
           <i class="menu-icon mdi mdi-domain"></i>
@@ -51,7 +48,33 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item nav-category">Notifications</li>
+      <li class="nav-item">
+        <a class="nav-link" href="view_heuresSupp.php">
+          <i class="menu-icon mdi mdi-timer-sand"></i>
+          <span class="menu-title">Heures Supplimentaires</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="menu-icon mdi mdi-file-document"></i>
+          <span class="menu-title">Abscences</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="menu-icon mdi mdi-file-document"></i>
+          <span class="menu-title">Congés</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="view_reclamations.php">
+          <i class="menu-icon mdi mdi-file-document"></i>
+          <span class="menu-title">Reclamations</span>
+        </a>
+      </li>
       <?php elseif ($_SESSION['auth']['poste'] == "Responsable Paie"): ?>
+      <li class="nav-item nav-category">Gestion</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#rubrique" aria-expanded="false" aria-controls="rubrique">
           <i class="menu-icon mdi mdi-card-text-outline"></i>
@@ -78,32 +101,9 @@
           </ul>
         </div>
       </li>
-      <?php endif; ?>
-      <li class="nav-item nav-category">Notifications</li>
-      <li class="nav-item">
-        <a class="nav-link" href="view_heuresSupp.php">
-          <i class="menu-icon mdi mdi-timer-sand"></i>
-          <span class="menu-title">Heures Supplimentaires</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Abscences</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Congés</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="view_reclamations.php">
-          <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Reclamations</span>
-        </a>
-      </li>
 
+      <?php else: ?>
+
+      <?php endif; ?>
   </ul>
 </nav>

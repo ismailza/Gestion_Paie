@@ -1,7 +1,6 @@
 <?php 
-  session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
-  // require_once ("../scripts/inc.php");
   require_once '../CONFIG.php';
+  require_once '../scripts/inc.php';
   $user = $_SESSION['auth'];
 ?>
 <!DOCTYPE html>

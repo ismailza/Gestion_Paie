@@ -169,10 +169,11 @@ CREATE TABLE IF NOT EXISTS rubrique (
 
 
 -- DATA
+INSERT INTO entreprise VALUES ('','JIEA','222, Riad Salam','Mohammedia','JI2A Entreprise ....','',1);
 INSERT INTO employe VALUES ('','ZAHIR','Ismail','UA123848','Homme','2001-4-17','Sat','Tinejdad','ismailza407@gmail.com','0635791476','IMG_20210102_203408_124.jpg',
                             'Célibataire',0,'LST Génie Logiciel','765462475852744642','765462475852744642','765462475852744642','765462475852744642','$2y$10$jeklm0LK/o4njHFqauWIQO4a4kDK5dTao3o78/NyqZpa4gp0zue8K',CURRENT_TIMESTAMP,NULL);
 INSERT INTO contrat VALUES ('',1,1,'CDI','Responsable Ressources Humains',30000,'',NULL,NULL);
-INSERT INTO entreprise VALUES ('','JIEA','222, Riad Salam','Mohammedia','JI2A Entreprise ....','',1);
+
 
 
 -- FOREIN KEYS

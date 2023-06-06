@@ -30,7 +30,7 @@ if (isset($_SESSION['auth']))
         <div class="col-lg-6">
           <div class="card1 pb-5">
             <div class="row">
-              <a href="index.php"><img src="https://i.imgur.com/CXQmsmF.png" alt="logo" class="logo"></a>
+              <a href="index.php"><img src="images/logo1.svg" alt="logo" class="logo"></a>
             </div>
             <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
               <img src="https://i.imgur.com/uNGdWHi.png" class="image">
@@ -80,42 +80,8 @@ if (isset($_SESSION['auth']))
     </div>
   </div>
 
-  <footer class="site-footer text-light" style="background-color: #1A237E;color:#fff">
-    <div class="container">
-      <div class="site-footer-inner has-top-divider">
-        <div class="brand footer-brand">
-          <a href="#">
-            <svg width="0" height="0" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
-
-            </svg>
-          </a>
-        </div>
-
-        <ul class="footer-social-links list-reset">
-          <li>
-            <a href="#">
-              <span class="screen-reader-text">Facebook</span>
-              <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z"
-                  fill="#FFFFFF" />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <span class="screen-reader-text">Google</span>
-              <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z"
-                  fill="#FFFFFF" />
-              </svg>
-            </a>
-          </li>
-        </ul>
-        <div class="footer-copyright">&copy; 2023 JI2A, all rights reserved</div>
-      </div>
-    </div>
+  <footer class="text-center text-white fixed-bottom" style="background-color: #1A237E; padding: 20px 5px 5px 5px;">
+      <small class="ml-4 ml-sm-5 mb-2" style="color: #6F8394;">Copyright &copy; 2023 JI2A. All rights reserved.</small>
   </footer>
 
   <script>
