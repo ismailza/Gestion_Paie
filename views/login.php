@@ -3,7 +3,7 @@ require_once '../CONFIG.php';
 session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
 if (isset($_SESSION['auth'])) 
 {
-  header("location: home.php");
+  header("location: home");
   die();
 }
 ?>
@@ -30,7 +30,7 @@ if (isset($_SESSION['auth']))
         <div class="col-lg-6">
           <div class="card1 pb-5">
             <div class="row">
-              <a href="index.php"><img src="images/logo1.svg" alt="logo" class="logo"></a>
+              <a href="index"><img src="images/logo1.svg" alt="logo" class="logo"></a>
             </div>
             <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
               <img src="https://i.imgur.com/uNGdWHi.png" class="image">
@@ -69,7 +69,7 @@ if (isset($_SESSION['auth']))
                 <input id="chk1" type="checkbox" name="remember" class="custom-control-input">
                 <label for="chk1" class="custom-control-label text-sm">Remember me</label>
               </div>
-              <a href="forget_password.php" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+              <a href="forget_password" class="ml-auto mb-0 text-sm">Forgot Password?</a>
             </div>
             <div class="row mb-3 px-3">
               <button type="submit" name="submit" class="submit btn btn-blue text-center">Login</button>

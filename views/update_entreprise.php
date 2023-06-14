@@ -2,7 +2,7 @@
   session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
   if (!isset($_SESSION['entreprise_id']))
   {
-    header("location: view_employes.php");
+    header("location: view_employes");
     exit();
   }
   require_once '../scripts/entreprise.inc.php';

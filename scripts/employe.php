@@ -3,11 +3,98 @@
 
   require_once 'employe.inc.php';
   require_once 'sendMail.php';
-
-  if (isset($_POST['submit']))
+  // ** Demande de conge
+  if (isset($_POST['conge']))
+  {
+    $values = [
+      'typeConge'   => $_POST['typeConge'],
+      'dateDebut'   => $_POST['dateDebut'],
+      'dateFin'     => $_POST['dateFin'],
+      'status'      => 'En cours',
+      'idEmploye'   => $_SESSION['auth']['idEmploye']
+    ];
+    if (saveConge($values))
+    {
+      $_SESSION['success'] = "Votre demande de congé est effectuée avec succès";  
+      header("location: ../views/home");
+    }
+    else 
+    {
+      $_SESSION['error'] = "Something is wrong!";
+      header("location: ../views/home");
+    }
+  }
+  // ** Déclaration des heures supp
+  elseif (isset($_POST['heuressupp']))
+  {
+    $values = [
+      'status'      => 'En cours',
+      'dateTravail' => $_POST['dateTravail'],
+      'nbHs'        => $_POST['nbHs'],
+      'idEmploye'   => $_SESSION['auth']['idEmploye']
+    ];
+    if (saveHeuresSupp($values))
+    {
+      $_SESSION['success'] = "La déclaration des heures supplémentaire est effectuée avec succès";  
+      header("location: ../views/home");
+    }
+    else 
+    {
+      $_SESSION['error'] = "Something is wrong!";
+      header("location: ../views/home");
+    }
+  }
+  // ** Déclaration d'une réclamation
+  elseif (isset($_POST['reclamation']))
+  {
+    $values = [
+      'sujet'       => $_POST['sujet'],
+      'contenu'     => $_POST['contenu'],
+      'status'      => 'En cours',
+      'idEmploye'   => $_SESSION['auth']['idEmploye'],
+      'responsable' => $_POST['responsable'],
+      'pieceJoint'  => $_FILES['pieceJoint']['name']
+    ];
+    if (!upload_file($_FILES['pieceJoint'], 'reclamations'))
+    {
+      $_SESSION['error'] = "Erreur lors de télechargement du fichier";
+      header("location: ../views/home");
+      exit();
+    }
+    if (saveReclamation($values))
+    {
+      $_SESSION['success'] = "Reclamation est effectuée avec succès";  
+      header("location: ../views/home");
+    }
+    else 
+    {
+      $_SESSION['error'] = "Something is wrong!";
+      header("location: ../views/home");
+    }
+  }
+  // ** Demande d'avance
+  elseif (isset($_POST['avance']))
+  {
+    $values = [
+      'status'      => 'En cours',
+      'avance'        => $_POST['avance'],
+      'idEmploye'   => $_SESSION['auth']['idEmploye']
+    ];
+    if (saveAvance($values))
+    {
+      $_SESSION['success'] = "Votre demande d'avance est effectuée avec succès";  
+      header("location: ../views/home");
+    }
+    else 
+    {
+      $_SESSION['error'] = "Something is wrong!";
+      header("location: ../views/home");
+    }
+  }
+  // ** Ajouter un employe
+  elseif (isset($_POST['submit']))
   { 
     $values = [
-      'idEmploye'   => '',
       'nom'         => $_POST['nom'],
       'prenom'      => $_POST['prenom'],
       'cin'         => $_POST['cin'],
@@ -26,11 +113,11 @@
       'numCIMR'     => $_POST['numCIMR'],
       'numIGR'      => $_POST['numIGR'],
       'password'    => password_hash($_POST['nom']."_".$_POST['cin'], PASSWORD_DEFAULT),
-      'createdBy'   => $_SESSION['id']
+      'createdBy'   => $_SESSION['auth']['idEmploye']
     ];
     $contrat = [
       'numContrat'  => '',
-      'idEmploye'   => $_SESSION['id'],
+      'idEmploye'   => '',
       'idEntreprise'=> $_POST['entreprise'],
       'type'        => $_POST['contrat'],
       'poste'       => $_POST['poste'],
@@ -42,37 +129,36 @@
     if (!upload_image($_FILES['image']))
     {
       $_SESSION['error'] = "Erreur lors de télechargement de l'image";
-      header("location: ../views/home.php");
+      header("location: ../views/home");
       exit();
     }
     
     if (!empty(checkLogin($values['email'])))
     {
       $_SESSION['error'] = "Email déja existe!";
-      header("location: ../views/add_employe.php");
+      header("location: ../views/add_employe");
       exit();
     }
     if (!empty(checkCIN($values['cin'])))
     {
       $_SESSION['error'] = "CIN déja existe!";
-      header("location: ../views/add_employe.php");
+      header("location: ../views/add_employe");
       exit();
     }
-    
-    $stm = saveEmploye ($values, $contrat);
 
-    if ($stm) 
+    if (saveEmploye ($values, $contrat)) 
     {
       $_SESSION['success'] = "Employe ajouté avec succès";  
-      if (!sendInfoLogin($values['email'],$values['nom'], $values['prenom'], $values['nom']."_".$values['cni'])) $_SESSION['error'] = "Les informations de connexion ne sont pas envoyé!";  
-      header("location: ../views/view_employes.php");
+      if (!sendInfoLogin($values['email'],$values['nom'], $values['prenom'], $values['nom']."_".$values['cin'])) $_SESSION['error'] = "Les informations de connexion ne sont pas envoyé!";  
+      header("location: ../views/view_employes");
     }
     else 
     {
       $_SESSION['error'] = "Something is wrong!";
-      header("location: ../views/add_employe.php");
+      header("location: ../views/add_employe");
     }
   }
+
   elseif (isset($_POST['update']))
   {
     $values = [
@@ -98,19 +184,22 @@
     unset($_SESSION['employe_id']);
     if ($stm) $_SESSION['success'] = "L'employé a été modifier avec succès";  
     else $_SESSION['error'] = "Something is wrong!";
-    header("location: ../views/view_employes.php");
+    header("location: ../views/view_employes");
   }
+
   elseif (isset($_POST['update_id']))
   {
     $_SESSION['employe_id'] = $_POST['id'];
-    header("location: ../views/update_employe.php");
+    header("location: ../views/update_employe");
   }
+
   elseif (isset($_POST['delete']))
   {
     if (deleteEmploye($_POST['id'])) $_SESSION['success'] = "L'employe est supprimé avec succès";
     else $_SESSION['error'] = "Something is wrong!";
-    header("location: ../views/view_employes.php");
+    header("location: ../views/view_employes");
   }
+
   elseif (isset($_POST['reset']))
   {
     $current_password = $_POST['current_password'];
@@ -124,9 +213,10 @@
     elseif (resetPassword($new_password, $emp['idEmploye'])) 
     {
       $_SESSION['success'] = "Votre mot de passe est modifié avec succès";
-      header("location: ../views/home.php");
+      header("location: ../views/home");
       exit();
     }
-    header("location: ../views/reset_password.php");
+    header("location: ../views/reset_password");
   }
-  else header("location: ../views/home.php");
+  
+  else header("location: ../views/home");

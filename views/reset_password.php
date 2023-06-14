@@ -31,10 +31,10 @@
                 <div class="card-container">
                   <div class="card-content">
                     <div class="avatar-flip">
-                      <img class="img-circle" src="<?php echo"images/profile/default-profile-img.png"; ?>" height="150" width="150">
+                      <img class="img-circle" src="images/profile/<?php echo $_SESSION['auth']['image']; ?>" height="150" width="150">
                     </div>
-                    <h2><?php echo "Ismail ZAHIR"; ?></h2>
-                    <h4><?php echo "ismailza407@gmail.com"; ?></h4>
+                    <h2><?php echo $_SESSION['auth']['prenom']." ".$_SESSION['auth']['nom']; ?></h2>
+                    <h4><?php echo $_SESSION['auth']['email']; ?></h4>
                     <form action="../scripts/employe.php" method="post">
                       <?php if(isset($_SESSION['error'])):?>
                         <div class="alert alert-danger" role="alert">
@@ -54,7 +54,7 @@
                       </div>
                       <div class="form-group">
                         <input type="submit" name="reset" class="btn btn-warning" value="Modifier">
-                        <a href="home.php"><input type="button" class="btn btn-warning" value="Annuler"></a>
+                        <a href="home"><input type="button" class="btn btn-warning" value="Annuler"></a>
                       </div>
                     </form>
                   </div>

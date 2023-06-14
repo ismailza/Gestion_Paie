@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `heuressupp` (
   `idEmploye` int(11) NOT NULL,
   PRIMARY KEY (`idHeuresSupp`),
   KEY `idEmploye` (`idEmploye`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

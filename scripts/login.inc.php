@@ -14,12 +14,13 @@
     if (empty($user))
     {
       $_SESSION['error'] = "Email incorrect!";
-      header("location: ../views/login.php");
+      header("location: ../views/login");
     }
     else
     {
       if (password_verify($password, $user['password']))
       {
+        $_SESSION['info'] = "Bienvenue";
         $_SESSION['auth']   = getEmploye($user['idEmploye']);
 
         if (!empty($remember))
@@ -29,13 +30,13 @@
           setcookie('password', password_hash($password, PASSWORD_DEFAULT), $expired);
         }
         if (isset($_SESSION['url'])) header("location: ".$_SESSION['url']);
-        else header("location: ../views/home.php");
+        else header("location: ../views/home");
       }
       else
       {
         $_SESSION['error'] = "Mot de passe incorrect!";
-        header("location: ../views/login.php");
+        header("location: ../views/login");
       }
     }
   } 
-  else header("location: ../views/login.php");
+  else header("location: ../views/login");

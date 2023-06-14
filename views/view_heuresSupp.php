@@ -1,12 +1,7 @@
 <?php
   require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
-  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains")
-  {
-    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
-    header("location: home.php");
-    exit();
-  }
+  require_once '../scripts/rh.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +13,8 @@
   <link rel="shortcut icon" href="images/favicon.png" />
   <!-- plugins:css -->
   <?php include('partials/_plugins-css.html'); ?>
+  <link rel="stylesheet" href="css/card.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container-scroller">
@@ -37,7 +34,7 @@
             <div class="col-sm-12">
               <div class="home-tab">
 
-                <div class="title">Les heures supplémentaires</div>   
+                <div class="title">Les heures supplimentaires</div>   
                 <?php if (isset($_SESSION['success'])): ?>
                   <div class="alert alert-success" role="alert">
                     <?php 
@@ -55,24 +52,22 @@
                 <?php endif; ?> 
 
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                  <label class="btn btn-outline-warning" for="btnradio1">Toutes</label>
+                  <input type="radio" class="btn-check" name="status" id="btnradio1" value="En cours" autocomplete="off" onclick="send_ajax_request({'status':this.value,'date':$('#datepicker').val()}, '../scripts/heuresSupp.inc.php', 'status')" checked>
+                  <label class="btn btn-outline-warning" for="btnradio1">En cours</label>
 
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                  <label class="btn btn-outline-danger" for="btnradio2">Accéptées</label>
+                  <input type="radio" class="btn-check" name="status" id="btnradio2" value="Refusée" autocomplete="off" onclick="send_ajax_request({'status':this.value,'date':$('#datepicker').val()}, '../scripts/heuresSupp.inc.php', 'status')">
+                  <label class="btn btn-outline-danger" for="btnradio2">Refusées</label>
 
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                  <label class="btn btn-outline-success" for="btnradio3">Refusées</label>
+                  <input type="radio" class="btn-check" name="status" id="btnradio3" value="Acceptée" autocomplete="off" onclick="send_ajax_request({'status':this.value,'date':$('#datepicker').val()}, '../scripts/heuresSupp.inc.php', 'status')">
+                  <label class="btn btn-outline-success" for="btnradio3">Acceptées</label>
                 </div>
-
-                <table width="100%" id="table">
-                  <thead>
-                    
-                  </thead>
-                  <tbody>
-                    
-                  </tbody>
-                </table>
+                <div class="d-inline float-end">
+                  <input type="text" class="form-control" name="datepicker" id="datepicker" placeholder="Filtre" onchange="send_ajax_request({'status':$('input[name=\'status\']:checked').val(),'date':this.value}, '../scripts/heuresSupp.inc.php', 'status')">
+                </div>
+                
+                <div class="row" id="status">
+                
+                </div>
                 
               </div>
             </div>
@@ -86,6 +81,15 @@
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+  <script>
+    var dp = $("#datepicker").datepicker({
+        format: "mm-yyyy",
+        startView: "months", 
+        minViewMode: "months"
+    });
 
+    send_ajax_request({'status':'En cours','date':$('#datepicker').val()}, '../scripts/heuresSupp.inc.php', 'status');
+  </script>
 </body>
 </html>

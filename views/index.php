@@ -44,7 +44,7 @@
                 Espace pour les services destinés aux employés et responsables de JI2A.
               </p>
               <p class="hero-cta is-revealing">
-                <a href="login.php" class="button button-primary button-shadow">Se connecter</a>
+                <a href="login" class="button button-primary button-shadow">Se connecter</a>
               </p>
             </div>
             <div class="hero-illustration is-revealing">

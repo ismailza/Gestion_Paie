@@ -16,6 +16,6 @@
       else $_SESSION['success'] = "Code de verification est envoyé";
     }
     else $_SESSION['error'] = "Cet email n'existe pas";
-    header("location: ../views/forget_password.php");
+    header("location: ../views/forget_password");
   }
-  else header("location: ../views/forgot_password.php");
+  else header("location: ../views/forgot_password");

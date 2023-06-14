@@ -1,26 +1,66 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-  <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="home.php">
-          <i class="mdi mdi-grid-large menu-icon"></i>
-          <span class="menu-title">Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item nav-category">Profile</li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#profile" aria-expanded="false" aria-controls="profile">
-          <i class="menu-icon mdi mdi-account-circle-outline"></i>
-          <span class="menu-title">Profile</span>
-          <i class="menu-arrow"></i> 
-        </a>
-        <div class="collapse" id="profile">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="view_profile.php">Mon profile</a></li>
-            <li class="nav-item"> <a class="nav-link" href="reset_password.php">Modifier mot de passe</a></li>
-          </ul>
-        </div>
-      </li>
-      <?php if ($_SESSION['auth']['poste'] == "Responsable Ressources Humains"): ?>
+    <ul class="nav" style="position: fixed;left:0px;">
+        <li class="nav-item">
+            <?php if (isset($_SESSION['admin'])) : ?>
+            <a class="nav-link" href="admin_home.php">
+            <?php else : ?>
+            <a class="nav-link" href="home.php">
+            <?php endif ?>
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">Profile</li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#profile" aria-expanded="false" aria-controls="profile">
+                <i class="menu-icon mdi mdi-account-circle-outline"></i>
+                <span class="menu-title">Profile</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <?php if (isset($_SESSION['admin'])) : ?>
+            <div class="collapse" id="profile">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="admin_profile.php">Mon profile</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="reset_password_admin.php">Modifier mot de passe</a>
+                    </li>
+                </ul>
+            </div>
+            <li class="nav-item nav-category">Gestion</li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#rubrique" aria-expanded="false"
+                    aria-controls="rubrique">
+                    <i class="menu-icon mdi mdi-card-text-outline"></i>
+                    <span class="menu-title">Responsables</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="rubrique">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="liste_responsable.php">Profil des Responsables</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="ajouter_responsable.php">Ajouter Responsable</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="modifier_enumuration.php">
+                    <i class="menu-icon mdi mdi-card-text-outline"></i>
+                    <span class="menu-title">Enumuration</span>
+                </a>
+            </li>
+            <?php else : ?>
+            <div class="collapse" id="profile">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="view_profile.php">Mon profile</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="reset_password.php">Modifier mot de passe</a></li>
+                </ul>
+            </div>
+            </li>
+            <?php endif; ?>
+      
+      <?php 
+        if (isset($_SESSION['auth'])):
+        if ($_SESSION['auth']['poste'] == "Responsable Ressources Humaines"): 
+      ?>
       <li class="nav-item nav-category">Gestion</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#entreprise" aria-expanded="false" aria-controls="entreprise">
@@ -30,8 +70,8 @@
         </a>
         <div class="collapse" id="entreprise">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"><a class="nav-link" href="view_entreprises.php">Afficher entreprises</a></li>
-            <li class="nav-item"><a class="nav-link" href="add_entreprise.php">Ajouter entreprise</a></li>
+            <li class="nav-item"><a class="nav-link" href="view_entreprises">Afficher entreprises</a></li>
+            <li class="nav-item"><a class="nav-link" href="add_entreprise">Ajouter entreprise</a></li>
           </ul>
         </div>
       </li>
@@ -43,32 +83,32 @@
         </a>
         <div class="collapse" id="employe">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"><a class="nav-link" href="view_employes.php">Afficher employés</a></li>
-            <li class="nav-item"><a class="nav-link" href="add_employe.php">Ajouter employé</a></li>
+            <li class="nav-item"><a class="nav-link" href="view_employes">Afficher employés</a></li>
+            <li class="nav-item"><a class="nav-link" href="add_employe">Ajouter employé</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item nav-category">Notifications</li>
       <li class="nav-item">
-        <a class="nav-link" href="view_heuresSupp.php">
+        <a class="nav-link" href="view_heuresSupp">
           <i class="menu-icon mdi mdi-timer-sand"></i>
           <span class="menu-title">Heures Supplimentaires</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="view_absences">
           <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Abscences</span>
+          <span class="menu-title">Absences</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="view_conge">
           <i class="menu-icon mdi mdi-file-document"></i>
           <span class="menu-title">Congés</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="view_reclamations.php">
+        <a class="nav-link" href="view_reclamations">
           <i class="menu-icon mdi mdi-file-document"></i>
           <span class="menu-title">Reclamations</span>
         </a>
@@ -102,8 +142,73 @@
         </div>
       </li>
 
-      <?php else: ?>
-
-      <?php endif; ?>
+      <?php elseif (!isset($_SESSION['admin'])): ?>
+      <li class="nav-item nav-category">Gestion</li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#heuresSupp" aria-expanded="false" aria-controls="heuresSupp">
+          <i class="menu-icon mdi mdi-card-text-outline"></i>
+          <span class="menu-title">Heures Supplementaires</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="heuresSupp">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="heures_supp">Afficher mes heures supp</a></li>
+            <li class="nav-item"><a class="nav-link" href="#heuresuppModal" data-bs-toggle="modal" data-bs-target="#heuresuppModal">Déclarer des heures supp</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#absence" aria-expanded="false" aria-controls="absence">
+          <i class="menu-icon mdi mdi-reflect-vertical"></i>
+          <span class="menu-title">Absence</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="absence">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="visualiserabscence">Mes absences</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#avance" aria-expanded="false" aria-controls="avance">
+          <i class="menu-icon mdi mdi-reflect-vertical"></i>
+          <span class="menu-title">Avance</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="avance">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="">Mes demandes avance</a></li>
+            <li class="nav-item"><a class="nav-link" href="#avanceModal" data-bs-toggle="modal" data-bs-target="#avanceModal">Demander avance</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#conge" aria-expanded="false" aria-controls="conge">
+          <i class="menu-icon mdi mdi-reflect-vertical"></i>
+          <span class="menu-title">Congé</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="conge">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="visualiserconge">Afficher mes congés</a></li>
+            <li class="nav-item"><a class="nav-link" href="#congeModal" data-bs-toggle="modal" data-bs-target="#congeModal">Demander congé</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#reclamation" aria-expanded="false" aria-controls="reclamation">
+          <i class="menu-icon mdi mdi-reflect-vertical"></i>
+          <span class="menu-title">Reclamation</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="reclamation">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="">Afficher mes réclamations</a></li>
+            <li class="nav-item"><a class="nav-link" href="#reclamationModal" data-bs-toggle="modal" data-bs-target="#reclamationModal">Effectuer une réclamation</a></li>
+          </ul>
+        </div>
+      </li>
+      <?php endif; endif; ?>
   </ul>
 </nav>
+<?php require_once 'modals.php'; ?>

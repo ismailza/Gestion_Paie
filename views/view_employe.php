@@ -1,18 +1,14 @@
 <?php
   require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
-  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains")
-  {
-    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
-    header("location: home.php");
-    exit();
-  }
+  require_once '../scripts/rh.inc.php';
   if (!isset($_GET['id']) || empty($_GET['id']))
   {
-    header("location: view_employes.php");
+    header("location: view_employes");
     exit();
   }
-
+  require_once '../scripts/employe.inc.php';
+  $user = getEmploye($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,39 +30,135 @@
       <?php include('partials/_settings-panel.html'); ?>
       <!-- partial:partials/_sidebar.html -->
       <?php include('partials/_sidebar.php'); ?>
-
       <!-- partial -->
       <div class="main-panel">
-        
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                <?php if (isset($_SESSION['success'])): ?>
-                  <div class="alert alert-success" role="alert">
-                    <?php 
-                      echo $_SESSION['success']; 
-                      unset($_SESSION['success']);
-                    ?>
-                  </div>
-                <?php endif; if (isset($_SESSION['error'])): ?>  
-                  <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?>  
+                <div class="container rounded bg-white mt-5 mb-5">
+                  <div class="row">
+                    <div class="col-md-3 border-right">
+                      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class="rounded-circle mt-5" width="150px" src="images/profile/<?php echo $user['image']; ?>">
+                        <span class="font-weight-bold"><?php echo $user['nom']." ".$user['prenom']; ?></span>
+                        <span class="text-black-50"><?php echo $user['email']; ?></span>
+                        <span class="text-black-50"><?php echo $user['poste']; ?></span>
+                      </div>
+                    </div>
+                    <div class="col-md-9 border-right">
+                      <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <h4 class="text-right">Informations personnelle</h4>
+                        </div>
 
-                
-                
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">NOM</label>
+                            <input type="text" class="form-control" name="nom" value="<?php echo $user['nom']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">Prénom</label>
+                            <input type="text" class="form-control" name="prenom" value="<?php echo $user['prenom']; ?>" disabled>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">CIN</label>
+                            <input type="text" class="form-control" name="cin" value="<?php echo $user['cin']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">Sexe</label>
+                            <input type="text" class="form-control" name="sexe" value="<?php echo $user['sexe']; ?>" disabled>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">Phone</label>
+                            <input type="text" class="form-control" name="phone" value="<?php echo $user['phone']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">Date de naissance</label>
+                            <input type="text" class="form-control" name="email" value="<?php echo $user['email']; ?>" disabled>
+                          </div>
+                        </div>                        
+                        <div class="row mt-3">
+                          <div class="col-md-6">
+                            <label class="labels">Adresse</label>
+                            <input type="text" class="form-control" name="adresse" value="<?php echo $user['adresse']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">Ville</label>
+                            <input type="text" class="form-control" name="ville" value="<?php echo $user['ville']; ?>" disabled>
+                          </div>
+                        </div>
+                        <br>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <h4 class="text-right">Situation familiale</h4>
+                        </div>
+
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">Situation</label>
+                            <input type="text" class="form-control" name="situationF" value="<?php echo $user['situationF']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">Nombre d'enfants</label>
+                            <input type="text" class="form-control" name="nbEnfants" value="<?php echo $user['nbEnfants']; ?>" disabled>
+                          </div>
+                        </div>
+                        <br>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <h4 class="text-right">Informations salariale</h4>
+                        </div>
+
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">Diplôme</label>
+                            <input type="text" class="form-control" name="diplome" value="<?php echo $user['diplome']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">Salaire de base</label>
+                            <input type="text" class="form-control" name="salaireB" value="<?php echo $user['salaireBase']; ?>" disabled>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">CNSS</label>
+                            <input type="text" class="form-control" name="numCNSS" value="<?php echo $user['numCNSS']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">AMO</label>
+                            <input type="text" class="form-control" name="numAMO" value="<?php echo $user['numAMO']; ?>" disabled>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="labels">CIMR</label>
+                            <input type="text" class="form-control" name="numCMR" value="<?php echo $user['numCIMR']; ?>" disabled>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="labels">IGR</label>
+                            <input type="text" class="form-control" name="numIGR" value="<?php echo $user['numIGR']; ?>" disabled>
+                          </div>
+                        </div>
+
+                        <div class="mt-5 text-center">
+                          <button class="btn btn-warning profile-button" type="button">Update</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div><!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <?php include('partials/_footer.html'); ?>
-
       </div><!-- main-panel ends -->
     </div><!-- page-body-wrapper ends -->
   </div><!-- container-scroller ends-->

@@ -5,7 +5,24 @@
   
   if (isset($_POST['submit']))
   {
-
+    $values = [
+      'nomEntreprise' => $_POST['nomEntreprise'],
+      'adresse'       => $_POST['adresse'],
+      'ville'         => $_POST['ville'],
+      'descriptif'    => $_POST['descriptif'],
+      'createdBy'     => $_SESSION['auth']['idEmploye']
+    ];
+    $stm = saveEntreprise($values);
+    if (!$stm)
+    {
+      $_SESSION['error'] = "Somthing is wrong!";
+      header("location: ../views/add_entreprise");
+    }
+    else 
+    {
+      $_SESSION['success'] = "Entreprise est ajoutée avec succès";
+      header("location: ../views/view_entreprises");
+    }
   }
   elseif (isset($_POST['update']))
   {
@@ -19,17 +36,17 @@
     unset($_SESSION['entreprise_id']);
     if ($stm) $_SESSION['success'] = "L'entreprise a été modifier avec succès";  
     else $_SESSION['error'] = "Something is wrong!";
-    header("location: ../views/view_entreprises.php");
+    header("location: ../views/view_entreprises");
   }
   elseif (isset($_POST['update_id']))
   {
     $_SESSION['entreprise_id'] = $_POST['id'];
-    header("location: ../views/update_entreprise.php");
+    header("location: ../views/update_entreprise");
   }
   elseif (isset($_POST['delete']))
   {
     if (deleteEntreprise($_POST['id'])) $_SESSION['success'] = "L'entreprise est supprimé avec succès";
     else $_SESSION['error'] = "Something is wrong!";
-    header("location: ../views/view_entreprises.php");
+    header("location: ../views/view_entreprises");
   }
-  else header("location: ../views/home.php");
+  else header("location: ../views/home");

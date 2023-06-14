@@ -1,6 +1,7 @@
 <?php 
   require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
+  require_once '../scripts/employe.inc.php';
   $user = $_SESSION['auth'];
 ?>
 <!DOCTYPE html>

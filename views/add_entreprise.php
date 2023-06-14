@@ -1,12 +1,7 @@
 <?php 
   require_once '../CONFIG.php';
-  require_once ("../scripts/inc.php");
-  if ($_SESSION['auth']['poste'] != "Responsable Ressources Humains")
-  {
-    $_SESSION['error'] = "Vous n'avez pas l'autorisation d'acces";
-    header("location: home.php");
-    exit();
-  }
+  require_once '../scripts/inc.php';
+  require_once '../scripts/rh.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +55,7 @@
 
                       <div class="col-md-6 form-group">
                         <label for="nom" class="form-label">Nom de l'entreprise</label>
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom de l'entreprise" required>
+                        <input type="text" class="form-control" id="nom" name="nomEntreprise" placeholder="Nom de l'entreprise" required>
                         <div class="invalid-feedback">
                           * Champ obligatoire
                         </div>

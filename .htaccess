@@ -1,3 +1,11 @@
+Options +FollowSymLinks -MultiViews
 RewriteEngine On
+# Remove .php extension from the url
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-  ErrorDocument 404 http://localhost/Gestion_Paie/views/404.html
+# Remove views/ folder from the url
+
+
+# Error 404
+ErrorDocument 404 http://localhost/Gestion_Paie/views/404.html

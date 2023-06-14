@@ -25,3 +25,18 @@ $(document).ready(function () {
       pagingType: 'full_numbers',
   });
 });
+
+$(".fh5co-loader").fadeOut("slow");
+
+$('.fade-out').fadeOut(5000);
+
+function send_ajax_request (jdata, req_dest, data_src)
+{
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", req_dest, true);
+  xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  xhr.onload = function() {
+    document.getElementById(data_src).innerHTML = this.responseText;
+  };
+  xhr.send(JSON.stringify(jdata));
+}
