@@ -43,10 +43,6 @@
 
                 <form method="post" action="../scripts/entreprise.php" class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
-                  <div class="progress mt-3" style="height: 30px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="font-weight:bold; font-size:15px;" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-
                   <div class="card mt-3">
 
                     <fieldset id="step1" class="card-body row g-3 step">

@@ -88,30 +88,20 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item nav-category">Notifications</li>
       <li class="nav-item">
-        <a class="nav-link" href="view_heuresSupp">
-          <i class="menu-icon mdi mdi-timer-sand"></i>
-          <span class="menu-title">Heures Supplimentaires</span>
+        <a class="nav-link" data-bs-toggle="collapse" href="#declaration" aria-expanded="false" aria-controls="declaration">
+          <i class="menu-icon mdi mdi-check-decagram"></i>
+          <span class="menu-title">Déclarations</span>
+          <i class="menu-arrow"></i>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="view_absences">
-          <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Absences</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="view_conge">
-          <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Congés</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="view_reclamations">
-          <i class="menu-icon mdi mdi-file-document"></i>
-          <span class="menu-title">Reclamations</span>
-        </a>
+        <div class="collapse" id="declaration">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="view_heuresSupp">Heures Supplimentaires</a></li>
+            <li class="nav-item"><a class="nav-link" href="view_absences">Absences</a></li>
+            <li class="nav-item"><a class="nav-link" href="view_conge">Congés</a></li>
+            <li class="nav-item"><a class="nav-link" href="view_reclamations">Reclamations</a></li>
+          </ul>
+        </div>
       </li>
       <?php elseif ($_SESSION['auth']['poste'] == "Responsable Paie"): ?>
       <li class="nav-item nav-category">Gestion</li>
@@ -142,8 +132,8 @@
         </div>
       </li>
 
-      <?php elseif (!isset($_SESSION['admin'])): ?>
-      <li class="nav-item nav-category">Gestion</li>
+      <?php endif; //elseif (!isset($_SESSION['admin'])): ?>
+      <li class="nav-item nav-category">Demandes</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#heuresSupp" aria-expanded="false" aria-controls="heuresSupp">
           <i class="menu-icon mdi mdi-card-text-outline"></i>
@@ -208,7 +198,7 @@
           </ul>
         </div>
       </li>
-      <?php endif; endif; ?>
+      <?php endif; // endif; ?>
   </ul>
 </nav>
 <?php require_once 'modals.php'; ?>

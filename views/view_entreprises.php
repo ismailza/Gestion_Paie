@@ -31,8 +31,6 @@
             <div class="col-sm-12">
               <div class="home-tab"> 
                 
-                <div class="title">Liste des entreprises</div>
-                
                 <?php if (isset($_SESSION['success'])): ?>
                   <div class="alert alert-success" role="alert">
                     <?php 

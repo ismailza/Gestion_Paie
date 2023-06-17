@@ -34,7 +34,7 @@
                   <div class="row">
                     <div class="col-md-3 border-right">
                       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class="rounded-circle mt-5" width="150px" src="images/profile/IMG_20210102_203408_124.jpg">
+                        <img class="rounded-circle mt-5" width="150px" src="images/profile/<?php echo $user['image']; ?>">
                         <span class="font-weight-bold"><?php echo $user['nom']." ".$user['prenom']; ?></span>
                         <span class="text-black-50"><?php echo $user['email']; ?></span>
                         <span class="text-black-50"><?php echo $user['poste']; ?></span>

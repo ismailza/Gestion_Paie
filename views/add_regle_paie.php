@@ -1,12 +1,7 @@
 <?php
   require_once '../CONFIG.php';
   require_once '../scripts/inc.php';
-  if ($_SESSION['auth']['poste'] != "Responsable Paie")
-  {
-    $_SESSION['warning'] = "Vous n'avez pas l'autorisation d'acces";
-    header("location: home.php");
-    exit();
-  }
+  // require_once '../scripts/rp.inc.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +31,9 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
+
+                <div class="title">Ajouter une règle de paie</div>
+
                 <?php if (isset($_SESSION['success'])): ?>
                   <div class="alert alert-success" role="alert">
                     <?php 
@@ -52,7 +50,24 @@
                   </div>
                 <?php endif; ?>  
 
+                <form class="row g-3" action="" method="post">
+                  <div class="col-md-10">
+                    <label for="output" class="visually-hidden">Password</label>
+                    <input type="text" class="form-control" id="output" placeholder="Règle de paie" disabled>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" class="btn btn-success mb-3">Enregistrer</button>
+                  </div>
+                </form>
+                <div class="m-3"></div>
+                <div class="row g-3">
+                  <div class="row" id="input">
 
+                    <div class="col-md-2" id="add">
+                      <button type="submit" class="btn btn-info mb-3" onclick="regle_paie()">ADD</button>
+                    </div>
+                  </div>
+                </div>
                 
               </div>
             </div>
@@ -60,11 +75,11 @@
         </div><!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <?php include('partials/_footer.html'); ?>
-
       </div><!-- main-panel ends -->
     </div><!-- page-body-wrapper ends -->
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
+  <script src="js/regle_paie.js"></script>
 </body>
 </html>
