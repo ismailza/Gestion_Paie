@@ -1,3 +1,9 @@
+/*-------------------------------------------------------------------*/
+/* === Import Bootstrap functions and variables === */
+/*-------------------------------------------------------------------*/
+/* === Import template variables === */
+/*-------------------------------------------------------------------*/
+/* === SCSS Compass Functions === */
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 @-moz-keyframes flash {
   0% {
@@ -13665,8 +13671,6 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
-  cursor: pointer;
-  text-decoration: none;
 }
 
 .badge:empty {
@@ -29503,7 +29507,7 @@ div.tagsinput span.tag a {
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown .dropdown-item {
   margin-bottom: 0;
   padding: 5px 25px;
-  cursor: default;
+  cursor: pointer;
   border-bottom: 1px solid #dee2e6;
   line-height: 1;
 }
@@ -31160,5 +31164,3 @@ div.tagsinput span.tag a {
     display: none;
   }
 }
-
-/*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

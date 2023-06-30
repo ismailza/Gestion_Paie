@@ -12,7 +12,14 @@ var rubriques =
   'AMO':'AMO',
   'IGR':'IGR',
   'PA':'Prime d\'anciennte',
-  'HS':'Heures supplementaires'
+  'HS':'Heures supplementaires',
+  'MAJ':'Majorations',
+  'RET':'Retenues',
+  'HSNM':'Heures supplementaires normale matin',
+  'HSNN':'Heures supplementaires normale nuit',
+  'HSFM':'Heures supplementaires ferié matin',
+  'HSFN':'Heures supplementaires ferié nuit',
+  'NbHS':'Nombre des heures supplementaires'
 };
 var operateurs = 
 {
@@ -21,7 +28,7 @@ var operateurs =
   '-':'-',
   '*':'*',
   '/':'/'
-}
+};
 
 function print_regle ()
 {
@@ -34,10 +41,11 @@ function print_regle ()
   }
 }
 
-function add_input (type, position)
+function add_input (type, position, size)
 {
   let div = document.createElement("div");
-  div.classList.add("col-md-2");
+  div.classList.add("col-md-"+size);
+  div.classList.add("p-1");
   let numberIn = document.createElement("input");
   numberIn.classList.add("input");
   numberIn.classList.add("form-control");
@@ -52,10 +60,31 @@ function add_input (type, position)
   })
 }
 
-function add_select (array, position)
+function add_button (position)
 {
   let div = document.createElement("div");
-  div.classList.add("col-md-2");
+  div.classList.add("col-md-1");
+  let span = document.createElement("span");
+  span.classList.add("badge");
+  span.classList.add("badge-opacity-info");
+  span.classList.add("mt-2");
+  span.setAttribute('role','button');
+  let i = document.createElement("i");
+  i.classList.add("mdi");
+  i.classList.add("mdi-plus");
+  div.appendChild(span);
+  span.appendChild(i);
+  input.insertBefore(div, position);
+  span.addEventListener('click', (event) => {
+    regle_paie(event.target.parentNode);
+  })
+}
+
+function add_select (array, position, size)
+{
+  let div = document.createElement("div");
+  div.classList.add("col-md-"+size);
+  div.classList.add("p-1");
   let select = document.createElement("select");
   select.classList.add("input");
   select.classList.add("form-control");
@@ -65,16 +94,17 @@ function add_select (array, position)
   select.addEventListener('change', (event) => {
     if (event.target.value === '()')
     {
-      add_select({'(':'('}, event.target.parentNode);
-      add_select(rubriques, event.target.parentNode);
-      add_select(operateurs, event.target.parentNode);
-      add_select(rubriques, event.target.parentNode);
-      add_select({')':')'}, event.target.parentNode);
+      add_select({'(':'('}, event.target.parentNode, 1);
+      add_select(rubriques, event.target.parentNode, 2);
+      add_select(operateurs, event.target.parentNode, 1);
+      add_select(rubriques, event.target.parentNode, 2);
+      add_button(event.target.parentNode);
+      add_select({')':')'}, event.target.parentNode, 1);
       input.removeChild(event.target.parentNode);
     }
     else if (event.target.value === 'number')
     {
-      add_input('number',event.target.parentNode);
+      add_input('number',event.target.parentNode, 2);
       input.removeChild(event.target.parentNode);
     }
     print_regle();
@@ -87,7 +117,7 @@ function add_select (array, position)
     option.text = array[key];
     select.appendChild(option);
   }
-  // select.options[0].setAttribute('disibale','disibale');
+  select.options[0].setAttribute('disibale','disibale');
 }
 
 function verifier_imput ()
@@ -105,12 +135,11 @@ function verifier_imput ()
   return true;
 }
 
-function regle_paie ()
+function regle_paie (position)
 {
   if (!verifier_imput()) return;
-  add_select(operateurs, document.getElementById('add'));
-  add_select(rubriques, document.getElementById('add'));
+  add_select(operateurs, position, 1);
+  add_select(rubriques, position, 2);
 }
 
-add_select (rubriques, document.getElementById('add'));
-
+add_select (rubriques, document.getElementById('add'), 2);

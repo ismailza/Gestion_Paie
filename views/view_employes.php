@@ -30,22 +30,44 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab"> 
-                
-                <?php if (isset($_SESSION['success'])): ?>
-                  <div class="alert alert-success" role="alert">
-                    <?php 
-                      echo $_SESSION['success']; 
-                      unset($_SESSION['success']);
-                    ?>
+                <?php require_once 'alerts.php'; ?> 
+
+                <!-- Absence -->
+                <div class="modal fade" id="absenceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header p-3">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Déclarer absence</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form method="post" action="../scripts/employe.php" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
+                        <input type="hidden" name="id" value="">
+                        <div class="modal-body m-0 p-4">
+                          <div class="mt-3 row">
+                            <div class="col-md-6">
+                              <label for="dateAbsence" class="form-label">Date d'absence</label>
+                              <input type="date" class="form-control" id="dateAbsence" name="dateAbsence" placeholder="Date debut" required>
+                              <div class="invalid-feedback">
+                                * Champ obligatoire
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="dateAbsence" class="form-label">Nombre de jours</label>
+                              <input type="number" class="form-control" min="1" max="100" id="nbJ" name="nbJours" placeholder="Jours" required>
+                              <div class="invalid-feedback">
+                                * Champ obligatoire
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer m-0">
+                          <input type="button" value="Annuler" class="action back btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                          <input type="submit" name="declarer_absence" value="Enregistrer" class="action next btn btn-sm btn-info float-end">
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                <?php endif; if (isset($_SESSION['error'])): ?>  
-                  <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?>  
+                </div>
 
                 <div class="row flex-grow">
                   <div class="col-12 grid-margin stretch-card">
@@ -76,7 +98,7 @@
                             </thead>
                             <tbody>
                               <?php foreach ($employes as $employe) : ?>
-                              <tr onclick="document.location.href='view_employe?id=<?php echo $employe['idEmploye']; ?>'">  
+                              <tr>  
                                 <td><img src="images/profile/<?php echo $employe['image']; ?>" class="rounded-circle" width="40px" height="40px" alt="profile image">
                                 </td>
                                 <td><?php echo $employe['cin']; ?></td>
@@ -89,10 +111,17 @@
                                 <td class="action-btn">
                                   <form action="../scripts/employe.php" method="post" >
                                     <input type="hidden" name="id" value="<?php echo $employe['idEmploye']; ?>">
-                                    <input type="submit" class="btn-check" name="update_id" id="btnradio<?php echo $employe['idEmploye']; ?>" autocomplete="off" checked>
-                                    <label class="badge badge-opacity-warning" for="btnradio<?php echo $employe['idEmploye']; ?>" title="Modifier"><i class="mdi mdi-lead-pencil"></i></label>
-                                    <input type="button" class="btn-check" name="delete" id="btnradio_<?php echo $employe['idEmploye']; ?>" autocomplete="off">
-                                    <label class="badge badge-opacity-danger" for="btnradio_<?php echo $employe['idEmploye']; ?>" title="Supprimer" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $employe['idEmploye']; ?>"><i class="mdi mdi-delete"></i></label>
+                                    <input type="submit" class="btn-check" name="view_id" id="btnradio1<?php echo $employe['idEmploye']; ?>" autocomplete="off" checked>
+                                    <label class="badge badge-opacity-warning" role="button" for="btnradio1<?php echo $employe['idEmploye']; ?>" title="Afficher"><i class="mdi mdi-eye"></i></label>
+                                    
+                                    <input type="submit" class="btn-check" name="update_id" id="btnradio2<?php echo $employe['idEmploye']; ?>" autocomplete="off" checked>
+                                    <label class="badge badge-opacity-warning" for="btnradio2<?php echo $employe['idEmploye']; ?>" title="Modifier"><i class="mdi mdi-lead-pencil"></i></label>
+                                    
+                                    <input type="button" class="btn-check" name="delete" id="btnradio3<?php echo $employe['idEmploye']; ?>" autocomplete="off">
+                                    <label class="badge badge-opacity-danger" for="btnradio3<?php echo $employe['idEmploye']; ?>" title="Supprimer" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $employe['idEmploye']; ?>"><i class="mdi mdi-delete"></i></label>
+                                    
+                                    <input type="button" class="btn-check" name="declarer_absence"  id="btnradio4<?php echo $employe['idEmploye']; ?>" autocomplete="off">
+                                    <label class="badge badge-opacity-danger" role="button" onclick="openWindow('absenceModal',<?php echo $employe['idEmploye']; ?>);" for="btnradio4<?php echo $employe['idEmploye']; ?>" title="Declarer Absence"><i class="mdi mdi-alert-circle-outline"></i></label>
                                     
                                     <div class="modal" tabindex="-1" id="exampleModal<?php echo $employe['idEmploye']; ?>">
                                       <div class="modal-dialog">
@@ -111,7 +140,6 @@
                                         </div>
                                       </div>
                                     </div>
-
                                   </form>
                                 </td>
                               </tr>
@@ -136,6 +164,19 @@
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
+  <script>
+  function openWindow(modal, id){
+    // Set the id value in the modal form
+    document.querySelector("#"+modal+" input[name='id']").value = id;
+
+    // Show the modal
+    $('#'+modal).modal('show');
+    
+  }
+  function closeModal() {
+  $('#modifyModal').modal('hide');
+}
+</script>
 
 </body>
 </html>

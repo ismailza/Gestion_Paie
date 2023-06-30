@@ -8,7 +8,7 @@
     exit();
   }
   require_once '../scripts/employe.inc.php';
-  $user = getEmploye($_GET['id']);
+  $user1 = getEmploye($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,10 +40,10 @@
                   <div class="row">
                     <div class="col-md-3 border-right">
                       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class="rounded-circle mt-5" width="150px" src="images/profile/<?php echo $user['image']; ?>">
-                        <span class="font-weight-bold"><?php echo $user['nom']." ".$user['prenom']; ?></span>
-                        <span class="text-black-50"><?php echo $user['email']; ?></span>
-                        <span class="text-black-50"><?php echo $user['poste']; ?></span>
+                        <img class="rounded-circle mt-5" width="150px" src="images/profile/<?php echo $user1['image']; ?>">
+                        <span class="font-weight-bold"><?php echo $user1['nom']." ".$user1['prenom']; ?></span>
+                        <span class="text-black-50"><?php echo $user1['email']; ?></span>
+                        <span class="text-black-50"><?php echo $user1['poste']; ?></span>
                       </div>
                     </div>
                     <div class="col-md-9 border-right">
@@ -55,41 +55,41 @@
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">NOM</label>
-                            <input type="text" class="form-control" name="nom" value="<?php echo $user['nom']; ?>" disabled>
+                            <input type="text" class="form-control" name="nom" value="<?php echo $user1['nom']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Prénom</label>
-                            <input type="text" class="form-control" name="prenom" value="<?php echo $user['prenom']; ?>" disabled>
+                            <input type="text" class="form-control" name="prenom" value="<?php echo $user1['prenom']; ?>" disabled>
                           </div>
                         </div>
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">CIN</label>
-                            <input type="text" class="form-control" name="cin" value="<?php echo $user['cin']; ?>" disabled>
+                            <input type="text" class="form-control" name="cin" value="<?php echo $user1['cin']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Sexe</label>
-                            <input type="text" class="form-control" name="sexe" value="<?php echo $user['sexe']; ?>" disabled>
+                            <input type="text" class="form-control" name="sexe" value="<?php echo $user1['sexe']; ?>" disabled>
                           </div>
                         </div>
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">Phone</label>
-                            <input type="text" class="form-control" name="phone" value="<?php echo $user['phone']; ?>" disabled>
+                            <input type="text" class="form-control" name="phone" value="<?php echo $user1['phone']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Date de naissance</label>
-                            <input type="text" class="form-control" name="email" value="<?php echo $user['email']; ?>" disabled>
+                            <input type="text" class="form-control" name="email" value="<?php echo $user1['email']; ?>" disabled>
                           </div>
                         </div>                        
                         <div class="row mt-3">
                           <div class="col-md-6">
                             <label class="labels">Adresse</label>
-                            <input type="text" class="form-control" name="adresse" value="<?php echo $user['adresse']; ?>" disabled>
+                            <input type="text" class="form-control" name="adresse" value="<?php echo $user1['adresse']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Ville</label>
-                            <input type="text" class="form-control" name="ville" value="<?php echo $user['ville']; ?>" disabled>
+                            <input type="text" class="form-control" name="ville" value="<?php echo $user1['ville']; ?>" disabled>
                           </div>
                         </div>
                         <br>
@@ -101,11 +101,11 @@
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">Situation</label>
-                            <input type="text" class="form-control" name="situationF" value="<?php echo $user['situationF']; ?>" disabled>
+                            <input type="text" class="form-control" name="situationF" value="<?php echo $user1['situationF']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Nombre d'enfants</label>
-                            <input type="text" class="form-control" name="nbEnfants" value="<?php echo $user['nbEnfants']; ?>" disabled>
+                            <input type="text" class="form-control" name="nbEnfants" value="<?php echo $user1['nbEnfants']; ?>" disabled>
                           </div>
                         </div>
                         <br>
@@ -117,31 +117,31 @@
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">Diplôme</label>
-                            <input type="text" class="form-control" name="diplome" value="<?php echo $user['diplome']; ?>" disabled>
+                            <input type="text" class="form-control" name="diplome" value="<?php echo $user1['diplome']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">Salaire de base</label>
-                            <input type="text" class="form-control" name="salaireB" value="<?php echo $user['salaireBase']; ?>" disabled>
+                            <input type="text" class="form-control" name="salaireB" value="<?php echo $user1['salaireBase']; ?>" disabled>
                           </div>
                         </div>
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">CNSS</label>
-                            <input type="text" class="form-control" name="numCNSS" value="<?php echo $user['numCNSS']; ?>" disabled>
+                            <input type="text" class="form-control" name="numCNSS" value="<?php echo $user1['numCNSS']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">AMO</label>
-                            <input type="text" class="form-control" name="numAMO" value="<?php echo $user['numAMO']; ?>" disabled>
+                            <input type="text" class="form-control" name="numAMO" value="<?php echo $user1['numAMO']; ?>" disabled>
                           </div>
                         </div>
                         <div class="row mt-2">
                           <div class="col-md-6">
                             <label class="labels">CIMR</label>
-                            <input type="text" class="form-control" name="numCMR" value="<?php echo $user['numCIMR']; ?>" disabled>
+                            <input type="text" class="form-control" name="numCMR" value="<?php echo $user1['numCIMR']; ?>" disabled>
                           </div>
                           <div class="col-md-6">
                             <label class="labels">IGR</label>
-                            <input type="text" class="form-control" name="numIGR" value="<?php echo $user['numIGR']; ?>" disabled>
+                            <input type="text" class="form-control" name="numIGR" value="<?php echo $user1['numIGR']; ?>" disabled>
                           </div>
                         </div>
 

@@ -77,7 +77,7 @@
   {
     $values = [
       'status'      => 'En cours',
-      'avance'        => $_POST['avance'],
+      'avance'      => $_POST['montant'],
       'idEmploye'   => $_SESSION['auth']['idEmploye']
     ];
     if (saveAvance($values))
@@ -90,6 +90,25 @@
       $_SESSION['error'] = "Something is wrong!";
       header("location: ../views/home");
     }
+  }
+  elseif (isset($_POST['view_id']))
+  {
+    header("location: ../views/view_employe?id=".$_POST['id']);
+  }
+  elseif (isset($_POST['declarer_absence']))
+  {
+    $values = [
+      'dateAbsence' => $_POST['dateAbsence'],
+      'nbJours'     => $_POST['nbJours'],
+      'idEmploye'   => $_POST['id']
+    ];
+    if (saveAbsence($values)) $_SESSION['success'] = "La déclaration d'absence est bien effectuée";
+    else $_SESSION['error'] = "Something is wrong!";
+    header("location: ../views/view_employes");
+  }
+  elseif (isset($_POST['view_bulletin']))
+  {
+    header("location: ../views/calculer_salaire?id=".$_POST['id']);
   }
   // ** Ajouter un employe
   elseif (isset($_POST['submit']))
@@ -218,5 +237,22 @@
     }
     header("location: ../views/reset_password");
   }
-  
+  elseif (isset($_POST['validate']))
+  {
+    require 'bulletin.inc.php';
+    $month = date('m');
+    $employes = getAllEmployes();
+    foreach ($employes as $employe) 
+    {
+      $file_name = generate_bulletin_paie ($employe['idEmploye'], $month);
+      $values = [
+        'mois'      => $month,
+        'bulletin'  => $file_name,
+        'idEmploye' => $employe['idEmploye']
+      ];
+      saveBulletin($values);
+    }
+    $_SESSION['success'] = "La paie est validée avec succès";
+    header("location: ../views/home");
+  }
   else header("location: ../views/home");

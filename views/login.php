@@ -33,7 +33,7 @@ if (isset($_SESSION['auth']))
               <a href="index"><img src="images/logo1.svg" alt="logo" class="logo"></a>
             </div>
             <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-              <img src="https://i.imgur.com/uNGdWHi.png" class="image">
+              <img src="https://e.uman.app/frontend/web/company_sys_assets/Login/en/images/uNGdWHi.png " class="image">
             </div>
           </div>
         </div>

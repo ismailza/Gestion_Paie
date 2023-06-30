@@ -70,15 +70,15 @@
               </div>
             </div>
             <div class="col-md-6">
-              <label for="adresse" class="form-label">Date debut</label>
-              <input type="date" class="form-control" id="adresse" name="dateDebut" placeholder="Date debut" required>
+              <label for="dateD" class="form-label">Date debut</label>
+              <input type="date" class="form-control" id="dateD" name="dateDebut" placeholder="Date debut" required>
               <div class="invalid-feedback">
                 * Champ obligatoire
               </div>
             </div>
             <div class="col-md-6">
-              <label for="adresse" class="form-label">Date fin</label>
-              <input type="date" class="form-control" id="adresse" name="dateFin" placeholder="Date fin" required>
+              <label for="dateF" class="form-label">Date fin</label>
+              <input type="date" class="form-control" id="dateF" name="dateFin" placeholder="Date fin" required>
               <div class="invalid-feedback">
                 * Champ obligatoire
               </div>
@@ -141,7 +141,7 @@
           <div class="mt-3">
             <div class="col-md-6 input-group mb-3">
               <span class="input-group-text">Avance</span>
-              <input type="number" min="1000" max="10000" class="form-control" id="nb" name="avance" placeholder="Montant d'Avance" required>
+              <input type="number" class="form-control" min="1000" max="10000" id="nb" name="montant" placeholder="Montant d'Avance" required>
               <span class="input-group-text">DH</span>
               <div class="invalid-feedback">
                 * Champ obligatoire
@@ -152,6 +152,42 @@
         <div class="modal-footer p-3">
           <input type="button" value="Annuler" class="action back btn btn-sm btn-secondary" data-bs-dismiss="modal">
           <input type="submit" name="avance" value="Envoyer" class="action next btn btn-sm btn-info float-end">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Rubrique -->
+<div class="modal fade" id="rubriqueModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-3">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Ajouter une rubrique</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="../scripts/entreprise.php" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
+        <div class="modal-body m-0 p-4">
+          <div class="mt-3 row">
+            <div class="col-md-6">
+              <label for="rubrique" class="form-label">Nom de rubrique</label>
+              <input class="form-control" type="text" name="nomRubrique" id="rubrique" placeholder="Nom de la rubrique" required>
+              <div class="invalid-feedback">
+                * Champ obligatoire
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="short" class="form-label">Short name</label>
+              <input class="form-control" type="text" name="shortName" id="short" placeholder="Short name" required>
+              <div class="invalid-feedback">
+                * Champ obligatoire
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-3">
+          <input type="button" value="Annuler" class="action back btn btn-sm btn-secondary" data-bs-dismiss="modal">
+          <input type="submit" name="rubrique" value="Ajouter" class="action next btn btn-sm btn-info float-end">
         </div>
       </form>
     </div>

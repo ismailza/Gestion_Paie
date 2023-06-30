@@ -31,8 +31,9 @@
     </ul>
     <ul class="navbar-nav ms-auto">
     <?php 
+      if (isset($_SESSION['auth'])):
       require_once '../scripts/employe.inc.php';
-      $notifications = getNotifications();
+      $notifications = getNotifications($user['idEmploye']);
     ?>
       <li class="nav-item dropdown ">
         <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
@@ -46,7 +47,6 @@
             <p class="mb-0 font-weight-medium float-left">Vous avez <?php echo count($notifications); ?> nouvelles notifications</p>
             <a href="notifications" class="badge badge-pill badge-primary float-right">Voir tout</a>
           </span>
-          
           <?php foreach (array_slice($notifications,0, 5) as $not ): ?>
           <a href="view_reclamations?id=<?php echo $not['idReclamation']; ?>" class="dropdown-item preview-item py-3 alert alert-danger text-danger">
           <img src="images/profile/<?php echo $not['image'] ?>" class="rounded-circle" width="40px" height="40px" alt="profile image">
@@ -56,10 +56,9 @@
             </div>
           </a>
           <?php endforeach; ?>
-
         </div>
       </li>
-
+      <?php endif; ?>
       <li class="nav-item dropdown d-none d-lg-block user-dropdown">
         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
           <img class="img-xs rounded-circle" src="images/profile/<?php echo $user['image']; ?>" alt="Profile image"> </a>

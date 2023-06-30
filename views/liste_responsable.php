@@ -2,8 +2,8 @@
 require_once '../scripts/connect.php';
 require_once '../scripts/inc_admin.php';
 
-$stm = $pdo->prepare("SELECT * FROM employe INNER JOIN poste WHERE idposte=poste AND poste = ?");
-$stm->execute(['1']);
+$stm = $pdo->prepare("SELECT * FROM employe NATURAL JOIN contrat WHERE poste = 'Responsable Ressources Humaines' OR poste = 'Responsable Paie'");
+$stm->execute();
 $users = $stm->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -85,7 +85,7 @@ $users = $stm->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="banner"></div>
                                     <img src="./images/profile/user1.jpg" alt="" class="img-circle mx-auto mb-3">
                                     <h3 class="mb-4"><?php echo $user['nom'] . " " . $user['prenom'] ?></h3>
-                                    <b class="text-primary"><?php echo $user['titre'] ?></b>
+                                    <b class="text-primary"><?php echo $user['poste'] ?></b>
                                     <hr>
                                     <div class="text-left mb-4">
                                         <p class="mb-2"><i class="fa fa-envelope mr-2"></i><?php echo $user['email'] ?></p>

@@ -31,30 +31,16 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-
                 <div class="title">Ajouter Employe</div>    
-                
-                <?php if (isset($_SESSION['error'])): ?>  
-                  <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?> 
-
+                <?php require_once 'alerts.php'; ?>
                 <form method="post" action="../scripts/employe.php" class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
-
                   <div class="progress mt-3" style="height: 30px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="font-weight:bold; font-size:15px;" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-
                   <div class="card mt-3">
-
                     <fieldset id="step1" class="card-body row g-3 step">
                       <legend>Informations personnelle</legend>
                       <hr>
-
                       <div class="col-md-4 form-group">
                         <label for="nom" class="form-label">NOM</label>
                         <input type="text" class="form-control" id="nom" name="nom" placeholder="NOM" required>
@@ -134,13 +120,11 @@
                           * Champ obligatoire
                         </div>
                       </div>
-
                     </fieldset>
 
                     <fieldset id="step2" class="card-body row g-3 step" style="display: none">
                       <legend>Situation familiale</legend>
                       <hr>
-
                       <div class="col-md-4">
                         <label for="situation" class="form-label">Situation</label>
                         <select class="form-select" id="situation" name="situationF" required>
@@ -159,13 +143,11 @@
                           * Champ obligatoire
                         </div>
                       </div>
-
                     </fieldset>
 
                     <fieldset id="step3" class="card-body row g-3 step" style="display: none">
                       <legend>Informations salariale</legend>
                       <hr>
-
                       <div class="col-md-4">
                         <label for="diplome" class="form-label">Diplôme</label>
                         <input type="text" class="form-control" id="diplome" name="diplome" placeholder="Diplôme" required>
@@ -196,11 +178,9 @@
                         <label for="contrat" class="form-label">Type Contrat</label>
                         <select class="form-select" id="contrat" name="contrat" required>
                           <option selected disabled value="">Choose...</option>
-                          
                           <option value="CDI">CDI</option>
                           <option value="CDD">CDD</option>
                           <option value="CTT">CTT</option>
-
                         </select>
                         <div class="invalid-feedback">
                           * Champ obligatoire
@@ -241,13 +221,11 @@
                           * Champ obligatoire
                         </div>
                       </div>
-        
                     </fieldset>
 
                     <fieldset id="step3" class="card-body row g-3 step" style="display: none">
                       <legend>Confirmation</legend>
                       <hr>
-
                       <div class="col-12 d-flex justify-content-center">
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="invalidCheck" required>
@@ -259,7 +237,6 @@
                           </div>
                         </div>
                       </div>
-        
                     </fieldset>
 
                     <div class="card-footer">
@@ -268,9 +245,7 @@
                       <button class="action submit btn btn-sm btn-outline-success float-end" name="submit" style="display: none">Ajouter</button>
                     </div>
                   </div>
-
                 </form>
-              
               </div>
             </div>
           </div>

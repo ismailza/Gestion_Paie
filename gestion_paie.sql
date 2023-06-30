@@ -46,6 +46,9 @@ CREATE TABLE IF NOT EXISTS employe (
 -- INSERT EMPLOYE DATA
 INSERT INTO employe VALUES ('','ZAHIR','Ismail','UA123848','Homme','2001-4-17','Sat','Tinejdad','ismailza407@gmail.com','0635791476','IMG_20210102_203408_124.jpg',
                             'Célibataire',0,'LST Génie Logiciel','765462475852744642','765462475852744642','765462475852744642','765462475852744642','$2y$10$jeklm0LK/o4njHFqauWIQO4a4kDK5dTao3o78/NyqZpa4gp0zue8K',CURRENT_TIMESTAMP,NULL);
+INSERT INTO employe VALUES ('','AFRIAD','Abdelaziz','AA65467','Homme','2002-5-27','Casablanca','Casablanca','afriadabdlaziz@gmail.com','0634526154','Abdelaziz.png',
+                            'Célibataire',0,'DEUST','76546365852744642','765462762544642','7657537452744642','7654628527744642','$2y$10$jeklm0LK/o4njHFqauWIQO4a4kDK5dTao3o78/NyqZpa4gp0zue8K',CURRENT_TIMESTAMP,NULL);
+INSERT INTO employe VALUES ('', 'ZADDI', 'Abdelmajid', 'JC604373', 'Homme', '2002-06-22', 'Taroudant', 'Afourar', 'lhssenzaddi@gmail.com', '0634707974', 'WhatsApp Image 2023-06-14 at 12.44.48.jpg', 'Célibataire', 0, 'DEUST', '123456783778764687', '737576789273858', 'R637682685735768', '8638685Y35683685', '$2y$10$ha/4OcIlXOQGzzhnqZi24ev67kaqfy3E0Jw2SA/2cRKIIsiANqU4e', CURRENT_TIMESTAMP, 1);
 INSERT INTO employe (nom, prenom, cin, sexe, dateNaiss, adresse, ville, email, phone, image, situationF, nbEnfants, diplome, numCNSS, numAMO, numCIMR, numIGR, password, createdBy)
 VALUES
   ('Smith', 'John', '1234567891', 'Homme', '1990-01-01', '123 Main St', 'City', 'john.smith@example.com', '1234567890', 'avatar1.jpg', 'Célibataire', 0, 'Bachelor', '123456789012345678901231', '123456789012345678901231', NULL, '123456789012345678901231', 'mypassword1', 1),
@@ -85,10 +88,10 @@ CREATE TABLE IF NOT EXISTS contrat (
 
 -- INSERT CONTRAT DATA
 INSERT INTO contrat VALUES ('',1,1,'CDI','Responsable Ressources Humaines',30000,'',NULL,NULL);
+INSERT INTO contrat VALUES ('',2,1,'CDI','Responsable Paie',30000,'',NULL,NULL);
+INSERT INTO contrat VALUES ('',23, 1, 'CDI', 'Chef de projet', 25000, '', NULL, NULL);
 INSERT INTO contrat (idEmploye, idEntreprise, type, poste, salaireBase, dateEmbauche, dateFin, motif)
 VALUES
-  -- (2, 1, 'CDI', 'Software Engineer', 5000.00, '2021-01-01', NULL, NULL),
-  (2, 1, 'CDD', 'Marketing Specialist', 4000.00, '2022-02-01', '2023-02-01', 'End of project'),
   (3, 2, 'CDI', 'Financial Analyst', 5500.00, '2020-05-01', NULL, NULL),
   (4, 2, 'CDD', 'HR Coordinator', 4500.00, '2021-03-15', '2022-03-15', 'Maternity leave replacement'),
   (5, 3, 'CDI', 'Project Manager', 6000.00, '2022-09-01', NULL, NULL),
@@ -106,7 +109,9 @@ VALUES
   (17, 4, 'CDI', 'Graphic Designer', 4800.00, '2019-12-01', NULL, NULL),
   (18, 4, 'CDD', 'Customer Service Representative', 3500.00, '2020-10-01', '2021-10-01', 'Temporary contract'),
   (19, 5, 'CDI', 'IT Manager', 6500.00, '2022-04-01', NULL, NULL),
-  (20, 5, 'CDD', 'Administrative Assistant', 3200.00, '2023-02-01', '2023-06-30', 'Seasonal position');
+  (20, 5, 'CDD', 'Administrative Assistant', 3200.00, '2023-02-01', '2023-06-30', 'Seasonal position'),
+  (21, 1, 'CDI', 'Software Engineer', 5000.00, '2021-01-01', NULL, NULL),
+  (22, 1, 'CDD', 'Marketing Specialist', 4000.00, '2022-02-01', '2023-02-01', 'End of project');
 
 
 DROP TABLE IF EXISTS entreprise;
@@ -171,7 +176,7 @@ VALUES
 DROP TABLE IF EXISTS avance;
 CREATE TABLE IF NOT EXISTS avance (
   idAvance      INT(11) PRIMARY KEY AUTO_INCREMENT,
-  statut        ENUM('En cours','Refusé','Accepté') NOT NULL,
+  status        ENUM('En cours','Refusé','Accepté') NOT NULL,
   dateDemande   DATETIME DEFAULT CURRENT_TIMESTAMP,
   avance        DECIMAL(7,2) NOT NULL,
   idEmploye     INT(11) NOT NULL
@@ -219,6 +224,40 @@ VALUES
 ('Congé annuel', '2023-07-16', '2023-07-20', 'En cours', 9),
 ('Congé maladie', '2023-07-17', '2023-07-18', 'En cours', 10);
 
+
+DROP TABLE IF EXISTS joursFerier;
+CREATE TABLE IF NOT EXISTS joursFerier (
+  date      DATE,
+  motif     VARCHAR(60)
+);
+
+-- Jours fériés pour l'année 2023
+INSERT INTO joursFerier VALUES
+  ('2023-01-01', 'Nouvel An'),
+  ('2023-05-01', 'Fête du Travail'),
+  ('2023-05-14', 'Aid El Fitr'),
+  ('2023-07-30', 'Fête du Trône'),
+  ('2023-08-14', 'Oued Ed-Dahab Day'),
+  ('2023-08-20', 'Révolution du Roi et du Peuple'),
+  ('2023-11-06', 'Anniversaire de la Marche Verte'),
+  ('2023-11-18', 'Fête de l\'Indépendance'),
+  ('2023-11-29', 'Fête de la Jeunesse'),
+  ('2023-12-01', 'Fête du Roi');
+
+-- Jours fériés pour l'année 2024
+INSERT INTO joursFerier  VALUES
+  ('2024-01-01', 'Nouvel An'),
+  ('2024-05-01', 'Fête du Travail'),
+  ('2024-04-03', 'Aid El Fitr'),
+  ('2024-06-09', 'Fête de l\'Indépendance'),
+  ('2024-07-30', 'Fête du Trône'),
+  ('2024-08-14', 'Oued Ed-Dahab Day'),
+  ('2024-08-20', 'Révolution du Roi et du Peuple'),
+  ('2024-11-06', 'Anniversaire de la Marche Verte'),
+  ('2024-11-18', 'Fête de l\'Indépendance'),
+  ('2024-11-29', 'Fête de la Jeunesse'),
+  ('2024-12-01', 'Fête du Roi');
+
 DROP TABLE IF EXISTS heuressupp;
 CREATE TABLE IF NOT EXISTS heuressupp (
   idHeuresSupp INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -251,6 +290,8 @@ VALUES
 ('Acceptée', '2023-06-19 13:15:00', 5, 9),
 ('En cours', '2023-06-20 10:30:00', 2, 10);
 
+
+
 DROP TABLE IF EXISTS prime;
 CREATE TABLE IF NOT EXISTS prime (
   idPrime       INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -258,7 +299,6 @@ CREATE TABLE IF NOT EXISTS prime (
   prime         DOUBLE(7,2) NOT NULL,
   datePrime     DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS primePersonalise;
 CREATE TABLE IF NOT EXISTS primePersonalise (
@@ -268,7 +308,6 @@ CREATE TABLE IF NOT EXISTS primePersonalise (
   datePrime     DATETIME DEFAULT CURRENT_TIMESTAMP,
   idEmploye     INT(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS reclamation;
 CREATE TABLE IF NOT EXISTS reclamation (
@@ -281,6 +320,7 @@ CREATE TABLE IF NOT EXISTS reclamation (
   responsable     INT(11) NOT NULL,
   pieceJoint      VARCHAR(120)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- INSERT RECLAMATION DATA
 INSERT INTO reclamation (sujet, contenu, dateReclamation, status, idEmploye, responsable, pieceJoint)
 VALUES
@@ -305,7 +345,6 @@ VALUES
 ('Problème d\'authentification', 'Je n\'arrive pas à m\'authentifier avec mon identifiant et mon mot de passe.', NOW(), 'En cours', 19, 1, 'fichier19.pdf'),
 ('Demande de changement de mot de passe', 'Je souhaite changer mon mot de passe pour des raisons de sécurité.', NOW(), 'En cours', 20, 2, 'fichier20.pdf');
 
-
 DROP TABLE IF EXISTS regle;
 CREATE TABLE IF NOT EXISTS regle (
   idEntreprise    INT(11) NOT NULL,
@@ -314,24 +353,49 @@ CREATE TABLE IF NOT EXISTS regle (
   PRIMARY KEY (idEntreprise, idRubrique)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 DROP TABLE IF EXISTS rubrique;
 CREATE TABLE IF NOT EXISTS rubrique (
   idRubrique      INT(11) PRIMARY KEY AUTO_INCREMENT,
-  nomRubrique     VARCHAR(60) NOT NULL
+  nomRubrique     VARCHAR(60) NOT NULL,
+  shortName       VARCHAR(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS bulletins;
+CREATE TABLE IF NOT EXISTS bulletins (
+  idBulletin  INT(11) PRIMARY KEY AUTO_INCREMENT,
+  mois        INT(2) NOT NULL,
+  bulletin    VARCHAR(120) NOT NULL,
+  idEmploye   INT(11) NOT NULL,
+  createdAt   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 
+-- VIEWS
+-- 
+DROP VIEW IF EXISTS heuressuppView;
+CREATE VIEW heuressuppView AS
+SELECT idEmploye, SUM(nbHs) AS nbHs, MONTH(dateTravail) AS mois,
+CASE 
+  WHEN (CAST(dateTravail AS DATE) IN (SELECT date FROM joursFerier) OR WEEKDAY(dateTravail) IN (6, 7)) 
+  AND (21 <= HOUR(dateTravail) AND HOUR(dateTravail) < 6) 
+  THEN 2
+  WHEN (CAST(dateTravail AS DATE) IN (SELECT date FROM joursFerier) OR WEEKDAY(dateTravail) IN (6, 7)) 
+  OR (21 <= HOUR(dateTravail) AND HOUR(dateTravail) < 6) 
+  THEN 1.5
+  ELSE 1.25
+END AS taux
+FROM heuressupp
+GROUP BY idEmploye, mois, taux;
 
 -- FOREIN KEYS
 
-ALTER TABLE employe     ADD CONSTRAINT fk_employe_employe     FOREIGN KEY (createdBy)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE entreprise  ADD CONSTRAINT fk_entreprise_employe  FOREIGN KEY (createdBy)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE contrat     ADD CONSTRAINT fk_contrat_employe     FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE contrat     ADD CONSTRAINT fk_contrat_entreprise  FOREIGN KEY (idEntreprise)  REFERENCES entreprise (idEntreprise)  ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE reclamation ADD CONSTRAINT fk_reclamation_employe FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE reclamation ADD CONSTRAINT fk_reclamation_employe FOREIGN KEY (responsable)   REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE heuressupp  ADD CONSTRAINT fk_heuressupp_employe  FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE absence     ADD CONSTRAINT fk_absence_employe     FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE conge       ADD CONSTRAINT fk_conge_employe       FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE employe     ADD CONSTRAINT fk_employe_employe           FOREIGN KEY (createdBy)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE entreprise  ADD CONSTRAINT fk_entreprise_employe        FOREIGN KEY (createdBy)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE contrat     ADD CONSTRAINT fk_contrat_employe           FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE contrat     ADD CONSTRAINT fk_contrat_entreprise        FOREIGN KEY (idEntreprise)  REFERENCES entreprise (idEntreprise)  ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE reclamation ADD CONSTRAINT fk_reclamation_employe       FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE reclamation ADD CONSTRAINT fk_reclamation_responsable   FOREIGN KEY (responsable)   REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE heuressupp  ADD CONSTRAINT fk_heuressupp_employe        FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE absence     ADD CONSTRAINT fk_absence_employe           FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE conge       ADD CONSTRAINT fk_conge_employe             FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE bulletins   ADD CONSTRAINT fk_bulletins_employe         FOREIGN KEY (idEmploye)     REFERENCES employe (idEmploye)        ON DELETE CASCADE ON UPDATE CASCADE;
