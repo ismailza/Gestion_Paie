@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['erreur'] = "Email ou mot de passe est inccorecte";
     header("location:../views/admin.php");
   } else {
+    unset($_SESSION['auth']);
     $_SESSION['admin'] = $user;
     $_SESSION['welcome'] = "Bienvenue dans votre espace administrateur";
     header("location:../views/admin_home.php");

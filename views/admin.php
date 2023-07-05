@@ -93,9 +93,9 @@ if (isset($_SESSION['admin'])) {
         </div>
         </div>
     <?php endif ?>
-    <?php if (isset($_SESSION['session'])) : ?>
+    <?php if (isset($_SESSION['session'])): ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert" align="center">
-            <?php echo $_SESSION['session'] ?>
+            <?php echo $_SESSION['session']; ?>
             <button type="button" class="btn" onclick="hide()">
                 <span aria-hidden="true">&times;</span>
             </button>

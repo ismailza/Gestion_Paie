@@ -126,21 +126,21 @@
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
   
-  function getAllAbsencesEmploye ($id)
+  function getAbsenceEmployeThisMonth ($id)
   {
     require 'connect.php';
-    $stm = $pdo->prepare("SELECT * FROM absence 
+    $stm = $pdo->prepare("SELECT SUM(nbJours) AS nbJours FROM absence 
                           WHERE idEmploye = $id 
-                          ORDER BY dateAbsence DESC");
+                          AND MONTH(dateAbsence) = MONTH(CURRENT_DATE)");
     $stm->execute();
-    return $stm->fetchAll(PDO::FETCH_ASSOC);
-  }
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  } 
 
   function getNbJoursAbsenceThisMonth ()
   {
     require 'connect.php';
     $stm = $pdo->prepare("SELECT SUM(nbJours) AS nbJours FROM absence 
-                          WHERE MONTH(dateAbsence) = MONTH(NOW())");
+                          WHERE MONTH(dateAbsence) = MONTH(NOW())-1");
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
@@ -156,7 +156,24 @@
   function getNbReclamation ()
   {
     require 'connect.php';
-    $stm = $pdo->prepare("SELECT COUNT(*) AS nbReclamation FROM reclamation");
+    $stm = $pdo->prepare("SELECT COUNT(*) AS nbReclamation FROM reclamation WHERE MONTH(dateReclamation) = MONTH(CURRENT_DATE)-1");
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
+  function addJustification ($values, $id)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("UPDATE absence SET justification = :justification, pieceJoint = :pieceJoint WHERE idEmploye = $id");
+    return $stm->execute($values);
+  }
+
+  function getNbHeuresSuppEmployeThisMonth ($id)
+  {
+    require 'connect.php';
+    $stm = $pdo->prepare("SELECT SUM(nbHs) AS nbHS FROM heuressupp 
+                          WHERE idEmploye = $id
+                          AND MONTH(dateTravail) = MONTH(CURRENT_DATE)-1");
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
@@ -164,7 +181,7 @@
   function getNbHeuresSupp ()
   {
     require 'connect.php';
-    $stm = $pdo->prepare("SELECT SUM(nbHs) AS nbHS FROM heuressupp");
+    $stm = $pdo->prepare("SELECT SUM(nbHs) AS nbHS FROM heuressupp WHERE MONTH(dateTravail) = MONTH(CURRENT_DATE)-1");
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
@@ -262,7 +279,7 @@
   {
     require 'connect.php';
     $stm = $pdo->prepare("SELECT * FROM bulletins B INNER JOIN employe E ON B.idEmploye = E.idEmploye
-                          ORDER BY B.createdAt, B.mois");
+                          ORDER BY B.createdAt, B.mois DESC");
     $stm->execute();
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -271,7 +288,7 @@
   {
     require 'connect.php';
     $stm = $pdo->prepare("SELECT * FROM bulletins WHERE idEmploye = ?
-                          ORDER BY createdAt, mois");
+                          ORDER BY createdAt, mois DESC");
     $stm->execute([$idEmploye]);
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }

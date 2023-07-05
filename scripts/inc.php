@@ -3,6 +3,7 @@
   if (!isset($_SESSION['auth']))
   {
     $_SESSION['url'] = $_SERVER['REQUEST_URI'];
+    $_SESSION['warning'] = 'Vous devez se connecté pour accéder à cette page';
     header("location: ../views/login");
     exit();
   }

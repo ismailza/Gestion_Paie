@@ -1,10 +1,9 @@
 <?php
-require_once "../scripts/inc.php";
-require_once '../scripts/entreprise.inc.php';
-require_once '../scripts/employe.inc.php';
-$entreprises = getAllEntreprise();
-$employes = getAllEmployes();
-
+  require_once "../scripts/inc.php";
+  require_once '../scripts/entreprise.inc.php';
+  require_once '../scripts/employe.inc.php';
+  $entreprises = getAllEntreprise();
+  $employes = getAllEmployes();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +46,8 @@ $employes = getAllEmployes();
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-
                 <div class="title">Affecter Prime</div>
-
+                <?php require_once 'alerts.php'; ?>
                 <div class="card mt-12">
                   <fieldset id="step1" class="card-body row g-3 step">
                     <div class="col-md-6 form-group">

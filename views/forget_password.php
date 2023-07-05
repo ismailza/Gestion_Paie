@@ -42,14 +42,7 @@
               <small class="or text-center"><i class="fa fa-star"></i></small>
               <div class="line"></div>
             </div>
-            <?php if (isset($_SESSION['error'])): ?>  
-            <div class="alert alert-danger" role="alert">
-            <?php 
-              echo $_SESSION['error']; 
-              unset($_SESSION['error']);
-            ?>
-            </div>
-            <?php endif; ?> 
+            <?php require_once 'alerts.php'; ?>
             <div class="row px-3">
               <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label>
               <input class="mb-4" type="email" name="email" placeholder="Email" required>

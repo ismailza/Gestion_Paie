@@ -7,7 +7,7 @@
   </div>
 <?php endif;
 if (isset($_SESSION['info'])) : ?>
-  <div class="alert alert-info fade-out" role="alert">
+  <div class="alert alert-info" role="alert">
     <?php
     echo $_SESSION['info'];
     unset($_SESSION['info']);

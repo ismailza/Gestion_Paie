@@ -57,9 +57,8 @@ if (isset($_POST['update'])) {
 
 
 // Retrieve the updated list of advances
-$req = "SELECT * FROM conge";
-$stmt = $pdo->prepare($req);
-$stmt->execute();
+$stmt = $pdo->prepare("SELECT * FROM conge WHERE idEmploye = ?");
+$stmt->execute([$_SESSION['auth']['idEmploye']]);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -118,12 +117,9 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     function openWindow(avanceId) {
       // Set the avanceId value in the modal form
       document.querySelector("#modifyModal input[name='avanceId']").value = avanceId;
-
       // Show the modal
       $('#modifyModal').modal('show');
-
     }
-
     function closeModal() {
       $('#modifyModal').modal('hide');
     }
@@ -145,22 +141,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="row">
               <div class="col-sm-12">
                 <div class="home-tab">
-                  <?php if (isset($_SESSION['success'])) : ?>
-                    <div class="alert alert-success" role="alert">
-                      <?php
-                      echo $_SESSION['success'];
-                      unset($_SESSION['success']);
-                      ?>
-                    </div>
-                  <?php endif;
-                  if (isset($_SESSION['error'])) : ?>
-                    <div class="alert alert-danger" role="alert">
-                      <?php
-                      echo $_SESSION['error'];
-                      unset($_SESSION['error']);
-                      ?>
-                    </div>
-                  <?php endif; ?>
+                  <?php require_once 'alerts.php'; ?>
                   <div class="row flex-grow">
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card card-rounded">

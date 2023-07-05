@@ -2,9 +2,8 @@
 require_once '../scripts/inc.php';
 require_once '../scripts/connect.php';
 
-$req = "SELECT * FROM reclamation";
-$stmt = $pdo->prepare($req);
-$stmt->execute();
+$stmt = $pdo->prepare("SELECT * FROM reclamation WHERE idEmploye = ?");
+$stmt->execute([$_SESSION['auth']['idEmploye']]);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_GET['idReclamation'])) {
@@ -172,22 +171,7 @@ if (isset($_POST['update'])) {
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                <?php if (isset($_SESSION['success'])) : ?>
-                  <div class="alert alert-success" role="alert">
-                    <?php
-                    echo $_SESSION['success'];
-                    unset($_SESSION['success']);
-                    ?>
-                  </div>
-                <?php endif; ?>
-                <?php if (isset($_SESSION['error'])) : ?>
-                  <div class="alert alert-danger" role="alert">
-                    <?php
-                    echo $_SESSION['error'];
-                    unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?>
+                <?php require_once 'alerts.php'; ?>
                 <div class="row flex-grow">
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card card-rounded">

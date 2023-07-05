@@ -30,6 +30,7 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
+                <?php require_once 'alerts.php'; ?>
                 <div class="container rounded bg-white mt-5 mb-5">
                   <div class="row">
                     <div class="col-md-3 border-right">
@@ -38,6 +39,9 @@
                         <span class="font-weight-bold"><?php echo $user['nom']." ".$user['prenom']; ?></span>
                         <span class="text-black-50"><?php echo $user['email']; ?></span>
                         <span class="text-black-50"><?php echo $user['poste']; ?></span>
+                        <br>
+                        <span class="alert alert-success">Heures supp : <?php echo is_null($hs = getNbHeuresSuppEmployeThisMonth($user['idEmploye'])['nbHS'])?0:$hs; ?> heures</span>
+                        <span class="alert alert-danger">Absence : <?php echo is_null($abs = getAbsenceEmployeThisMonth($user['idEmploye'])['nbJours'])?0:$abs; ?> Jours</span>
                       </div>
                     </div>
                     <div class="col-md-9 border-right">

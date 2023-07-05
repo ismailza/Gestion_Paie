@@ -73,7 +73,7 @@
                             </thead>
                             <tbody>
                               <?php foreach ($entreprises as $ent): ?>
-                              <tr onclick="document.location.href='view_entreprise?id=<?php echo $employe['idEmploye']; ?>'">  
+                              <tr>  
                                 <td><?php echo $ent['nomEntreprise']; ?></td>
                                 <td><?php echo $ent['ville']; ?></td>
                                 <td><?php echo $ent['adresse']; ?></td>
@@ -82,29 +82,12 @@
                                 <td class="action-btn">
                                   <form action="../scripts/entreprise.php" method="post" >
                                     <input type="hidden" name="id" value="<?php echo $ent['idEntreprise']; ?>">
+                                    <input type="submit" class="btn-check" name="view_id" id="btnradio1<?php echo $ent['idEntreprise']; ?>" autocomplete="off" checked>
+                                    <label class="badge badge-opacity-warning" role="button" for="btnradio1<?php echo $ent['idEntreprise']; ?>" title="Afficher"><i class="mdi mdi-eye"></i></label>
                                     <input type="submit" class="btn-check" name="update_id" id="btnradio<?php echo $ent['idEntreprise']; ?>" autocomplete="off" checked>
-                                    <label class="badge badge-opacity-warning" for="btnradio<?php echo $ent['idEntreprise']; ?>" title="Modifier"><i class="mdi mdi-lead-pencil"></i></label>
+                                    <label class="badge badge-opacity-warning" role="button" for="btnradio<?php echo $ent['idEntreprise']; ?>" title="Modifier"><i class="mdi mdi-lead-pencil"></i></label>
                                     <input type="button" class="btn-check" name="delete" id="btnradio_<?php echo $ent['idEntreprise']; ?>" autocomplete="off">
-                                    <label class="badge badge-opacity-danger" for="btnradio_<?php echo $ent['idEntreprise']; ?>" title="Supprimer" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $ent['idEntreprise']; ?>"><i class="mdi mdi-delete"></i></label>
-                                    
-                                    <div class="modal" tabindex="-1" id="exampleModal<?php echo $ent['idEntreprise']; ?>">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5 class="modal-title">Confirmation</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                          </div>
-                                          <div class="modal-body d-flex">
-                                            <p class="fs-6 text-center">Vous voulez vraiment suppremer cet entreprise?</p>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" name="delete" class="btn btn-danger btn-lg">Supprimer</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-
+                                    <label class="badge badge-opacity-warning" role="button" for="btnradio_<?php echo $ent['idEntreprise']; ?>" title="Supprimer" onclick="openWindow ('deleteConfirmation', <?php echo $ent['idEntreprise']; ?>);"><i class="mdi mdi-delete"></i></label>
                                   </form>
                                 </td>
                               </tr>
@@ -113,6 +96,26 @@
                           </table>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal" tabindex="-1" id="deleteConfirmation">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form action="../scripts/entreprise.php" method="post">
+                        <div class="modal-body d-flex">
+                          <input type="hidden" name="id" value="">
+                          <p class="fs-6 text-center">Vous voulez vraiment suppremer cet entreprise?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" name="delete" class="btn btn-danger btn-lg">Supprimer</button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -129,9 +132,11 @@
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
   <script>
-    function confirmation()
-    {
-      alert("")
+    function openWindow(modal, id){
+      // Set the id value in the modal form
+      document.querySelector("#"+modal+" input[name='id']").value = id;
+      // Show the modal
+      $('#'+modal).modal('show');
     }
   </script>
 </body>

@@ -55,11 +55,14 @@
       'responsable' => $_POST['responsable'],
       'pieceJoint'  => $_FILES['pieceJoint']['name']
     ];
-    if (!upload_file($_FILES['pieceJoint'], 'reclamations'))
+    if (!empty($_FILES['pieceJoint']['name']))
     {
-      $_SESSION['error'] = "Erreur lors de télechargement du fichier";
-      header("location: ../views/home");
-      exit();
+      if (!upload_file($_FILES['pieceJoint'], 'reclamations'))
+      {
+        $_SESSION['error'] = "Erreur lors de télechargement du fichier";
+        header("location: ../views/home");
+        exit();
+      }
     }
     if (saveReclamation($values))
     {
@@ -90,6 +93,17 @@
       $_SESSION['error'] = "Something is wrong!";
       header("location: ../views/home");
     }
+  }
+  elseif (isset($_POST['addJustification']))
+  {
+    $values = [
+      'justification'   => $_POST['justification'],
+      'pieceJoint'      => $_FILES['pieceJoint']['name']
+    ];
+    upload_file($_FILES['pieceJoint'],'absences');
+    if (addJustification($values, $_POST['id'])) $_SESSION['success'] = 'Justification bien enregistrer';
+    else $_SESSION['error'] = 'Something is wrong!!';
+    header("location: ../views/visualiserabscence");
   }
   elseif (isset($_POST['view_id']))
   {

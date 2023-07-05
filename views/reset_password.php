@@ -36,14 +36,7 @@
                     <h2><?php echo $_SESSION['auth']['prenom']." ".$_SESSION['auth']['nom']; ?></h2>
                     <h4><?php echo $_SESSION['auth']['email']; ?></h4>
                     <form action="../scripts/employe.php" method="post">
-                      <?php if(isset($_SESSION['error'])):?>
-                        <div class="alert alert-danger" role="alert">
-                          <?php 
-                            echo $_SESSION['error']; 
-                            unset($_SESSION['error']);
-                          ?>
-                        </div>
-                      <?php endif; ?>                
+                    <?php require_once 'alerts.php'; ?>              
                       <div class="form-group">
                         <label for="current_password">Mot de passe actuel</label>
                         <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Mot de passe actuel" required> 

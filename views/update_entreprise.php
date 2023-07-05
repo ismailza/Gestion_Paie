@@ -34,18 +34,8 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-
                 <div class="title">Modifier Entreprise</div>    
-                
-                <?php if (isset($_SESSION['error'])): ?>  
-                  <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?> 
-
+                <?php require_once 'alerts.php'; ?>
                 <form method="post" action="../scripts/entreprise.php" class="row g-3 needs-validation" id="msform" enctype="multipart/form-data" novalidate>
 
                   <div class="progress mt-3" style="height: 30px;">

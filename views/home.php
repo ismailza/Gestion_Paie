@@ -51,8 +51,8 @@
                       </div>
                       <div>
                         <p class="statistics-title">Total des absences ce mois</p>
-                        <h3 class="rate-percentage"><?php echo getNbJoursAbsenceThisMonth()['nbJours']; ?> jours</h3>
-                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                        <h3 class="rate-percentage"><?php echo is_null($nba = getNbJoursAbsenceThisMonth()['nbJours'])?0:$nba; ?> jours</h3>
+                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>5</span></p>
                       </div>
                       <div class="d-none d-md-block">
                         <p class="statistics-title">Total des réclamations</p>
@@ -61,12 +61,13 @@
                       </div>
                       <div class="d-none d-md-block">
                         <p class="statistics-title">Les heures supplimentaire</p>
-                        <h3 class="rate-percentage"><?php echo getNbHeuresSupp()['nbHS']; ?> heures</h3>
-                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                        <h3 class="rate-percentage"><?php echo is_null($nbhs = getNbHeuresSupp()['nbHS'])?0:$nbhs; ?> heures</h3>
+                        <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>8</span></p>
                       </div>
                     </div>
                   </div>
                 </div> 
+                
 
                 <?php // * Responsable Paie
                 elseif ($_SESSION['auth']['poste'] == "Responsable Paie"): ?>

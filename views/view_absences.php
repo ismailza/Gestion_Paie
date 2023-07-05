@@ -33,24 +33,8 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-
                 <div class="title">Les absences</div>   
-                <?php if (isset($_SESSION['success'])): ?>
-                  <div class="alert alert-success" role="alert">
-                    <?php 
-                      echo $_SESSION['success']; 
-                      unset($_SESSION['success']);
-                    ?>
-                  </div>
-                <?php endif; if (isset($_SESSION['error'])): ?>  
-                  <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?> 
-                
+                <?php require_once 'alerts.php'; ?>                
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                   <input type="radio" class="btn-check" name="status" id="btnradio1" value="En cours" autocomplete="off" onclick="send_ajax_request({'status':this.value,'date':$('#datepicker').val()}, '../scripts/absence.inc.php', 'status')" checked>
                   <label class="btn btn-outline-warning" for="btnradio1">En cours</label>

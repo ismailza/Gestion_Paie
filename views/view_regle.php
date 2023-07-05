@@ -30,22 +30,7 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
-                <?php if (isset($_SESSION['success'])): ?>
-                  <div class="alert alert-success" role="alert">
-                    <?php 
-                      echo $_SESSION['success']; 
-                      unset($_SESSION['success']);
-                    ?>
-                  </div>
-                <?php endif; if (isset($_SESSION['error'])): ?>  
-                  <div class="alert alert-danger" role="alert">
-                    <?php 
-                      echo $_SESSION['error']; 
-                      unset($_SESSION['error']);
-                    ?>
-                  </div>
-                <?php endif; ?>  
-
+                <?php require_once 'alerts.php'; ?>
                 <div class="row flex-grow">
                   <div class="col-12 grid-margin stretch-card">
                     <div class="card card-rounded">
@@ -62,9 +47,9 @@
                           <table class="table select-table" id="table">
                             <thead>
                               <tr>
-                                <th>ENTREPRISE</th>
-                                <th>RUBRIQUE</th>
-                                <th>FORMULE</th>
+                                <th>Entreprise</th>
+                                <th>Rubrique</th>
+                                <th>Formule</th>
                                 <th></th>
                               </tr>
                             </thead>
@@ -76,29 +61,12 @@
                                 <td><?php echo $regle['shortName']." = ".$regle['formule']; ?></td>
                                 <td class="action-btn">
                                   <form action="../scripts/entreprise.php" method="post" >
-                                    <input type="hidden" name="id" value="<?php //echo $regle['idRegle']; ?>">
-                                    <input type="submit" class="btn-check" name="update_id" id="btnradio<?php //echo $regle['idRegle']; ?>" autocomplete="off" checked>
-                                    <label class="badge badge-opacity-warning" for="btnradio<?php //echo $regle['idRegle']; ?>" title="Modifier"><i class="mdi mdi-lead-pencil"></i></label>
-                                    <input type="button" class="btn-check" name="delete" id="btnradio_<?php //echo $regle['idRegle']; ?>" autocomplete="off">
-                                    <label class="badge badge-opacity-danger" for="btnradio_<?php //echo $regle['idRegle']; ?>" title="Supprimer" data-bs-toggle="modal" data-bs-target="#exampleModal<?php //echo $regle['idRegle']; ?>"><i class="mdi mdi-delete"></i></label>
-                                    
-                                    <div class="modal" tabindex="-1" id="exampleModal<?php //echo $regle['idRegle']; ?>">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5 class="modal-title">Confirmation</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                          </div>
-                                          <div class="modal-body d-flex">
-                                            <p class="fs-6 text-center">Vous voulez vraiment suppremer cet règle?</p>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" name="delete" class="btn btn-danger btn-lg">Supprimer</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                    <input type="hidden" name="idE" value="<?php echo $regle['idEntreprise']; ?>">
+                                    <input type="hidden" name="idR" value="<?php echo $regle['idRubrique']; ?>">
+                                    <input type="submit" class="btn-check" name="update_id" id="btnradio<?php echo $regle['idEntreprise'].''.$regle['idRubrique']; ?>" autocomplete="off" checked>
+                                    <label class="badge badge-opacity-warning" for="btnradio<?php echo $regle['idEntreprise'].''.$regle['idRubrique']; ?>" title="Modifier"><i class="mdi mdi-lead-pencil"></i></label>
+                                    <input type="button" class="btn-check" name="delete" id="btnradio_<?php echo $regle['idEntreprise'].''.$regle['idRubrique']; ?>" autocomplete="off">
+                                    <label class="badge badge-opacity-danger" for="btnradio_<?php echo $regle['idEntreprise'].''.$regle['idRubrique']; ?>" title="Supprimer" onclick="openWindow('deleteConfirmation',<?php echo $regle['idEntreprise']; ?>,<?php echo $regle['idRubrique']; ?> );"><i class="mdi mdi-delete"></i></label>
 
                                   </form>
                                 </td>
@@ -111,6 +79,27 @@
                     </div>
                   </div>
                 </div> 
+
+                <div class="modal" tabindex="-1" id="deleteConfirmation">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form action="../scripts/entreprise.php" method="post">
+                        <div class="modal-body d-flex">
+                          <input type="hidden" name="id" value="">
+                          <p class="fs-6 text-center">Vous voulez vraiment suppremer cette règle?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" name="deleteRegle" class="btn btn-danger btn-lg">Supprimer</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
                 
               </div>
             </div>
@@ -124,5 +113,13 @@
   </div><!-- container-scroller ends-->
   <!-- plugins:js -->
   <?php include ('partials/_plugins-js.html'); ?>
+  <script>
+    function openWindow(modal, id){
+      // Set the id value in the modal form
+      document.querySelector("#"+modal+" input[name='id']").value = id;
+      // Show the modal
+      $('#'+modal).modal('show');
+    }
+  </script>
 </body>
 </html>

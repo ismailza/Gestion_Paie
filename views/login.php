@@ -25,6 +25,14 @@ if (isset($_SESSION['auth']))
 
 <body>
   <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-4 mx-auto">
+  <?php if (isset($_SESSION['warning'])) : ?>
+            <div class="alert alert-warning" role="alert">
+              <?php
+                echo $_SESSION['warning'];
+                unset($_SESSION['warning']);
+                ?>
+            </div>
+            <?php endif; ?>
     <div class="card card0 border-0">
       <div class="row d-flex">
         <div class="col-lg-6">

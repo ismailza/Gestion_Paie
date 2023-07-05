@@ -77,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="d-flex justify-content-between align-items-center mb-3">
                           <h4 class="text-right">Informations personnelle</h4>
                         </div>
+                        <?php require_once 'alerts.php'; ?>
                         <?php if (isset($_SESSION['confiramation'])) : ?>
                           <div id="alert" class="alert alert-success alert-dismissible fade show" role="alert" align="center">
                             <b>

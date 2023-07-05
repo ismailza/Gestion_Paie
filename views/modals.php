@@ -28,7 +28,7 @@
             </div>     
             <div class="col-md-12 form-group">
               <label for="nom" class="form-label">Piece joint</label>
-              <input type="file" class="form-control" id="nom" name="pieceJoint" placeholder="Piec joint" required>
+              <input type="file" class="form-control" id="nom" name="pieceJoint" placeholder="Piece joint" required>
               <div class="invalid-feedback">
                 * Champ obligatoire
               </div>

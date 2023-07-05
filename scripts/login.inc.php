@@ -20,6 +20,7 @@
     {
       if (password_verify($password, $user['password']))
       {
+        unset($_SESSION['admin']);
         $_SESSION['info'] = "Bienvenue";
         $_SESSION['auth']   = getEmploye($user['idEmploye']);
 

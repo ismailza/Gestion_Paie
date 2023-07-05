@@ -15,11 +15,7 @@ var rubriques =
   'HS':'Heures supplementaires',
   'MAJ':'Majorations',
   'RET':'Retenues',
-  'HSNM':'Heures supplementaires normale matin',
-  'HSNN':'Heures supplementaires normale nuit',
-  'HSFM':'Heures supplementaires ferié matin',
-  'HSFN':'Heures supplementaires ferié nuit',
-  'NbHS':'Nombre des heures supplementaires'
+  'AllocationF':'Allocation familiale'
 };
 var operateurs = 
 {

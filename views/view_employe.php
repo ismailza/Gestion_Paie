@@ -44,6 +44,9 @@
                         <span class="font-weight-bold"><?php echo $user1['nom']." ".$user1['prenom']; ?></span>
                         <span class="text-black-50"><?php echo $user1['email']; ?></span>
                         <span class="text-black-50"><?php echo $user1['poste']; ?></span>
+                        <br>
+                        <span class="alert alert-success">Heures supp : <?php echo is_null($hs = getNbHeuresSuppEmployeThisMonth($user1['idEmploye'])['nbHS'])?0:$hs; ?> heures</span>
+                        <span class="alert alert-danger">Absence : <?php echo is_null($abs = getAbsenceEmployeThisMonth($user1['idEmploye'])['nbJours'])?0:$abs; ?> Jours</span>
                       </div>
                     </div>
                     <div class="col-md-9 border-right">
