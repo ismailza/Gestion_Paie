@@ -42,4 +42,4 @@ Le salaire ou rémunération net d’un employé est calculé à partir de son s
     <li>Technologie : SGBDR, HTML, PHP, JavaScript, XML, CSS.</li>
     <li>Interfaces : Ergonomiques, Faciles à manipuler.</li>
     <li>Sécurité : L’application doit garantir un accès sécurisé à tous les espaces.</li>
-</ul>
+</ul># Gestion_Paie
